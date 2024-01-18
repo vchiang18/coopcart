@@ -1,6 +1,8 @@
 volumes:
   postgres-data:
-    external:true 
+    external: true 
+  pg-admin:
+    external: true
 
 services:
   postgres:
@@ -10,13 +12,25 @@ services:
       environment:
           POSTGRES_PASSWORD: secret
           POSTGRES_USER: user
-          POSTGRES_DB: db
+          POSTGRES_DB: postgres-data
       ports:
           - 15432:5432
+  pg-admin: 
+    image: dpage/pgadmin4
+    volumes:
+      - pg-admin:/var/lib/pgadmin
+    ports:
+      - 8082:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: coopcart@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: coopcart
+      PGADMIN_DEFAULT_POSTFIX: 1
+
+
   fastapi:
     environment:
       CORS_HOST: http://localhost:3000
-      DATABASE_URL: postgresql://user:secret@postgres/db
+      DATABASE_URL: postgresql://user:secret@postgres/postgres-data
     build:
       context: api
       dockerfile: Dockerfile.dev
