@@ -5,7 +5,7 @@ steps = [
             request_id SERIAL PRIMARY KEY NOT NULL,
             item VARCHAR(250),
             brand VARCHAR(250) NOT NULL,
-            unit_quantity NOT NULL,
+            unit_quantity INTEGER NOT NULL,
             unit_type VARCHAR(50) NOT NULL,
             requestor INTEGER REFERENCES users(user_id),
             created_date TIMESTAMP NOT NULL,
