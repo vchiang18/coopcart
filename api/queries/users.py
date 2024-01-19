@@ -1,7 +1,11 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, Union
 from datetime import date
 from queries.pool import pool
+
+
+class Error(BaseModel):
+    message: str
 
 
 class UserIn(BaseModel):
@@ -22,7 +26,7 @@ class UserOut(BaseModel):
 #classes w hashed pw, and w property ID
 
 class UserQueries:
-    def create(self, user: UserIn) -> UserOut:
+    def create(self, user: UserIn) -> Union[UserOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
