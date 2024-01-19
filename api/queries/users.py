@@ -13,11 +13,13 @@ class UserIn(BaseModel):
 
 
 class UserOut(BaseModel):
+    first_name: str
+    last_name: str
     email: str
-    password_hash: str
-    created_at: date
-    property: int
+    id: int
+    term_boolean: bool
 
+#classes w hashed pw, and w property ID
 
 class UserQueries:
     def create(self, user: UserIn) -> UserOut:
