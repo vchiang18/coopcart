@@ -16,7 +16,7 @@ steps = [
         )
         """,
         """
-        DROP TABLE order;
+        DROP TABLE requests;
         """
     ],
     [
