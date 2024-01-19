@@ -20,6 +20,9 @@ steps = [
     [
         """
         CREATE TABLE users (
+            first_name VARCHAR(150) UNIQUE NOT NULL,
+            last_name VARCHAR(150) UNIQUE NOT NULL,
+            terms_boolean BOOLEAN NOT NULL,
             email VARCHAR(100) UNIQUE NOT NULL,
             password_hash VARCHAR (100) NOT NULL,
             created_at DATE NOT NULL,
