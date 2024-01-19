@@ -9,9 +9,7 @@ steps = [
             unit_type VARCHAR(50) NOT NULL,
             requestor INTEGER REFERENCES users(user_id),
             created_date TIMESTAMP NOT NULL,
-            status VARCHAR(100) DEFAULT “New”,
-            quantity INTEGER NOT NULL,
-            status VARCHAR(100) DEFAULT “New”,
+            status VARCHAR(100) DEFAULT 'New',
             quantity INTEGER NOT NULL,
             last_edited_by INTEGER REFERENCES users(user_id),
             last_edited TIMESTAMP
