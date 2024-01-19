@@ -1,31 +1,18 @@
 volumes:
   postgres-data:
-    external: true 
-  pg-admin:
     external: true
 
 services:
   postgres:
-      image: postgres:14.5-bullseye
-      volumes:
-          - postgres-data:/var/lib/postgresql/data
-      environment:
-          POSTGRES_PASSWORD: secret
-          POSTGRES_USER: user
-          POSTGRES_DB: postgres-data
-      ports:
-          - 15432:5432
-  pg-admin: 
-    image: dpage/pgadmin4
+    image: postgres:14.5-bullseye
     volumes:
-      - pg-admin:/var/lib/pgadmin
-    ports:
-      - 8082:80
+      - postgres-data:/var/lib/postgresql/data
     environment:
-      PGADMIN_DEFAULT_EMAIL: coopcart@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: coopcart
-      PGADMIN_DEFAULT_POSTFIX: 1
-
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: user
+      POSTGRES_DB: postgres-data
+    ports:
+      - 15432:5432
 
   fastapi:
     environment:
