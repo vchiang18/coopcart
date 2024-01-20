@@ -7,12 +7,13 @@ from queries.pool import pool
 class Error(BaseModel):
     message: str
 
+class DuplicateAccountError(BaseModel):
+    pass
 
 class UserIn(BaseModel):
     first_name: str
     last_name: str
     email: str
-    password_hash: str
     term_boolean: bool
 
 
@@ -24,9 +25,15 @@ class UserOut(BaseModel):
     term_boolean: bool
 
 #classes w hashed pw, and w property ID
+class UserOutWithPw(UserOut):
+    password_hash: str
+
 
 class UserQueries:
-    def create(self, user: UserIn) -> Union[UserOut, Error]:
+    def get(self, email:str) -> UserOut:
+
+
+    def create(self, user: UserIn, password_hash: str) -> Union[UserOutWithPw, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:

@@ -26,6 +26,21 @@ services:
     volumes:
       - ./api:/app
 
+  api:
+    build:
+      context: api
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./api:/app
+    ports:
+      - 8001:8000
+    environment:
+      DATABASE_URL: postgresql://user:secret@postgres/postgres-data
+      SIGNING_KEY: HWfwiWcNsbxOc7MmEzkf54mNzfk0Cu4jr3y2UqLcCTpKV
+      WAIT_HOSTS: postgres-data:5432
+      WAIT_BEFORE: 5
+      WAIT_TIMEOUT: 60
+
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh
