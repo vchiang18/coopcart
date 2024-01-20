@@ -54,11 +54,11 @@ class UserQueries:
             return {"message:" "Get user did not work"}
 
 
-    def create(self, user: UserIn, password_hash: str) -> Union[UserOutWithPw, Error]:
+    def create(self, user: UserIn, password: str) -> Union[UserOutWithPw, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result = db.execute (
+                    result = db.execute(
                         """
                         INSERT INTO users
                             ()
@@ -70,7 +70,7 @@ class UserQueries:
                             user.first_name,
                             user.last_name,
                             user.email,
-                            user.password_hash,
+                            user.password,
                             user.term_boolean
                         ]
                     )
