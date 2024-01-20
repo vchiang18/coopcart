@@ -24,12 +24,12 @@ class HttpError(BaseModel):
 
 router = APIRouter()
 
-@router.post("/user")
-def create_user(user: UserIn, repo: UserQueries = Depends()):
-	# print ('user', user)
-	# print(repo)
-	repo.create(user)
-	return user
+# @router.post("/user")
+# def create_user(user: UserIn, repo: UserQueries = Depends()):
+# 	# print ('user', user)
+# 	# print(repo)
+# 	repo.create(user)
+# 	return user
 
 @router.post("/api/user", response_model=AccountToken | HttpError)
 async def create_user(

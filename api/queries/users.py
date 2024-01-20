@@ -31,6 +31,11 @@ class UserOutWithPw(UserOut):
 
 class UserQueries:
     def get(self, email:str) -> UserOut:
+        props = self.collection.find_one({"email": email})
+        if not props:
+            return None
+        props["id"] = str(props["_id"])
+        return UserOut(**props)
 
 
     def create(self, user: UserIn, password_hash: str) -> Union[UserOutWithPw, Error]:
