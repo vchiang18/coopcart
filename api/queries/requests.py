@@ -68,12 +68,7 @@ class RequestRepository:
                     result = db.execute(
                         """
                         INSERT INTO requests
-                            (item,
-                            brand,
-                            unit_quantity,
-                            unit_type,
-                            requestor,
-                            quantity)
+                            ()
                         VALUES
                             (%s, %s, %s, %s, %s, %s)
                         RETURNING request id;
@@ -84,11 +79,7 @@ class RequestRepository:
                             request.unit_quantity,
                             request.unit_type,
                             request.requestor,
-                            request.created_date,
-                            request.status,
-                            request.quantity,
-                            request.last_edited_by,
-                            request.last_edited
+                            request.quantity
                         ]
                     )
                     request_id = result.fetchone()[0]
