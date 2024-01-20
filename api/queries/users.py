@@ -14,6 +14,7 @@ class UserIn(BaseModel):
     first_name: str
     last_name: str
     email: str
+    password: str
     term_boolean: bool
 
 
@@ -30,12 +31,27 @@ class UserOutWithPw(UserOut):
 
 
 class UserQueries:
-    def get(self, email:str) -> UserOut:
-        props = self.collection.find_one({"email": email})
-        if not props:
-            return None
-        props["id"] = str(props["_id"])
-        return UserOut(**props)
+    def get_one(self, email:str) -> UserOut:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute (
+                        """
+                        SELECT *
+                        FROM users
+                        WHERE email = %s
+                        """,
+                        [
+                            email
+                        ]
+                    )
+                    id = result.fetchone()
+                    if id is None:
+                        return None
+                    #fetchone, turn data into dict (like old_data = user.dict())
+                    return self.user_in_to_out(email)
+        except Exception:
+            return {"message:" "Get user did not work"}
 
 
     def create(self, user: UserIn, password_hash: str) -> Union[UserOutWithPw, Error]:

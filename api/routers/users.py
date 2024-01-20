@@ -17,21 +17,14 @@ class AccountForm(BaseModel):
     password: str
 
 class AccountToken(Token):
-    account: AccountOut
+    account: UserOut
 
 class HttpError(BaseModel):
     detail: str
 
 router = APIRouter()
 
-# @router.post("/user")
-# def create_user(user: UserIn, repo: UserQueries = Depends()):
-# 	# print ('user', user)
-# 	# print(repo)
-# 	repo.create(user)
-# 	return user
-
-@router.post("/api/user", response_model=AccountToken | HttpError)
+@router.post("/user", response_model=AccountToken | HttpError)
 async def create_user(
     info: UserIn,
     request: Request,
@@ -47,5 +40,39 @@ async def create_user(
             detail="Cannot create a user with those credentials",
         )
     form = AccountForm(username=info.email, password=info.password)
-    token = await authenticator.login(response, request, form, repo)
-    return AccountToken(account=account, **token.dict())
+    token = await authenticator.login(response, request, form, users)
+    return AccountToken(account=user, **token.dict())
+
+@router.get("/users/{user_id}", response_model=UserOut)
+def get_user(
+    user_id: int,
+    response: Response,
+    repo: UserQueries = Depends()
+) -> UserOut:
+    return repo.get_user(user_id)
+
+@router.get("/token", response_model=AccountToken | None)
+async def get_token(
+    request: Request,
+    account: UserOut = Depends(authenticator.try_get_current_account_data)
+) -> AccountToken | None:
+    if account and authenticator.cookie_name in request.cookies:
+        return {
+            "access_token": request.cookies[authenticator.cookie_name],
+            "type": "Bearer",
+            "account": account,
+        }
+
+@router.get("/api/protected", response_model=bool)
+async def get_protected(
+    account_data: dict = Depends(authenticator.get_current_account_data),
+):
+    return "This is a placeholder for a login-protected page"
+
+
+# @router.post("/user")
+# def create_user(user: UserIn, repo: UserQueries = Depends()):
+# 	# print ('user', user)
+# 	# print(repo)
+# 	repo.create(user)
+# 	return user
