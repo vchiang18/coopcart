@@ -56,7 +56,7 @@ class PropertyQueries:
                     )
                     property_id = db.fetchone()[0]
                     return PropertyOut(property_id=property_id, **property.dict())
-        except Exception as e:
+        except Exception:
             return {"message:" "Create did not work"}
 
 
@@ -102,5 +102,5 @@ class PropertyQueries:
                         return PropertyOut(**updated_record)
                     else:
                         return Error(message="Property not found")
-        except Exception as e:
+        except Exception:
             return {"message:" "An Error Occured"}
