@@ -1,5 +1,45 @@
 # Malek's Programming Journal
 
+## Date: [2024-01-19]
+
+### Week [2] Summary
+
+    This week was about setting up the project and getting ready to really begin work.
+    We set up a PostGres SQL Database and created all of the tables we need.
+    We also begun creating our backend endpoints.
+
+### Tasks Completed
+
+    - Database Setup
+    - All Tables Created
+    - Created API Endpoints
+
+### Challenges Faced
+
+    Building synergy among the entire team for Git merges and project workflow.
+    Getting out of sync with the head of the repository and the general workflow of git.
+
+### Solutions Found
+
+    Working through a few issues as a group to ensure everyone was on the same page.
+
+### Lessons Learned
+
+    Staying up to date with git and keeping a clean and ordered workflow saves a lot of time over fixing issues.
+
+### Next Steps
+
+    - Finish API Endpoints
+    - Begin Authorization
+
+### Resources
+
+    N/A
+
+### Code Snippets
+
+    N/A
+
 ## Date: [2024-01-11]
 
 ### Week [1] Summary
@@ -19,7 +59,7 @@
 
 ### Challenges Faced
 
-    Ensuring that the scope of project and backend database design are within our group's capabilites and time constraints.
+    Ensuring that the scope of project and backend database design are within our group's capabilities and time constraints.
 
 ### Solutions Found
 
