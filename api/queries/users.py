@@ -7,6 +7,7 @@ from queries.pool import pool
 class Error(BaseModel):
     message: str
 
+
 class DuplicateAccountError(BaseModel):
     pass
 
@@ -27,13 +28,13 @@ class UserOut(BaseModel):
     term_boolean: bool
 
 
-#classes w hashed pw, and w property ID
+# classes w hashed pw, and w property ID
 class UserOutWithPw(UserOut):
     hashed_password: str
 
 
 class UserQueries:
-    def get_one(self, email:str) -> UserOut:
+    def get_one(self, email: str) -> UserOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -43,49 +44,30 @@ class UserQueries:
                         FROM users
                         WHERE email = %s
                         """,
-                        [
-                            email
-                        ]
+                        [email],
                     )
-                    record=result.fetchone()
-                    # hashed_password = record.fetchone()[3]
-                    # first_name = record.fetchone()[0]
-                    # last_name = record.fetchone()[1]
-                    # email = record.fetchone()[2]
-                    # id = record.fetchone()[7]
-                    # term_boolean = record.fetchone()[4]
-                    # print(record)
+                    record = result.fetchone()
+                    hashed_password = record[3]
+                    first_name = record[0]
+                    last_name = record[1]
+                    email_field = record[2]
+                    id = record[7]
+                    term_boolean = record[4]
 
-                    # print(record)
-                    # print(id)
-                    # if id is None:
-                    #     return None
-
-                    return record.
-
-                    # james = UserOutWithPw(
-                    #     hashed_password=hashed_password,
-                    #     first_name=first_name,
-                    #     last_name=last_name,
-                    #     email=email,
-                    #     id=id,
-                    #     term_boolean=term_boolean
-                    # )
-                    # print(james)
-
-                    # return UserOutWithPw(
-                    #     hashed_password=hashed_password,
-                    #     first_name=first_name,
-                    #     last_name=last_name,
-                    #     email=email,
-                    #     id=id,
-                    #     term_boolean=term_boolean
-                    # )
+                    return UserOutWithPw(
+                        hashed_password=hashed_password,
+                        first_name=first_name,
+                        last_name=last_name,
+                        email=email_field,
+                        id=id,
+                        term_boolean=term_boolean,
+                    )
         except Exception:
             return {"message:" "Get user did not work"}
 
-
-    def create(self, user: UserIn, hashed_password: str) -> Union[UserOutWithPw, Error]:
+    def create(
+        self, user: UserIn, hashed_password: str
+    ) -> Union[UserOutWithPw, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -104,8 +86,8 @@ class UserQueries:
                             user.last_name,
                             user.email,
                             hashed_password,
-                            user.term_boolean
-                        ]
+                            user.term_boolean,
+                        ],
                     )
                     id = result.fetchone()[0]
                     # old_data = user.dict()

@@ -12,17 +12,22 @@ from authenticator import authenticator
 
 from pydantic import BaseModel
 
+
 class AccountForm(BaseModel):
     username: str
     password: str
 
+
 class AccountToken(Token):
     account: UserOut
+
 
 class HttpError(BaseModel):
     detail: str
 
+
 router = APIRouter()
+
 
 @router.post("/user", response_model=AccountToken | HttpError)
 async def create_user(
@@ -31,6 +36,7 @@ async def create_user(
     response: Response,
     users: UserQueries = Depends(),
 ):
+    print("fdafdafdfdafdfafd\n\n\n\nTYPE", type(info))
     hashed_password = authenticator.hash_password(info.password)
     try:
         user = users.create(info, hashed_password)
@@ -43,18 +49,18 @@ async def create_user(
     token = await authenticator.login(response, request, form, users)
     return AccountToken(account=user, **token.dict())
 
+
 @router.get("/users/{user_id}", response_model=UserOut)
 def get_user(
-    user_id: int,
-    response: Response,
-    repo: UserQueries = Depends()
+    user_id: int, response: Response, repo: UserQueries = Depends()
 ) -> UserOut:
     return repo.get_user(user_id)
+
 
 @router.get("/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
-    account: UserOut = Depends(authenticator.try_get_current_account_data)
+    account: UserOut = Depends(authenticator.try_get_current_account_data),
 ) -> AccountToken | None:
     if account and authenticator.cookie_name in request.cookies:
         return {
@@ -62,6 +68,7 @@ async def get_token(
             "type": "Bearer",
             "account": account,
         }
+
 
 @router.get("/api/protected", response_model=bool)
 async def get_protected(
