@@ -8,13 +8,13 @@ class Error(BaseModel):
     message: str
 
 class ManagerIn(BaseModel):
-    property_id: int
-    kitchen_manager_user_id: int
+    property: int
+    kitchen_manager: int
 
 class ManagerOut(BaseModel):
     manager_join_id: int
-    property_id: int
-    kitchen_manager_user_id: int
+    property: int
+    kitchen_manager: int
 
 class ManagerQueries:
     def create_manager(self, manager: ManagerIn) -> ManagerOut:
@@ -28,8 +28,8 @@ class ManagerQueries:
                         RETURNING manager_join_id;
                         """,
                         (
-                            manager.property_id,
-                            manager.kitchen_manager_user_id
+                            manager.property,
+                            manager.kitchen_manager
                         )
                     )
                     manager_join_id = db.fetchone()[0]
@@ -44,10 +44,11 @@ class ManagerQueries:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=dict_row) as db:
                     db.execute(
-                        "SELECT * FROM managers WHERE manager_join_id = %s;",
+                        """SELECT * FROM managers WHERE manager_join_id = %s;""",
                         (manager_join_id,)
                     )
                     manager_record = db.fetchone()
+                    print(manager_record)
                     if manager_record:
                         return ManagerOut(**manager_record)
                     else:
@@ -59,7 +60,7 @@ class ManagerQueries:
     def update_manager(self, manager_join_id: int, manager: ManagerIn) -> ManagerOut:
         try:
             with pool.connection() as conn:
-                with conn.cursor() as db:
+                with conn.cursor(row_factory=dict_row) as db:
                     db.execute(
                         """
                         UPDATE managers
@@ -68,8 +69,8 @@ class ManagerQueries:
                         RETURNING *;
                         """,
                         (
-                            manager.property_id,
-                            manager.kitchen_manager_user_id,
+                            manager.property,
+                            manager.kitchen_manager,
                             manager_join_id
                         )
                     )
@@ -78,7 +79,8 @@ class ManagerQueries:
                         return ManagerOut(**updated_record)
                     else:
                         return Error(message="Manager not found")
-        except Exception:
+        except Exception as e:
+            print(e)
             return {"message:" "An Error Occured"}
 
     def delete_manager(self, manager_join_id: int) -> Error:
