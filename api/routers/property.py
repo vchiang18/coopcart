@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends
 from queries.property import PropertyIn, PropertyOut, PropertyQueries, Error
-from typing import Union
+from typing import Union,List
 
 router = APIRouter()
 
 @router.post("/property")
 def create_property(property: PropertyIn, repo: PropertyQueries = Depends()):
-	repo.create(property)
-	return property
+    new_property = repo.create(property)
+    return new_property
 
 @router.get("/property/{property_id}", response_model= Union[PropertyOut, Error])
 def get_property(property_id: int, repo: PropertyQueries = Depends()):
@@ -18,3 +18,7 @@ def get_property(property_id: int, repo: PropertyQueries = Depends()):
 def update_property(property_id: int, property: PropertyIn, repo: PropertyQueries = Depends()):
     update_property = repo.update(property_id, property)
     return update_property
+
+@router.get("/properties", response_model=Union[List[PropertyOut], Error])
+def get_all_properties(repo: PropertyQueries = Depends()):
+    return repo.get_all_properties()

@@ -9,7 +9,7 @@ steps = [
             total_members INTEGER ,
             food_fee MONEY NOT NULL,
             property_id SERIAL PRIMARY KEY NOT NULL,
-            created_at DATE NOT NULL,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             property_picture_url VARCHAR(350)
         )
         """,
