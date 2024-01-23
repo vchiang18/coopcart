@@ -1,7 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import Optional, Union
 from datetime import datetime
-from decimal import Decimal
 from queries.pool import pool  
 from psycopg.rows import dict_row
 
@@ -27,7 +26,7 @@ class PropertyOut(BaseModel):
     zip: str
     state: str
     total_members: Optional[int]
-    food_fee: str
+    food_fee: float
     created_at: datetime
     property_picture_url: Optional[str]
 
@@ -54,6 +53,7 @@ class PropertyQueries:
                         )
                     )
                     properties = curr.fetchone()
+                    properties["food_fee"]=float((properties["food_fee"][1:])) 
                     return PropertyOut(property_id=properties[0], created_at=properties[1], **property.dict())
         except Exception:
             return {"message:" "Create did not work"}
@@ -65,7 +65,7 @@ class PropertyQueries:
                 with conn.cursor(row_factory=dict_row) as db:
                     db.execute("SELECT * FROM properties WHERE property_id = %s;", (property_id,))
                     property_record = db.fetchone()
-                    print(property_record)
+                    property_record["food_fee"]=float((property_record["food_fee"][1:]))                
                     if property_record:
                         return PropertyOut(**property_record)
                     else:
@@ -97,6 +97,7 @@ class PropertyQueries:
                         )
                     )
                     updated_record = db.fetchone()
+                    updated_record["food_fee"]=float((updated_record["food_fee"][1:])) 
                     if updated_record:
                         return PropertyOut(**updated_record)
                     else:
@@ -105,21 +106,6 @@ class PropertyQueries:
             print(e)
             return {"message:" "An Error Occured"}
 
-
-    def get_all_properties(self):
-        try:
-            with pool.connection() as conn:
-                with conn.cursor(row_factory=dict_row) as cur:
-                    cur.execute("SELECT * FROM properties;")
-                    properties = cur.fetchall()
-                    print(properties)
-                    property1 = [PropertyOut(**property) for property in properties]
-                    print(property1)
-                    return property1
-        except Exception as e: 
-            print(e)
-            return {"message:" "An Error Occured"}
-        
 
 
 

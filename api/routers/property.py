@@ -18,7 +18,3 @@ def get_property(property_id: int, repo: PropertyQueries = Depends()):
 def update_property(property_id: int, property: PropertyIn, repo: PropertyQueries = Depends()):
     update_property = repo.update(property_id, property)
     return update_property
-
-@router.get("/properties", response_model=Union[List[PropertyOut], Error])
-def get_all_properties(repo: PropertyQueries = Depends()):
-    return repo.get_all_properties()
