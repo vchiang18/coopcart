@@ -16,7 +16,7 @@ class PropertyIn(BaseModel):
     zip: str
     state: str
     total_members: Optional[int] = None
-    food_fee: Decimal
+    food_fee: str
     property_picture_url: Optional[str] = None
 
 
@@ -27,7 +27,7 @@ class PropertyOut(BaseModel):
     zip: str
     state: str
     total_members: Optional[int]
-    food_fee: Decimal
+    food_fee: str
     created_at: datetime
     property_picture_url: Optional[str]
 
