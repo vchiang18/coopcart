@@ -130,7 +130,7 @@ class UserQueries:
                         ]
                     )
                     id = result.fetchone()[0]
-                    # old_data = user.dict()
+                    # data = user.dict()
                     # return UserOut(id=id, **old_data)
 
                     account_data=user.dict()
@@ -142,8 +142,8 @@ class UserQueries:
             return {"message:" "Create did not work"}
 
     def user_in_to_out(self, id: int, user: UserIn):
-        old_data = user.dict()
-        return UserOut(id=id, **old_data)
+        data = user.dict()
+        return UserOut(id=id, **data)
 
     def get_all(self, property_id: int) -> List[UserOutMembers]:
         if property_id is None:
@@ -171,3 +171,47 @@ class UserQueries:
         except Exception as e:
             print(e)
             return {"message": "Could not get all users"}
+
+    def update(self, user_id: int, user: UserIn) -> UserOut:
+        if user_id is None:
+            return None
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        UPDATE users
+                        SET first_name = %s,
+                            last_name = %s,
+                            email = %s,
+                            password_hash = %s
+                        WHERE user_id = %s
+                        """,
+                        [
+                            user.first_name,
+                            user.last_name,
+                            user.email,
+                            user.password,
+                            user_id
+                        ]
+                    )
+                    return self.user_in_to_out(user_id, user)
+        except Exception as e:
+            print(e)
+            return{"message": "Could not update user"}
+
+    def delete(self, user_id: int) -> bool:
+        try:
+             with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM users
+                        WHERE user_id = %s
+                        """,
+                        [user_id]
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
