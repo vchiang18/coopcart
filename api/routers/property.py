@@ -4,7 +4,7 @@ from typing import Union,List
 
 router = APIRouter()
 
-@router.post("/property")
+@router.post("/property", response_model=Union[PropertyOut,Error])
 def create_property(property: PropertyIn, repo: PropertyQueries = Depends()):
     new_property = repo.create(property)
     return new_property

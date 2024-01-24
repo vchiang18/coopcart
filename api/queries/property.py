@@ -10,6 +10,7 @@ class Error(BaseModel):
 
 
 class PropertyIn(BaseModel):
+    property_name:Optional[str]=None
     street: str
     city: str
     zip: str
@@ -20,6 +21,7 @@ class PropertyIn(BaseModel):
 
 
 class PropertyOut(BaseModel):
+    property_name:Optional[str]=None
     property_id: int
     street: str
     city: str
@@ -36,13 +38,14 @@ class PropertyQueries:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    curr = db.execute(
+                    db.execute(
                         """
-                        INSERT INTO properties (street, city, zip, state, total_members, food_fee, property_picture_url)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s)
-                        RETURNING property_id, created_at; 
+                        INSERT INTO properties (street, city, zip, state, total_members, food_fee, created_at, property_picture_url)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                        RETURNING property_id;
                         """,
                         (
+                            property.property_name,
                             property.street,
                             property.city,
                             property.zip,
@@ -52,9 +55,8 @@ class PropertyQueries:
                             property.property_picture_url
                         )
                     )
-                    properties = curr.fetchone()
-                    properties["food_fee"]=float((properties["food_fee"][1:])) 
-                    return PropertyOut(property_id=properties[0], created_at=properties[1], **property.dict())
+                    property_id = db.fetchone()[0]
+                    return PropertyOut(property_id=property_id, **property.dict())
         except Exception:
             return {"message:" "Create did not work"}
 
@@ -81,11 +83,12 @@ class PropertyQueries:
                     db.execute(
                         """
                         UPDATE properties
-                        SET street = %s, city = %s, zip = %s, state = %s, total_members = %s, food_fee = %s, property_picture_url = %s
+                        SET street = %s, city = %s, zip = %s, state = %s, total_members = %s, food_fee = %s, created_at = %s, property_picture_url = %s
                         WHERE property_id = %s
                         RETURNING *;
                         """,
                         (
+                            property.property_name,
                             property.street,
                             property.city,
                             property.zip,
