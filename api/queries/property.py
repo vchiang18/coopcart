@@ -37,12 +37,12 @@ class PropertyQueries:
     def create(self, property: PropertyIn) -> Union[PropertyOut, Error]:
         try:
             with pool.connection() as conn:
-                with conn.cursor() as db:
-                    db.execute(
+                with conn.cursor(row_factory=dict_row) as db:
+                    curr = db.execute(
                         """
-                        INSERT INTO properties (street, city, zip, state, total_members, food_fee, created_at, property_picture_url)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                        RETURNING property_id;
+                        INSERT INTO properties (property_name, street, city, zip, state, total_members, food_fee, property_picture_url)
+                        VALUES (%s,%s, %s, %s, %s, %s, %s, %s)
+                        RETURNING *; 
                         """,
                         (
                             property.property_name,
@@ -55,9 +55,12 @@ class PropertyQueries:
                             property.property_picture_url
                         )
                     )
-                    property_id = db.fetchone()[0]
-                    return PropertyOut(property_id=property_id, **property.dict())
-        except Exception:
+                    properties = curr.fetchone()
+                    print(properties)
+                    properties["food_fee"]=float((properties["food_fee"][1:])) 
+                    return PropertyOut(**properties)
+        except Exception as e:
+            print(e)
             return {"message:" "Create did not work"}
 
 
@@ -83,7 +86,7 @@ class PropertyQueries:
                     db.execute(
                         """
                         UPDATE properties
-                        SET street = %s, city = %s, zip = %s, state = %s, total_members = %s, food_fee = %s, created_at = %s, property_picture_url = %s
+                        SET property_name= %s, street = %s, city = %s, zip = %s, state = %s, total_members = %s, food_fee = %s, property_picture_url = %s
                         WHERE property_id = %s
                         RETURNING *;
                         """,
@@ -108,8 +111,5 @@ class PropertyQueries:
         except Exception as e:
             print(e)
             return {"message:" "An Error Occured"}
-
-
-
 
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from queries.property import PropertyIn, PropertyOut, PropertyQueries, Error
-from typing import Union,List
+from typing import Union
 
 router = APIRouter()
 
