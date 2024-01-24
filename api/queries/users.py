@@ -1,18 +1,21 @@
 from pydantic import BaseModel
-from typing import Optional, Union
+from typing import Optional, Union, List
 from datetime import date
 from queries.pool import pool
-
+from psycopg.rows import dict_row
 
 class Error(BaseModel):
     message: str
+
+class DuplicateAccountError(BaseModel):
+    pass
 
 
 class UserIn(BaseModel):
     first_name: str
     last_name: str
     email: str
-    password_hash: str
+    password: str
     term_boolean: bool
 
 
@@ -23,33 +26,117 @@ class UserOut(BaseModel):
     id: int
     term_boolean: bool
 
+class UserOutMembers(BaseModel):
+    first_name: str
+    last_name: str
+    email: str
+
 #classes w hashed pw, and w property ID
+class UserOutWithPw(UserOut):
+    hashed_password: str
+
+class UserInWithProperty(UserIn):
+    property_id: int
+
 
 class UserQueries:
-    def create(self, user: UserIn) -> Union[UserOut, Error]:
+    def get_one(self, email:str) -> UserOutWithPw:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result = db.execute (
+                    result = db.execute(
+                        """
+                        SELECT *
+                        FROM users
+                        WHERE email = %s
+                        """,
+                        [
+                            email
+                        ]
+                    )
+                    record=result.fetchone()
+                    hashed_password = record[3]
+                    first_name = record[0]
+                    last_name = record[1]
+                    email = record[2]
+                    id = record[7]
+                    term_boolean = record[4]
+                    if id is None:
+                        return None
+                    return UserOutWithPw(
+                        first_name=first_name,
+                        last_name=last_name,
+                        email=email,
+                        id=id,
+                        term_boolean=term_boolean,
+                        hashed_password=hashed_password)
+
+        except Exception:
+            return {"message:" "Get user did not work"}
+
+    def get_one_no_pw(self, id:int) -> UserOut:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT *
+                        FROM users
+                        WHERE user_id = %s
+                        """,
+                        [
+                            id
+                        ]
+                    )
+                    record=result.fetchone()
+                    print(record)
+                    first_name = record[0]
+                    last_name = record[1]
+                    email = record[2]
+                    id = record[7]
+                    term_boolean = record[4]
+                    if id is None:
+                        return None
+                    return UserOut(
+                        first_name=first_name,
+                        last_name=last_name,
+                        email=email,
+                        id=id,
+                        term_boolean=term_boolean)
+
+        except Exception:
+            return {"message:" "Get user did not work"}
+
+    def create(self, user: UserIn, hashed_password: str) -> Union[UserOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
                         """
                         INSERT INTO users
-                            ()
+                            (first_name,
+                            last_name,
+                            email, password_hash, terms_boolean)
                         VALUES
                             (%s, %s, %s, %s, %s)
-                        RETURNING id;
+                        RETURNING user_id;
                         """,
                         [
                             user.first_name,
                             user.last_name,
                             user.email,
-                            user.password_hash,
+                            hashed_password,
                             user.term_boolean
                         ]
                     )
                     id = result.fetchone()[0]
                     # old_data = user.dict()
                     # return UserOut(id=id, **old_data)
-                    return self.user_in_to_out(id, user)
+
+                    account_data=user.dict()
+                    account_data.pop("password")
+                    return UserOut(id=id,**account_data)
+                    # return self.user_in_to_out(id, user)
 
         except Exception:
             return {"message:" "Create did not work"}
@@ -57,3 +144,30 @@ class UserQueries:
     def user_in_to_out(self, id: int, user: UserIn):
         old_data = user.dict()
         return UserOut(id=id, **old_data)
+
+    def get_all(self, property_id: int) -> List[UserOutMembers]:
+        if property_id is None:
+            return None
+        try:
+            with pool.connection() as conn:
+                with conn.cursor(row_factory=dict_row) as db:
+                    curr = db.execute(
+                        """
+                        SELECT
+                            first_name,
+                            last_name,
+                            email
+                        FROM users
+                        WHERE property = %s
+                        ORDER BY last_name;
+                        """,
+                        [
+                            property_id
+                        ]
+                    )
+                    result = curr.fetchall()
+                    return [UserOutMembers(**row) for row in result]
+
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get all users"}
