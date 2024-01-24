@@ -9,7 +9,7 @@ steps = [
             unit_quantity INTEGER NOT NULL,
             price MONEY NOT NULL,
             food_item_id SERIAL PRIMARY KEY NOT NULL
-        )
+        );
         """,
         """
         DROP TABLE food_items;
@@ -28,7 +28,7 @@ steps = [
             YTD_spend MONEY,
             YTD_remaining_budget MONEY,
             budget_id SERIAL PRIMARY KEY NOT NULL
-        )
+        );
         """,
         """
         DROP TABLE budgets;
@@ -40,7 +40,7 @@ steps = [
             property INTEGER REFERENCES properties(property_id) NOT NULL,
             kitchen_manager INTEGER REFERENCES users(user_id) NOT NULL,
             manager_join_id SERIAL PRIMARY KEY NOT NULL
-        )
+        );
         """,
         """
         DROP TABLE managers;

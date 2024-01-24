@@ -16,6 +16,10 @@ services:
 
   fastapi:
     environment:
+      SIGNING_KEY: HWfwiWcNsbxOc7MmEzkf54mNzfk0Cu4jr3y2UqLcCTpKV
+      WAIT_HOSTS: postgres:5432
+      WAIT_BEFORE: 5
+      WAIT_TIMEOUT: 60
       CORS_HOST: http://localhost:3000
       DATABASE_URL: postgresql://user:secret@postgres/postgres-data
     build:
