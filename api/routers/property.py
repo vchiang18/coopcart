@@ -4,10 +4,10 @@ from typing import Union
 
 router = APIRouter()
 
-@router.post("/property")
+@router.post("/property", response_model=Union[PropertyOut,Error])
 def create_property(property: PropertyIn, repo: PropertyQueries = Depends()):
-	repo.create(property)
-	return property
+    new_property = repo.create(property)
+    return new_property
 
 @router.get("/property/{property_id}", response_model= Union[PropertyOut, Error])
 def get_property(property_id: int, repo: PropertyQueries = Depends()):
