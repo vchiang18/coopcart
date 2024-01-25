@@ -56,7 +56,6 @@ class PropertyQueries:
                         )
                     )
                     properties = curr.fetchone()
-                    print(properties)
                     properties["food_fee"]=float((properties["food_fee"][1:])) 
                     return PropertyOut(**properties)
         except Exception as e:
