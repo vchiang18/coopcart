@@ -130,13 +130,9 @@ class UserQueries:
                         ]
                     )
                     id = result.fetchone()[0]
-                    # data = user.dict()
-                    # return UserOut(id=id, **old_data)
-
                     account_data=user.dict()
                     account_data.pop("password")
                     return UserOut(id=id,**account_data)
-                    # return self.user_in_to_out(id, user)
 
         except Exception:
             return {"message:" "Create did not work"}
