@@ -91,5 +91,18 @@ def get_users(
 
 
 #edit user
+@router.put("/users/{user_id}", response_model=Union[UserOut, Error])
+def update_user(
+    user_id: int,
+    user: UserIn,
+    repo: UserQueries = Depends()
+):
+    return repo.update(user_id, user)
 
 #delete user
+@router.delete("/users/{user_id}", response_model=bool)
+def delete_user(
+    user_id: int,
+    repo: UserQueries = Depends()
+    ):
+    return repo.delete(user_id)

@@ -48,7 +48,6 @@ class ManagerQueries:
                         (manager_join_id,)
                     )
                     manager_record = db.fetchone()
-                    print(manager_record)
                     if manager_record:
                         return ManagerOut(**manager_record)
                     else:

@@ -7,6 +7,7 @@ import os
 app = FastAPI()
 app.include_router(users.router)
 app.include_router(property.router)
+app.include_router(manager.router)
 app.include_router(authenticator.router)
 
 app.add_middleware(
