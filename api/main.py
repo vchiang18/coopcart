@@ -1,14 +1,18 @@
 from fastapi import FastAPI, APIRouter
 from authenticator import authenticator
 from fastapi.middleware.cors import CORSMiddleware
-from routers import users, property, manager
+from routers import users, property, brands, vendors, manager, food_items
+
 import os
 
 app = FastAPI()
+app.include_router(authenticator.router)
+app.include_router(brands.router)
 app.include_router(users.router)
 app.include_router(property.router)
 app.include_router(manager.router)
-app.include_router(authenticator.router)
+app.include_router(food_items.router)
+app.include_router(vendors.router)
 
 app.add_middleware(
     CORSMiddleware,
