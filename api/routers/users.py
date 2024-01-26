@@ -43,7 +43,7 @@ async def create_user(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Cannot create a user with those credentials",
         )
-    form = AccountForm(username=info.email, password=info.password)
+    form = AccountForm(username=info.username, password=info.password)
     token = await authenticator.login(response, request, form, users)
     return AccountToken(account=user, **token.dict())
 
@@ -98,11 +98,3 @@ def update_user(
     repo: UserQueries = Depends()
 ):
     return repo.update(user_id, user)
-
-#delete user
-@router.delete("/users/{user_id}", response_model=bool)
-def delete_user(
-    user_id: int,
-    repo: UserQueries = Depends()
-    ):
-    return repo.delete(user_id)
