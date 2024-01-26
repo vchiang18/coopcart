@@ -1,8 +1,9 @@
 from pydantic import BaseModel
 from typing import Optional, Union, Dict
 from datetime import datetime
-from queries.pool import pool  
+from queries.pool import pool
 from psycopg.rows import dict_row
+from fastapi import HTTPException, status
 
 class Error(BaseModel):
     message: str
@@ -37,7 +38,7 @@ class ManagerQueries:
         except Exception as e:
             print(e)
             return {"message:" "An Error Occured"}
-        
+
 
     def get_manager(self, manager_join_id: int) -> ManagerOut:
         try:
@@ -55,6 +56,28 @@ class ManagerQueries:
         except Exception as e:
             print(e)
             return {"message:" "An Error Occured"}
+
+    def get_manager_by_km(self, kitchen_manager: int) -> ManagerOut:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor(row_factory=dict_row) as db:
+                    db.execute(
+                        """SELECT * FROM managers WHERE kitchen_manager = %s;""",
+                        (kitchen_manager,)
+                    )
+                    manager_record = db.fetchone()
+                    if manager_record:
+                        print(manager_record)
+                        return ManagerOut(**manager_record)
+                    else:
+                        return Error(message="Manager not found")
+        except Exception as e:
+            print(e)
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="An error occurred"
+                )
+
 
     def update_manager(self, manager_join_id: int, manager: ManagerIn) -> ManagerOut:
         try:
