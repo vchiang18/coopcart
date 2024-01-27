@@ -91,8 +91,7 @@ class UserQueries:
                             id
                         ]
                     )
-                    record=result.fetchone()
-                    print(record)
+                    record = result.fetchone()
                     first_name = record[0]
                     last_name = record[1]
                     username = record[2]

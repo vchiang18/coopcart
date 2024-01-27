@@ -1,4 +1,10 @@
-1.19.24
+1.26.24
+
+- finished individual endpoints
+- added backend auth to user endpoints (WIP - still need to test logic to restrict get_all_users by to logged in KM by property)
+- learn: formatting of inputs and outputs in endpoints, how to troubleshoot, use row_factory
+
+  1.19.24
 
 - created all data tables
 - created first endpoint (user POST)
