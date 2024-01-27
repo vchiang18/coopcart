@@ -23,7 +23,7 @@ steps = [
         CREATE TABLE users (
             first_name VARCHAR(150) NOT NULL,
             last_name VARCHAR(150) NOT NULL,
-            email VARCHAR(100) UNIQUE NOT NULL,
+            username VARCHAR(100) UNIQUE NOT NULL,
             password_hash VARCHAR (100) NOT NULL,
             terms_boolean BOOLEAN NOT NULL,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
