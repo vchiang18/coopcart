@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import './signup.css'
+import './signup.css';
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function SignInForm() {
   const [state, setState] = useState({
@@ -7,6 +8,7 @@ function SignInForm() {
     password: ""
   });
 
+  const {login} = useToken()
   const handleChange = (evt) => {
     const { name, value } = evt.target;
     setState({
@@ -19,11 +21,12 @@ function SignInForm() {
     evt.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(state)
-      });
+      // const response = await fetch('http://localhost:8000/token', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(state)
+      // });
+      const response = login(state.username, state.password)
       if (!response.ok) throw new Error('Login failed');
       alert('Login successful');
       setState({ username: "", password: "" });
