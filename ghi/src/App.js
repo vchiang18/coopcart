@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import "./signup.css";
-import CreateProperty from './CreateProperty';
+import CreateProperty from "./CreateProperty";
 import SignInForm from './Signin';
 import SignUpForm from './Signup';
 
