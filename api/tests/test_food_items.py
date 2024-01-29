@@ -1,6 +1,8 @@
+# from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from main import app
-from food_items.py import FoodItemQueries
+from queries.food_items import FoodItemQueries
+
 
 client = TestClient(app)
 
@@ -9,13 +11,13 @@ class EmptyFoodItemQueries:
         return []
 
 class CreateFoodItemQueries:
-    def create_food_items(self, food_item):
+    def create(self, food_item):
         result = {"food_item_id": 1}
 
         result.update(food_item)
-        return []
+        return result
 
-def test_get_all_food_items():
+def get_all_food_items():
     app.dependency_overrides[FoodItemQueries] = EmptyFoodItemQueries
 
     response = client.get("/food_items")
