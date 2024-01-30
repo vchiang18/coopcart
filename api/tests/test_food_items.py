@@ -118,7 +118,7 @@ def test_delete_food_item():
     assert response.json() == {"message": "Food item deleted"}
 
 class GetFoodItemsQueries:
-    def get_food_items(self):
+    def get_all(self):
         return [
             {
                 "food_item_id": 1,
@@ -138,7 +138,17 @@ def test_get_all_food_items():
     app.dependency_overrides = {}
 
     assert response.status_code == 200
-    assert response.json() == {"food_items": []}
+    assert response.json() == [
+        {
+            "food_item_id": 1,
+            "item_name": "test item",
+            "brand": 1,
+            "vendor": 1,
+            "unit_type": "test unit",
+            "unit_quantity": 1,
+            "price": 1.00
+        }
+    ]
 
 
 
