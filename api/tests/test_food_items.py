@@ -1,8 +1,6 @@
-# from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from main import app
 from queries.food_items import FoodItemQueries
-
 
 client = TestClient(app)
 
@@ -149,21 +147,3 @@ def test_get_all_food_items():
             "price": 1.00
         }
     ]
-
-
-
-
-
-
-
-
-
-
-def test_init():
-    assert 1 == 1
-
-
-
-# def test_init_food_items():
-#     food_items = FoodItems()
-#     assert food_items.food_items == []
