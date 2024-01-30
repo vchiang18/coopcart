@@ -5,7 +5,7 @@ function SignUpForm() {
   const [state, setState] = useState({
     first_name: "",
     last_name: "",
-    email: "",
+    username: "",
     password: "",
     term_boolean: false
   });
@@ -32,7 +32,7 @@ function SignUpForm() {
       setState({
         first_name: "",
         last_name: "",
-        email: "",
+        username: "",
         password: "",
         term_boolean: false
       });
@@ -47,7 +47,7 @@ function SignUpForm() {
         <h1>Create Account</h1>
         <input type="text" name="first_name" value={state.first_name} onChange={handleChange} placeholder="First Name" />
         <input type="text" name="last_name" value={state.last_name} onChange={handleChange} placeholder="Last Name" />
-        <input type="email" name="email" value={state.email} onChange={handleChange} placeholder="Email" />
+        <input type="text" name="username" value={state.username} onChange={handleChange} placeholder="Username" />
         <input type="password" name="password" value={state.password} onChange={handleChange} placeholder="Password" />
         <label>
           <input type="checkbox" name="term_boolean" checked={state.term_boolean} onChange={handleChange} />

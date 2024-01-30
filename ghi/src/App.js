@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import "./signup.css";
 import CreateProperty from "./CreateProperty";
 import SignInForm from './Signin';
@@ -51,15 +52,17 @@ function App() {
   );
 
   return (
-    <BrowserRouter>
-      <div className="Container">
-        <Routes>
-          <Route path="/property/" element={<CreateProperty />} />
-          <Route path="/signin" element={<SignInSignUp />} />
-          <Route path="/signup" element={<SignInSignUp />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <AuthProvider baseUrl="http://localhost:8000">
+      <BrowserRouter>
+        <div className="Container">
+          <Routes>
+            <Route path="/property/" element={<CreateProperty />} />
+            <Route path="/signin" element={<SignInSignUp />} />
+            <Route path="/signup" element={<SignInSignUp />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

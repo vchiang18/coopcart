@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import './signup.css';
-import useToken from "@galvanize-inc/jwtdown-for-react";
+import React, { useState } from 'react';
+import useToken from '@galvanize-inc/jwtdown-for-react';
 
 function SignInForm() {
-  const [state, setState] = useState({
-    username: "",
-    password: ""
-  });
+  const [state, setState] = useState({ username: '', password: '' });
+  const { login } = useToken();
 
-  const {login} = useToken()
   const handleChange = (evt) => {
     const { name, value } = evt.target;
     setState({
@@ -19,19 +15,11 @@ function SignInForm() {
 
   const handleOnSubmit = async (evt) => {
     evt.preventDefault();
-
     try {
-      // const response = await fetch('http://localhost:8000/token', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(state)
-      // });
-      const response = login(state.username, state.password)
-      if (!response.ok) throw new Error('Login failed');
+      await login(state.username, state.password); 
       alert('Login successful');
-      setState({ username: "", password: "" });
     } catch (error) {
-      alert(error.message);
+      alert('Login failed: ' + error.message);
     }
   };
 
@@ -39,10 +27,22 @@ function SignInForm() {
     <div className="form-container sign-in-container">
       <form onSubmit={handleOnSubmit}>
         <h1>Sign in</h1>
-        <input type="username" name="username" value={state.username} onChange={handleChange} placeholder="Username" />
-        <input type="password" name="password" value={state.password} onChange={handleChange} placeholder="Password" />
+        <input 
+          type="username" 
+          name="username" 
+          value={state.username} 
+          onChange={handleChange} 
+          placeholder="Username" 
+        />
+        <input 
+          type="password" 
+          name="password" 
+          value={state.password} 
+          onChange={handleChange} 
+          placeholder="Password" 
+        />
         <a href="#">Forgot your password?</a>
-        <button>Sign In</button>
+        <button type="submit">Sign In</button>
       </form>
     </div>
   );

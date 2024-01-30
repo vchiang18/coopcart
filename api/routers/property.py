@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Depends
 from queries.property import PropertyIn, PropertyOut, PropertyQueries, Error
+from jwtdown_fastapi.authentication import Token
+from authenticator import authenticator
 from typing import Union,List
 
 router = APIRouter()
