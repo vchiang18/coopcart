@@ -104,41 +104,41 @@ def test_update_food_item():
         "food_item_id": 1
     }
 
-# class DeleteFoodItemQueries:
-#     def delete(self, food_item_id):
-#         return True
+class DeleteFoodItemQueries:
+    def delete(self, food_item_id):
+        return {"message": "Food item deleted"}
 
-# def test_delete_food_item():
-#     app.dependency_overrides[FoodItemQueries] = DeleteFoodItemQueries
+def test_delete_food_item():
+    app.dependency_overrides[FoodItemQueries] = DeleteFoodItemQueries
 
-#     response = client.delete("/food_item/1")
-#     app.dependency_overrides = {}
+    response = client.delete("/food_item/1")
+    app.dependency_overrides = {}
 
-#     assert response.status_code == 200
-#     assert response.json() == {"message": "Food item deleted"}
-    
-# class GetFoodItemsQueries:
-#     def get_food_items(self):
-#         return [
-#             {
-#                 "food_item_id": 1,
-#                 "item_name": "test item",
-#                 "brand": 1,
-#                 "vendor": 1,
-#                 "unit_type": "test unit",
-#                 "unit_quantity": 1,
-#                 "price": 1.00
-#             }
-#         ]
+    assert response.status_code == 200
+    assert response.json() == {"message": "Food item deleted"}
 
-# def test_get_all_food_items():
-#     app.dependency_overrides[FoodItemQueries] = GetFoodItemsQueries
+class GetFoodItemsQueries:
+    def get_food_items(self):
+        return [
+            {
+                "food_item_id": 1,
+                "item_name": "test item",
+                "brand": 1,
+                "vendor": 1,
+                "unit_type": "test unit",
+                "unit_quantity": 1,
+                "price": 1.00
+            }
+        ]
 
-#     response = client.get("/food_items")
-#     app.dependency_overrides = {}
+def test_get_all_food_items():
+    app.dependency_overrides[FoodItemQueries] = GetFoodItemsQueries
 
-#     assert response.status_code == 200
-#     assert response.json() == {"food_items": []}
+    response = client.get("/food_items")
+    app.dependency_overrides = {}
+
+    assert response.status_code == 200
+    assert response.json() == {"food_items": []}
 
 
 
