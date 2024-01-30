@@ -94,12 +94,29 @@ def test_update_food_item():
     app.dependency_overrides = {}
 
     assert response.status_code == 200
-    assert response.json() == {"message": "Food item updated"}
+    assert response.json() == {
+        "item_name": "test item",
+        "brand": 1,
+        "vendor": 1,
+        "unit_type": "test unit",
+        "unit_quantity": 1,
+        "price": 1.00,
+        "food_item_id": 1
+    }
 
 # class DeleteFoodItemQueries:
 #     def delete(self, food_item_id):
 #         return True
 
+# def test_delete_food_item():
+#     app.dependency_overrides[FoodItemQueries] = DeleteFoodItemQueries
+
+#     response = client.delete("/food_item/1")
+#     app.dependency_overrides = {}
+
+#     assert response.status_code == 200
+#     assert response.json() == {"message": "Food item deleted"}
+    
 # class GetFoodItemsQueries:
 #     def get_food_items(self):
 #         return [
@@ -127,14 +144,7 @@ def test_update_food_item():
 
 
 
-# def test_delete_food_item():
-#     app.dependency_overrides[FoodItemQueries] = DeleteFoodItemQueries
 
-#     response = client.delete("/food_item/1")
-#     app.dependency_overrides = {}
-
-#     assert response.status_code == 200
-#     assert response.json() == {"message": "Food item deleted"}
 
 
 
