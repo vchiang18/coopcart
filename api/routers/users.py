@@ -9,6 +9,7 @@ from fastapi import (
 from queries.users import (UserIn,
     UserOut, UserQueries, DuplicateAccountError,
     Error, UserOutMembers)
+from queries.manager import (ManagerQueries, ManagerOut)
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
 from typing import Optional, Union, List
@@ -59,42 +60,49 @@ async def get_token(
             "account": account,
         }
 
-@router.get("/api/protected", response_model=str)
-async def get_protected(
-    account_data: dict = Depends(authenticator.get_current_account_data),
-):
-    return "True"
-
-#user detail
-@router.get("/users/{user_id}", response_model=Optional[UserOut])
-def get_user(
-    user_id: int,
-    response: Response,
-    repo: UserQueries = Depends()
-) -> UserOut:
-    user = repo.get_one_no_pw(user_id)
-    if user is None:
-        response.status_code = 404
-    return user
-
-#return list of users
+#protected list of users
 @router.get("/users", response_model=Union[List[UserOutMembers], Error])
 def get_users(
-    property_id: int,
     response: Response,
-    repo: UserQueries = Depends()
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: UserQueries = Depends(),
+    managers: ManagerQueries = Depends()
 ):
+    user_id = account_data["id"]
+    manager = managers.get_manager_by_km(user_id)
+    #if user_id in manager table
+    if isinstance(manager, ManagerOut):
+        if manager.kitchen_manager == user_id:
+            #get the property id of the logged in user
+            property_id = manager.property
+    else:
+        response.status_code = 404
+        #returns Error if no manager found
+        return manager
     users = repo.get_all(property_id)
     if users is None:
         response.status_code = 404
     return users
 
+#user detail
+@router.get("/user", response_model=Optional[UserOut])
+def get_user(
+    response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: UserQueries = Depends()
+) -> UserOut:
+    user_id = account_data["id"]
+    user = repo.get_one_no_pw(user_id)
+    if user is None:
+        response.status_code = 404
+    return user
 
 #edit user
-@router.put("/users/{user_id}", response_model=Union[UserOut, Error])
+@router.put("/user", response_model=Union[UserOut, Error])
 def update_user(
-    user_id: int,
     user: UserIn,
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: UserQueries = Depends()
 ):
+    user_id = account_data["id"]
     return repo.update(user_id, user)

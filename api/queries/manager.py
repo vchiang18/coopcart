@@ -62,7 +62,10 @@ class ManagerQueries:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=dict_row) as db:
                     db.execute(
-                        """SELECT * FROM managers WHERE kitchen_manager = %s;""",
+                        """SELECT *
+                        FROM managers
+                        WHERE kitchen_manager = %s;
+                        """,
                         (kitchen_manager,)
                     )
                     manager_record = db.fetchone()
