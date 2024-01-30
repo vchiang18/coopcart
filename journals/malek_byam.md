@@ -1,5 +1,42 @@
 # Malek's Programming Journal
 
+## Date: [2024-01-29]
+
+### Week [3] Summary
+
+    This week was about finishing API endpoints, getting authorization to work, starting on the frontend including some basic design, and writing tests.
+
+### Tasks Completed
+
+    - API Endpoints
+
+### Challenges Faced
+
+    Getting Authorization to work.
+
+### Solutions Found
+
+    Still working on Authorization.
+
+### Lessons Learned
+
+    Working with custom libraries can be tricky.
+
+### Next Steps
+
+    - Finish Back End Authorization
+    - Finish Front End Authorization
+    - Write unit tests
+    - Begin Front End Work
+
+### Resources
+
+    N/A
+
+### Code Snippets
+
+    N/A
+
 ## Date: [2024-01-19]
 
 ### Week [2] Summary
