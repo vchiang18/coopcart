@@ -13,18 +13,8 @@ class EmptyFoodItemQueries:
 class CreateFoodItemQueries:
     def create(self, food_item):
         result = {"food_item_id": 1}
-
         result.update(food_item)
         return result
-
-def get_all_food_items():
-    app.dependency_overrides[FoodItemQueries] = EmptyFoodItemQueries
-
-    response = client.get("/food_items")
-    app.dependency_overrides = {}
-
-    assert response.status_code == 200
-    assert response.json() == {"food_items": []}
 
 def test_create_food_item():
     app.dependency_overrides[FoodItemQueries] = CreateFoodItemQueries
@@ -50,6 +40,103 @@ def test_create_food_item():
         "price": 1.00,
         "food_item_id": 1
     }
+
+class GetFoodItemQueries:
+    def get(self, food_item_id):
+        return {
+            "food_item_id": 1,
+            "item_name": "test item",
+            "brand": 1,
+            "vendor": 1,
+            "unit_type": "test unit",
+            "unit_quantity": 1,
+            "price": 1.00
+        }
+
+def test_get_food_item():
+    app.dependency_overrides[FoodItemQueries] = GetFoodItemQueries
+
+    response = client.get("/food_item/1")
+    app.dependency_overrides = {}
+
+    assert response.status_code == 200
+    assert response.json() == {
+            "food_item_id": 1,
+            "item_name": "test item",
+            "brand": 1,
+            "vendor": 1,
+            "unit_type": "test unit",
+            "unit_quantity": 1,
+            "price": 1.00
+        }
+
+class UpdateFoodItemQueries:
+    def update(self, food_item_id, food_item):
+        result = {"food_item_id": 1}
+
+        result.update(food_item)
+        return result
+
+def test_update_food_item():
+    app.dependency_overrides[FoodItemQueries] = UpdateFoodItemQueries
+
+    response = client.put(
+        "/food_item/1",
+        json={
+            "item_name": "test item",
+            "brand": 1,
+            "vendor": 1,
+            "unit_type": "test unit",
+            "unit_quantity": 1,
+            "price": 1.00
+        }
+    )
+    app.dependency_overrides = {}
+
+    assert response.status_code == 200
+    assert response.json() == {"message": "Food item updated"}
+
+# class DeleteFoodItemQueries:
+#     def delete(self, food_item_id):
+#         return True
+
+# class GetFoodItemsQueries:
+#     def get_food_items(self):
+#         return [
+#             {
+#                 "food_item_id": 1,
+#                 "item_name": "test item",
+#                 "brand": 1,
+#                 "vendor": 1,
+#                 "unit_type": "test unit",
+#                 "unit_quantity": 1,
+#                 "price": 1.00
+#             }
+#         ]
+
+# def test_get_all_food_items():
+#     app.dependency_overrides[FoodItemQueries] = GetFoodItemsQueries
+
+#     response = client.get("/food_items")
+#     app.dependency_overrides = {}
+
+#     assert response.status_code == 200
+#     assert response.json() == {"food_items": []}
+
+
+
+
+
+# def test_delete_food_item():
+#     app.dependency_overrides[FoodItemQueries] = DeleteFoodItemQueries
+
+#     response = client.delete("/food_item/1")
+#     app.dependency_overrides = {}
+
+#     assert response.status_code == 200
+#     assert response.json() == {"message": "Food item deleted"}
+
+
 
 
 def test_init():
