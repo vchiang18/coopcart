@@ -1,7 +1,7 @@
-from fastapi.testclient import TestClient
-from main import app
-from queries.property import PropertyQueries
+# from fastapi.testclient import TestClient
+# from main import app
+# from queries.property import PropertyQueries
 
-client=TestClient(app)
+# client=TestClient(app)
 
-class 
+# class 
