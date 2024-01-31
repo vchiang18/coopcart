@@ -1,4 +1,3 @@
-import { useGetUsersQuery } from "./store/usersApi";
 import { update, remove } from "./store/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useLoginMutation } from "./store/authApi";
