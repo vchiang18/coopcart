@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import Construct from "./Construct.js";
-import ErrorNotification from "./ErrorNotification";
 import "./App.css";
-import { useGetUsersQuery } from "./store/usersApi";
-import UsersList from "./userList.js";
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+import UsersList from "./login.js";
 
 function App() {
   const [launchInfo, setLaunchInfo] = useState([]);
@@ -31,9 +29,9 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <AuthProvider>
       <UsersList />
-    </div>
+    </AuthProvider>
   );
 }
 

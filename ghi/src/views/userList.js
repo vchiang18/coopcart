@@ -1,20 +1,16 @@
-import { userEffect, useState } from React;
-import { useGetUsersQuery } from './store/usersApi';
-import ErrorNotification from './ErrorNotification';
+import { useGetUsersQuery } from "./store/usersApi";
+import ErrorNotification from "./ErrorNotification";
 
-function UserList(){
-    const { data, error, isLoading } = useGetUsersQuery();
-    console.log();
-    if (isLoading) {
-        return (
-            <progress className="progress is-primary" max="100"></progress>
-        )
-    }
+export default function UserList() {
+  const { data, error, isLoading } = useGetUsersQuery();
+  if (isLoading) {
+    return <progress className="progress is-primary" max="100"></progress>;
+  }
 
-    return (
+  return (
     <>
       <h1 className="p-3">House Members</h1>
-      <ErrorNotification error={error}/>
+      <ErrorNotification error={error} />
       <table className="table table-striped">
         <thead>
           <tr>
@@ -36,7 +32,5 @@ function UserList(){
         </tbody>
       </table>
     </>
-    );
+  );
 }
-
-export default userList;
