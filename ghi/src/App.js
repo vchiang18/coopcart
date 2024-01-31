@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import Construct from "./Construct.js";
 import ErrorNotification from "./ErrorNotification";
 import "./App.css";
+import { useGetUsersQuery } from "./store/usersApi";
 
 function App() {
   const [launchInfo, setLaunchInfo] = useState([]);
   const [error, setError] = useState(null);
+  const { data, isLoading } = useGetUsersQuery();
+  console.log(data);
 
   useEffect(() => {
     async function getData() {

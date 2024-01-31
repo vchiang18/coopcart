@@ -4,7 +4,7 @@ import ErrorNotification from './ErrorNotification';
 
 function UserList(){
     const { data, error, isLoading } = useGetUsersQuery();
-
+    console.log();
     if (isLoading) {
         return (
             <progress className="progress is-primary" max="100"></progress>
