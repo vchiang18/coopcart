@@ -15,7 +15,7 @@ export const authApi = createApi({
         } else {
           formData = new FormData();
           formData.append("username", info.email);
-          formData.append("password", info.password_hash);
+          formData.append("password", info.password);
         }
         return {
           url: "/token",
@@ -40,4 +40,4 @@ export const authApi = createApi({
   }),
 });
 
-export const { useGetTokenQuery } = authApi;
+export const { useGetTokenQuery, useLoginMutation } = authApi;
