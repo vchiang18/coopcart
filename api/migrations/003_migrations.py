@@ -23,11 +23,14 @@ steps = [
     [
         """
         CREATE TABLE orders (
-            item INTEGER REFERENCES food_items(food_item_id) NOT NULL,
-            brand INTEGER REFERENCES brands(brand_id) NOT NULL,
+            item_id INTEGER REFERENCES food_items(food_item_id),
+            item VARCHAR(250) NOT NULL,
+            brand_id INTEGER REFERENCES brands(brand_id),
+            brand VARCHAR(250) NOT NULL,
             unit_quantity INTEGER NOT NULL,
             unit_type VARCHAR(50) NOT NULL,
-            vendor INTEGER REFERENCES vendors(vendor_id) NOT NULL,
+            vendor_id INTEGER REFERENCES vendors(vendor_id),
+            vendor VARCHAR(250) NOT NULL,
             requestor INTEGER REFERENCES users(user_id) NOT NULL,
             created_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             quantity INTEGER NOT NULL,
