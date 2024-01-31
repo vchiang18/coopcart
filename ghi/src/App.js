@@ -3,6 +3,7 @@ import Construct from "./Construct.js";
 import ErrorNotification from "./ErrorNotification";
 import "./App.css";
 import { useGetUsersQuery } from "./store/usersApi";
+import UsersList from "./userList.js";
 
 function App() {
   const [launchInfo, setLaunchInfo] = useState([]);
@@ -31,8 +32,7 @@ function App() {
 
   return (
     <div>
-      <ErrorNotification error={error} />
-      <Construct info={launchInfo} />
+      <UsersList />
     </div>
   );
 }

@@ -49,7 +49,13 @@ class UserQueries:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
-                        SELECT *
+                        SELECT
+                            first_name,
+                            last_name,
+                            username,
+                            password_hash,
+                            user_id,
+                            terms_boolean
                         FROM users
                         WHERE username = %s
                         """,
@@ -58,12 +64,12 @@ class UserQueries:
                         ]
                     )
                     record=result.fetchone()
-                    hashed_password = record[3]
                     first_name = record[0]
                     last_name = record[1]
                     username = record[2]
-                    id = record[7]
-                    term_boolean = record[4]
+                    hashed_password = record[3]
+                    id = record[4]
+                    term_boolean = record[5]
                     if id is None:
                         return None
                     return UserOutWithPw(
@@ -132,7 +138,7 @@ class UserQueries:
                         ]
                     )
                     id = result.fetchone()[0]
-                    account_data=user.dict()
+                    account_data = user.dict()
                     account_data.pop("password")
                     return UserOut(id=id,**account_data)
 

@@ -12,7 +12,7 @@ export const usersApi = createApi({
   },
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => "/users",
+      query: () => ({ url: "/users", credentials: "include" }),
     }),
   }),
 });
