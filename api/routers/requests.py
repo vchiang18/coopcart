@@ -1,14 +1,16 @@
 from fastapi import APIRouter, Depends
 from typing import List, Union
 from queries.requests import Error, RequestIn, RequestOut, RequestRepository
+from authenticator import authenticator
 
 
 router = APIRouter()
 
 
 @router.get("/requests", response_model=Union[List[RequestOut], Error])
-def get_all(repo: RequestRepository = Depends()):
-    return repo.get_all()
+def get_all(repo: RequestRepository = Depends(),
+            account_data: dict = Depends(authenticator.get_current_account_data)):
+    return repo.get_all(account_data)
 
 
 @router.post("/requests")

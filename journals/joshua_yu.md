@@ -1,3 +1,9 @@
+1/26/2024
+- completed issues assigned to me regarding endpoints for requests and models
+- starting on protecting endpoints
+- starting on backend auth
+- starting on creating unit tests
+
 1/19/2024
 - finalized which database to use and ended up deciding upon SQL
 - created all of our tables and had the migrations completed
