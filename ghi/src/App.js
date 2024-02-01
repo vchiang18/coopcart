@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./signup.css";
-import CreateProperty from './CreateProperty';
-import SignInForm from './Signin';
-import SignUpForm from './Signup';
-import { AuthProvider } from "@galvanize-inc/jwtdown-for-react"
+import CreateProperty from "./CreateProperty";
+import SignInForm from "./Signin";
+import SignUpForm from "./Signup";
+import SignupProperty from "./SignupProperty";
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 
 function App() {
   const [type, setType] = useState("signIn");
@@ -18,14 +19,19 @@ function App() {
   const SignInSignUp = () => (
     <div className="App">
       <h2>Sign in/up Form</h2>
-      <div className={`container ${type === "signUp" ? "right-panel-active" : ""}`} id="container">
+      <div
+        className={`container ${type === "signUp" ? "right-panel-active" : ""}`}
+        id="container"
+      >
         <SignUpForm />
         <SignInForm />
         <div className="overlay-container">
           <div className="overlay">
             <div className="overlay-panel overlay-left">
               <h1>Welcome Back!</h1>
-              <p>To keep connected with us please login with your personal info</p>
+              <p>
+                To keep connected with us please login with your personal info
+              </p>
               <button
                 className="ghost"
                 id="signIn"
@@ -59,6 +65,7 @@ function App() {
             <Route path="/property/" element={<CreateProperty />} />
             <Route path="/signin" element={<SignInSignUp />} />
             <Route path="/signup" element={<SignInSignUp />} />
+            <Route path="signup/property" element={<SignupProperty />} />
           </Routes>
         </div>
       </BrowserRouter>

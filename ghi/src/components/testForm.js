@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import "../css/signup.css";
-import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function SignUpForm() {
   const { login } = useToken();
@@ -37,7 +35,7 @@ function SignUpForm() {
   };
 
   return (
-    <div className="form-container sign-up-container">
+    <div>
       <form onSubmit={handleOnSubmit}>
         <h1>Create Account</h1>
         <input
@@ -83,4 +81,4 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default TestForm;
