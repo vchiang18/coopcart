@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
-import LoginForm from "./LoginForm";
+import LoginForm from "./views/LoginForm";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
