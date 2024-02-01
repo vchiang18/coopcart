@@ -24,9 +24,9 @@ steps = [
             monthly_budget MONEY,
             monthly_spend MONEY,
             monthly_remaining MONEY,
-            YTD_budget MONEY,
-            YTD_spend MONEY,
-            YTD_remaining_budget MONEY,
+            ytd_budget MONEY,
+            ytd_spend MONEY,
+            ytd_remaining_budget MONEY,
             budget_id SERIAL PRIMARY KEY NOT NULL
         );
         """,

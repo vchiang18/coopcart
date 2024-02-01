@@ -15,9 +15,9 @@ class BudgetIn(BaseModel):
     monthly_budget: Optional[int]
     monthly_spend: Optional[int]
     monthly_remaining: Optional[int]
-    YTD_budget: Optional[int]
-    YTD_spend: Optional[int]
-    YTD_remaining_budget: Optional[float]
+    ytd_budget: Optional[int]
+    ytd_spend: Optional[int]
+    ytd_remaining_budget: Optional[float]
 
 
 class BudgetOut(BaseModel):
@@ -47,9 +47,9 @@ class BudgetQueries:
                             monthly_budget,
                             monthly_spend,
                             monthly_remaining,
-                            YTD_budget,
-                            YTD_spend,
-                            YTD_remaining_budget)
+                            ytd_budget,
+                            ytd_spend,
+                            ytd_remaining_budget)
                         VALUES (%s, %s, %s,
                             %s::float8::numeric::money,
                             %s::float8::numeric::money,
@@ -66,9 +66,9 @@ class BudgetQueries:
                             budget.monthly_budget,
                             budget.monthly_spend,
                             budget.monthly_remaining,
-                            budget.YTD_budget,
-                            budget.YTD_spend,
-                            budget.YTD_remaining_budget
+                            budget.ytd_budget,
+                            budget.ytd_spend,
+                            budget.ytd_remaining_budget
                         ]
                     )
                     budget_id = db.fetchone()[0]
@@ -92,9 +92,9 @@ class BudgetQueries:
                             monthly_budget::numeric::integer,
                             monthly_spend::numeric::integer,
                             monthly_remaining::numeric::integer,
-                            YTD_budget::numeric::integer,
-                            YTD_spend::numeric::integer,
-                            YTD_remaining_budget::numeric::integer
+                            ytd_budget::numeric::integer,
+                            ytd_spend::numeric::integer,
+                            ytd_remaining_budget::numeric::integer
                         FROM budgets
                         WHERE budget_id = %s;
                         """,
@@ -121,9 +121,9 @@ class BudgetQueries:
                             monthly_budget::numeric::integer,
                             monthly_spend::numeric::integer,
                             monthly_remaining::numeric::integer,
-                            YTD_budget::money::numeric::integer,
-                            YTD_spend::numeric::integer,
-                            YTD_remaining_budget::money::numeric::float8
+                            ytd_budget::money::numeric::integer,
+                            ytd_spend::numeric::integer,
+                            ytd_remaining_budget::money::numeric::float8
                         FROM budgets
                         ORDER BY property;
                         """,
@@ -147,9 +147,9 @@ class BudgetQueries:
                             monthly_budget = %s::float8::numeric::money,
                             monthly_spend = %s::float8::numeric::money,
                             monthly_remaining = %s::float8::numeric::money,
-                            YTD_budget = %s::float8::numeric::money,
-                            YTD_spend = %s::float8::numeric::money,
-                            YTD_remaining_budget = %s::float8::numeric::money
+                            ytd_budget = %s::float8::numeric::money,
+                            ytd_spend = %s::float8::numeric::money,
+                            ytd_remaining_budget = %s::float8::numeric::money
                         WHERE budget_id = %s
                         RETURNING *;
                         """,
@@ -159,9 +159,9 @@ class BudgetQueries:
                             budget.monthly_budget,
                             budget.monthly_spend,
                             budget.monthly_remaining,
-                            budget.YTD_budget,
-                            budget.YTD_spend,
-                            budget.YTD_remaining_budget,
+                            budget.ytd_budget,
+                            budget.ytd_spend,
+                            budget.ytd_remaining_budget,
                             budget_id
                         ]
                     )

@@ -35,7 +35,7 @@ class FoodItemQueries:
                     db.execute(
                         """
                         INSERT INTO food_items (item_name, brand, vendor, unit_type, unit_quantity, price)
-                        VALUES (%s, %s, %s, %s, %s, %s::money)
+                        VALUES (%s, %s, %s, %s, %s, %s::numeric::money)
                         RETURNING food_item_id, price
                         """,
                         [
@@ -44,7 +44,7 @@ class FoodItemQueries:
                             food_items.vendor,
                             food_items.unit_type,
                             food_items.unit_quantity,
-                            '$' + str(food_items.price)
+                            food_items.price
                         ]
                     )
                     result = db.fetchone()
@@ -114,7 +114,7 @@ class FoodItemQueries:
                     db.execute(
                         """
                         UPDATE food_items
-                        SET item_name = %s, brand = %s, vendor = %s, unit_type = %s, unit_quantity = %s, price = CAST(%s AS MONEY)
+                        SET item_name = %s, brand = %s, vendor = %s, unit_type = %s, unit_quantity = %s, price = %s::numeric::money
                         WHERE food_item_id = %s
                         """,
                         [
@@ -123,7 +123,7 @@ class FoodItemQueries:
                             food_items.vendor,
                             food_items.unit_type,
                             food_items.unit_quantity,
-                            str(food_items.price),
+                            food_items.price,
                             food_item_id
                         ]
                     )

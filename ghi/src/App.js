@@ -1,3 +1,8 @@
+import { useEffect, useState } from "react";
+import Construct from "./Construct.js";
+import ErrorNotification from "./ErrorNotification";
+import "./App.css";
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
@@ -52,17 +57,10 @@ function App() {
   );
 
   return (
-    <AuthProvider baseUrl="http://localhost:8000">
-      <BrowserRouter>
-        <div className="Container">
-          <Routes>
-            <Route path="/property/" element={<CreateProperty />} />
-            <Route path="/signin" element={<SignInSignUp />} />
-            <Route path="/signup" element={<SignInSignUp />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </AuthProvider>
+    <div>
+      <ErrorNotification error={error} />
+      <Construct info={launchInfo} />
+    </div>
   );
 }
 

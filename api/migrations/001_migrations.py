@@ -26,6 +26,7 @@ steps = [
             username VARCHAR(100) UNIQUE NOT NULL,
             password_hash VARCHAR (100) NOT NULL,
             terms_boolean BOOLEAN NOT NULL,
+            is_km BOOLEAN,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             property INTEGER REFERENCES properties(property_id),
             user_id SERIAL PRIMARY KEY NOT NULL
