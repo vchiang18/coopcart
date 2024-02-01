@@ -5,6 +5,7 @@ from authenticator import authenticator
 
 router = APIRouter()
 
+
 @router.post("/food_item", response_model=Union[FoodItemOut, Error])
 async def create_food_item(
     food_item: FoodItemIn,
@@ -13,6 +14,7 @@ async def create_food_item(
     repo: FoodItemQueries = Depends(),
 ):
     return repo.create(food_item)
+
 
 @router.get("/food_item/{food_item_id}", response_model=Union[FoodItemOut, Error])
 async def get_food_item(
@@ -23,6 +25,7 @@ async def get_food_item(
 ):
     return repo.get(food_item_id)
 
+
 @router.get("/food_items", response_model=Union[List[FoodItemOut], Error])
 async def get_food_items(
     response: Response,
@@ -30,6 +33,7 @@ async def get_food_items(
     repo: FoodItemQueries = Depends(),
 ):
     return repo.get_all()
+
 
 @router.put("/food_item/{food_item_id}", response_model=Union[FoodItemOut, Error])
 async def update_food_item(
@@ -41,6 +45,7 @@ async def update_food_item(
 ):
     return repo.update(food_item_id, food_item)
 
+
 @router.delete("/food_item/{food_item_id}", response_model=Union[FoodItemOut, Error])
 async def delete_food_item(
     food_item_id: int,
@@ -49,5 +54,3 @@ async def delete_food_item(
     repo: FoodItemQueries = Depends(),
 ):
     return repo.delete(food_item_id)
-
-
