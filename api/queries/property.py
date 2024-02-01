@@ -35,6 +35,14 @@ class PropertyOut(BaseModel):
     created_at: datetime
     property_picture_url: Optional[str]
 
+class PropertyOutSignup(BaseModel):
+    property_name:Optional[str]=None
+    property_id: int
+    street: str
+    city: str
+    zip: str
+    state: str
+
 
 class PropertyQueries:
     def create(self, property: PropertyIn) -> Union[PropertyOut, Error]:
@@ -113,3 +121,26 @@ class PropertyQueries:
         except Exception as e:
             print(e)
             return {"message:" "An Error Occured"}
+
+    def get_all(self) -> Union[PropertyOut, Error]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor(row_factory=dict_row) as db:
+                    db.execute(
+                        """
+                        SELECT
+                            property_name,
+                            street,
+                            city,
+                            state,
+                            zip,
+                            property_id
+
+                        FROM properties
+                        """
+                    )
+                    result = db.fetchall()
+                    return [PropertyOutSignup(**row) for row in result]
+        except Exception as e:
+            print(e)
+            return {"message": "Could not get all properties"}
