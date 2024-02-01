@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function SignUpForm() {
+function TestForm() {
   const { login } = useToken();
   const [state, setState] = useState({
     first_name: "",
