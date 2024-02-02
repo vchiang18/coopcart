@@ -23,7 +23,7 @@ COPY routers routers
 RUN python -m pip install -r requirements.txt
 
 # This is the command that runs when the docker container starts
-CMD uvicorn main:app --host 0.0.0.0 --port 80 --forwarded-allow-ips "*"
+# CMD uvicorn main:app --host 0.0.0.0 --port 80 --forwarded-allow-ips "*"
 
 # If you're using a relational database and want migrations
 # to be run automatically, delete the previous CMD line and
