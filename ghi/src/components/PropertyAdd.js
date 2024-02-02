@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 function PropertyAdd() {
   const [properties, setProperties] = useState([]);
+  const [property, setProperty] = useState("");
 
   const getProperties = async () => {
     const url = "http://localhost:8000/properties";
@@ -24,6 +25,11 @@ function PropertyAdd() {
     return null;
   }
 
+  const handlePropertyChange = (e) => {
+    const value = e.target.value;
+    setProperty(value);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = "http://localhost:8000/properties";
@@ -32,6 +38,20 @@ function PropertyAdd() {
     <>
       <div className="container margin-bottom">
         <h1>Add Property</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="form-floating mb-3">
+            <select>
+              <option>Choose Property</option>
+              {/* {properties.map((property) => {
+                return (
+                    <option key={property.}>
+
+                    </option>
+                )
+              })} */}
+            </select>
+          </div>
+        </form>
       </div>
     </>
   );
