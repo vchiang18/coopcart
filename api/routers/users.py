@@ -6,9 +6,7 @@ from fastapi import (
     APIRouter,
     Request,
 )
-from queries.users import (UserIn,
-    UserOut, UserQueries, DuplicateAccountError,
-    Error, UserOutMembers)
+from queries.users import (UserIn, UserOut, UserQueries, DuplicateAccountError, Error, UserOutMembers)
 from queries.manager import (ManagerQueries, ManagerOut)
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
@@ -33,7 +31,7 @@ class HttpError(BaseModel):
 router = APIRouter()
 
 
-#creates and logs in new user
+# creates and logs in new user
 @router.post("/user", response_model=AccountToken | HttpError)
 async def create_user(
     info: UserIn,
@@ -67,7 +65,7 @@ async def get_token(
         }
 
 
-#protected list of users
+# protected list of users
 @router.get("/users", response_model=Union[List[UserOutMembers], Error])
 def get_users(
     response: Response,
@@ -77,14 +75,14 @@ def get_users(
 ):
     user_id = account_data["id"]
     manager = managers.get_manager_by_km(user_id)
-    #if user_id in manager table
+    # if user_id in manager table
     if isinstance(manager, ManagerOut):
         if manager.kitchen_manager == user_id:
-            #get the property id of the logged in user
+            # get the property id of the logged in user
             property_id = manager.property
     else:
         response.status_code = 404
-        #returns Error if no manager found
+        # returns Error if no manager found
         return manager
     users = repo.get_all(property_id)
     if users is None:
@@ -92,7 +90,7 @@ def get_users(
     return users
 
 
-#user detail
+# user detail
 @router.get("/user", response_model=Optional[UserOut])
 def get_user(
     response: Response,
@@ -106,7 +104,7 @@ def get_user(
     return user
 
 
-#edit user
+# edit user
 @router.put("/user", response_model=Union[UserOut, Error])
 def update_user(
     user: UserIn,

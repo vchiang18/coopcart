@@ -6,14 +6,13 @@ from fastapi import (
     APIRouter,
     Request,
 )
-from queries.vendors import (VendorIn, VendorOut,
-                            VendorQueries, Error)
+from queries.vendors import (VendorIn, VendorOut, VendorQueries, Error)
 from typing import Optional, Union, List
 
 router = APIRouter()
 
 
-#create vendor
+# create vendor
 @router.post("/vendor", response_model=VendorOut)
 async def create(
     info: VendorIn,
@@ -31,7 +30,7 @@ async def create(
     return vendor
 
 
-#list one vendor
+# list one vendor
 @router.get("/vendors/{vendor_id}", response_model=Optional[VendorOut])
 async def get_vendor(
     vendor_id: int,
@@ -44,7 +43,7 @@ async def get_vendor(
     return vendor
 
 
-#edit vendor
+# edit vendor
 @router.put("/vendors/{vendor_id}", response_model=Union[VendorOut, Error])
 def update_vendor(
     vendor_id: int,
@@ -54,7 +53,7 @@ def update_vendor(
     return repo.update(vendor_id, vendor)
 
 
-#list vendors
+# list vendors
 @router.get("/vendors", response_model=Union[List[VendorOut], Error])
 async def get_vendors(
     response: Response,
@@ -66,7 +65,7 @@ async def get_vendors(
     return vendors
 
 
-#delete vendor
+# delete vendor
 @router.delete("/vendors/{vendor_id}", response_model=bool)
 def delete_vendor(
     vendor_id: int,

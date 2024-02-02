@@ -2,7 +2,6 @@ from pydantic import BaseModel
 from typing import Optional, Union
 from queries.pool import pool
 from datetime import datetime
-from queries.pool import pool
 from psycopg.rows import dict_row
 
 
@@ -57,7 +56,7 @@ class PropertyQueries:
                         )
                     )
                     properties = curr.fetchone()
-                    properties["food_fee"]=float((properties["food_fee"][1:]))
+                    properties["food_fee"] = float((properties["food_fee"][1:]))
                     return PropertyOut(**properties)
         except Exception as e:
             print(e)
@@ -69,7 +68,7 @@ class PropertyQueries:
                 with conn.cursor(row_factory=dict_row) as db:
                     db.execute("SELECT * FROM properties WHERE property_id = %s;", (property_id,))
                     property_record = db.fetchone()
-                    property_record["food_fee"]=float((property_record["food_fee"][1:]))
+                    property_record["food_fee"] = float((property_record["food_fee"][1:]))
                     if property_record:
                         return PropertyOut(**property_record)
                     else:
@@ -101,7 +100,7 @@ class PropertyQueries:
                         )
                     )
                     updated_record = db.fetchone()
-                    updated_record["food_fee"]=float((updated_record["food_fee"][1:]))
+                    updated_record["food_fee"] = float((updated_record["food_fee"][1:]))
                     if updated_record:
                         return PropertyOut(**updated_record)
                     else:

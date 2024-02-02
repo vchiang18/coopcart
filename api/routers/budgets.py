@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Response
 from queries.budgets import BudgetIn, BudgetOut, BudgetQueries, Error
 from typing import Union, List
-from  authenticator import authenticator
+from authenticator import authenticator
 
 router = APIRouter()
 

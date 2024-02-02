@@ -8,7 +8,7 @@ router = APIRouter()
 
 @router.post("/orders")
 def create_order(order: OrderIn, repo: OrderRepository = Depends(),
-            account_data: dict = Depends(authenticator.get_current_account_data)):
+                 account_data: dict = Depends(authenticator.get_current_account_data)):
     return repo.create(order)
 
 
@@ -20,7 +20,7 @@ def get_all(repo: OrderRepository = Depends(),
 
 @router.put("/orders/{order_id}", response_model=OrderOut)
 def update_order(order_id: int, order: OrderIn, repo: OrderRepository = Depends(),
-            account_data: dict = Depends(authenticator.get_current_account_data)) -> Union[Error, OrderOut]:
+                 account_data: dict = Depends(authenticator.get_current_account_data)) -> Union[Error, OrderOut]:
     updated = repo.update(order_id, order)
     return updated
 

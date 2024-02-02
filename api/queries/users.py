@@ -42,13 +42,13 @@ class UserOutMembers(BaseModel):
     username: str
 
 
-#classes w hashed pw, and w property ID
+# classes w hashed pw, and w property ID
 class UserOutWithPw(UserOut):
     hashed_password: str
 
 
 class UserQueries:
-    def get_one(self, username:str) -> UserOutWithPw:
+    def get_one(self, username: str) -> UserOutWithPw:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -68,7 +68,7 @@ class UserQueries:
                             username
                         ]
                     )
-                    record=result.fetchone()
+                    record = result.fetchone()
                     first_name = record[0]
                     last_name = record[1]
                     username = record[2]
@@ -88,7 +88,7 @@ class UserQueries:
         except Exception:
             return {"message:" "Get user did not work"}
 
-    def get_one_no_pw(self, id:int) -> UserOut:
+    def get_one_no_pw(self, id: int) -> UserOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -145,7 +145,7 @@ class UserQueries:
                     id = result.fetchone()[0]
                     account_data = user.dict()
                     account_data.pop("password")
-                    return UserOut(id=id,**account_data)
+                    return UserOut(id=id, **account_data)
 
         except Exception:
             return {"message:" "Create did not work"}

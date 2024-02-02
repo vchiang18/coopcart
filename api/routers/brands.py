@@ -14,7 +14,7 @@ from typing import Optional, Union, List
 router = APIRouter()
 
 
-#create brand
+# create brand
 @router.post("/brand", response_model=BrandOut)
 async def create(
     info: BrandIn,
@@ -32,20 +32,20 @@ async def create(
     return brand
 
 
-#list one brand
+# list one brand
 @router.get("/brands/{brand_id}", response_model=Optional[BrandOut])
 async def get_brand(
     brand_id: int,
     response: Response,
     repo: BrandQueries = Depends()
 ):
-    brand=repo.get_one(brand_id)
+    brand = repo.get_one(brand_id)
     if brand is None:
         response.status_code = 404
     return brand
 
 
-#edit brand
+# edit brand
 @router.put("/brands/{brand_id}", response_model=Union[BrandOut, Error])
 def update_brand(
     brand_id: int,
@@ -55,7 +55,7 @@ def update_brand(
     return repo.update(brand_id, brand)
 
 
-#list brands
+# list brands
 @router.get("/brands", response_model=Union[List[BrandOut], Error])
 async def get_brands(
     response: Response,
@@ -67,7 +67,7 @@ async def get_brands(
     return brands
 
 
-#delete brand
+# delete brand
 @router.delete("/brands/{brand_id}", response_model=bool)
 def delete_brand(
     brand_id: int,

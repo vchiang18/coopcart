@@ -89,7 +89,7 @@ class BrandQueries:
         try:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=dict_row) as db:
-                    curr = db.execute(
+                    db.execute(
                         """
                         UPDATE brands
                         SET name = %s,
