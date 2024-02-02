@@ -5,9 +5,10 @@ function PropertyAdd() {
   const [property, setProperty] = useState("");
 
   const getProperties = async () => {
-    const url = "http://localhost:8000/properties";
+    const url = "`${process.env.REACT_APP_API_HOST}/properties";
     try {
       const response = await fetch(url);
+      console.log(response);
       if (response.ok) {
         const data = await response.json();
         setProperties(data.properties);
@@ -32,7 +33,7 @@ function PropertyAdd() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:8000/properties";
+    const url = "`${process.env.REACT_APP_API_HOST}/properties";
   };
   return (
     <>
@@ -42,13 +43,16 @@ function PropertyAdd() {
           <div className="form-floating mb-3">
             <select>
               <option>Choose Property</option>
-              {/* {properties.map((property) => {
+              {properties.map((property) => {
                 return (
-                    <option key={property.}>
-
-                    </option>
-                )
-              })} */}
+                  <option
+                    key={property.property_id}
+                    value={property.property_id}
+                  >
+                    {property.property_name}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </form>
