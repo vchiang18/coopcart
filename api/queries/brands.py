@@ -1,20 +1,23 @@
 from pydantic import BaseModel
-from typing import Optional, Union, List
-from datetime import date
+from typing import Union, List
 from queries.pool import pool
 from psycopg.rows import dict_row
 
+
 class Error(BaseModel):
     message: str
+
 
 class BrandIn(BaseModel):
     name: str
     logo_url: str
 
+
 class BrandOut(BaseModel):
     name: str
     logo_url: str
     brand_id: int
+
 
 class BrandQueries:
     def create(self, brand: BrandIn) -> Union[BrandOut, Error]:
@@ -40,7 +43,6 @@ class BrandQueries:
         except Exception as e:
             print(e)
             return {"message:" "Create did not work"}
-
 
     def get_one(self, brand_id: int) -> BrandOut:
         try:
@@ -76,7 +78,7 @@ class BrandQueries:
                         """
                     )
                     result = curr.fetchall()
-                    return[BrandOut(**row) for row in result]
+                    return [BrandOut(**row) for row in result]
         except Exception as e:
             print(e)
             return {"message": "Could not get all brands"}

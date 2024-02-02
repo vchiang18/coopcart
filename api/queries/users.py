@@ -1,11 +1,12 @@
 from pydantic import BaseModel
-from typing import Optional, Union, List
-from datetime import date
+from typing import Union, List
 from queries.pool import pool
 from psycopg.rows import dict_row
 
+
 class Error(BaseModel):
     message: str
+
 
 class DuplicateAccountError(BaseModel):
     pass
@@ -18,6 +19,7 @@ class UserIn(BaseModel):
     password: str
     term_boolean: bool
 
+
 class UserOut(BaseModel):
     first_name: str
     last_name: str
@@ -25,21 +27,24 @@ class UserOut(BaseModel):
     id: int
     term_boolean: bool
 
+
 class UserInWithProperty(UserIn):
     property_id: int
 
+
 class UserOutWithProperty(UserOut):
     property_id: int
+
 
 class UserOutMembers(BaseModel):
     first_name: str
     last_name: str
     username: str
 
+
 #classes w hashed pw, and w property ID
 class UserOutWithPw(UserOut):
     hashed_password: str
-
 
 
 class UserQueries:

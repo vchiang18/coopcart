@@ -1,7 +1,5 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import Optional, Union
-from datetime import date
-from decimal import Decimal
 from queries.pool import pool
 from datetime import datetime
 from queries.pool import pool
@@ -13,7 +11,7 @@ class Error(BaseModel):
 
 
 class PropertyIn(BaseModel):
-    property_name:Optional[str]=None
+    property_name: Optional[str] = None
     street: str
     city: str
     zip: str
@@ -24,7 +22,7 @@ class PropertyIn(BaseModel):
 
 
 class PropertyOut(BaseModel):
-    property_name:Optional[str]=None
+    property_name: Optional[str] = None
     property_id: int
     street: str
     city: str
@@ -65,7 +63,6 @@ class PropertyQueries:
             print(e)
             return {"message:" "Create did not work"}
 
-
     def get(self, property_id: int) -> Union[PropertyOut, Error]:
         try:
             with pool.connection() as conn:
@@ -79,7 +76,6 @@ class PropertyQueries:
                         return Error(message="Property not found")
         except Exception:
             return {"message:" "An Error Occurred"}
-
 
     def update(self, property_id: int, property: PropertyIn) -> Union[PropertyOut, Error]:
         try:

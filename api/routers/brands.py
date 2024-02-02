@@ -8,11 +8,11 @@ from fastapi import (
 )
 from queries.brands import (BrandIn, BrandOut,
                             BrandQueries, Error)
-from jwtdown_fastapi.authentication import Token
-from authenticator import authenticator
 from typing import Optional, Union, List
 
+
 router = APIRouter()
+
 
 #create brand
 @router.post("/brand", response_model=BrandOut)
@@ -31,6 +31,7 @@ async def create(
         )
     return brand
 
+
 #list one brand
 @router.get("/brands/{brand_id}", response_model=Optional[BrandOut])
 async def get_brand(
@@ -43,6 +44,7 @@ async def get_brand(
         response.status_code = 404
     return brand
 
+
 #edit brand
 @router.put("/brands/{brand_id}", response_model=Union[BrandOut, Error])
 def update_brand(
@@ -51,6 +53,7 @@ def update_brand(
     repo: BrandQueries = Depends()
 ):
     return repo.update(brand_id, brand)
+
 
 #list brands
 @router.get("/brands", response_model=Union[List[BrandOut], Error])
@@ -62,6 +65,7 @@ async def get_brands(
     if brands is None:
         response.status_code = 404
     return brands
+
 
 #delete brand
 @router.delete("/brands/{brand_id}", response_model=bool)

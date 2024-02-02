@@ -1,20 +1,23 @@
 from pydantic import BaseModel
-from typing import Optional, Union, List
-from datetime import date
+from typing import Union, List
 from queries.pool import pool
 from psycopg.rows import dict_row
 
+
 class Error(BaseModel):
     message: str
+
 
 class VendorIn(BaseModel):
     name: str
     logo_url: str
 
+
 class VendorOut(BaseModel):
     name: str
     logo_url: str
     vendor_id: int
+
 
 class VendorQueries:
     def create(self, vendor: VendorIn) -> Union[VendorOut, Error]:
@@ -40,7 +43,6 @@ class VendorQueries:
         except Exception as e:
             print(e)
             return {"message:" "Create did not work"}
-
 
     def get_one(self, vendor_id: int) -> VendorOut:
         try:

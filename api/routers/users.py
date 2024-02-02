@@ -16,17 +16,22 @@ from typing import Optional, Union, List
 
 from pydantic import BaseModel
 
+
 class AccountForm(BaseModel):
     username: str
     password: str
 
+
 class AccountToken(Token):
     account: UserOut
+
 
 class HttpError(BaseModel):
     detail: str
 
+
 router = APIRouter()
+
 
 #creates and logs in new user
 @router.post("/user", response_model=AccountToken | HttpError)
@@ -48,6 +53,7 @@ async def create_user(
     token = await authenticator.login(response, request, form, users)
     return AccountToken(account=user, **token.dict())
 
+
 @router.get("/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
@@ -59,6 +65,7 @@ async def get_token(
             "type": "Bearer",
             "account": account,
         }
+
 
 #protected list of users
 @router.get("/users", response_model=Union[List[UserOutMembers], Error])
@@ -84,6 +91,7 @@ def get_users(
         response.status_code = 404
     return users
 
+
 #user detail
 @router.get("/user", response_model=Optional[UserOut])
 def get_user(
@@ -96,6 +104,7 @@ def get_user(
     if user is None:
         response.status_code = 404
     return user
+
 
 #edit user
 @router.put("/user", response_model=Union[UserOut, Error])

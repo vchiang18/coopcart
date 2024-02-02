@@ -8,11 +8,10 @@ from fastapi import (
 )
 from queries.vendors import (VendorIn, VendorOut,
                             VendorQueries, Error)
-from jwtdown_fastapi.authentication import Token
-from authenticator import authenticator
 from typing import Optional, Union, List
 
 router = APIRouter()
+
 
 #create vendor
 @router.post("/vendor", response_model=VendorOut)
@@ -31,6 +30,7 @@ async def create(
         )
     return vendor
 
+
 #list one vendor
 @router.get("/vendors/{vendor_id}", response_model=Optional[VendorOut])
 async def get_vendor(
@@ -43,6 +43,7 @@ async def get_vendor(
         response.status_code = 404
     return vendor
 
+
 #edit vendor
 @router.put("/vendors/{vendor_id}", response_model=Union[VendorOut, Error])
 def update_vendor(
@@ -51,6 +52,7 @@ def update_vendor(
     repo: VendorQueries = Depends()
 ):
     return repo.update(vendor_id, vendor)
+
 
 #list vendors
 @router.get("/vendors", response_model=Union[List[VendorOut], Error])
@@ -62,6 +64,7 @@ async def get_vendors(
     if vendors is None:
         response.status_code = 404
     return vendors
+
 
 #delete vendor
 @router.delete("/vendors/{vendor_id}", response_model=bool)
