@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "./signup.css";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { useNavigate } from "react-router-dom";
 
 function SignInForm() {
   const { login } = useToken();
+  const navigate = useNavigate();
   const [state, setState] = useState({
     username: "",
     password: "",
@@ -22,6 +24,7 @@ function SignInForm() {
     try {
       await login(state.username, state.password);
       alert("Login successful");
+      navigate("/");
     } catch (error) {
       alert("Login failed: " + error.message);
     }
