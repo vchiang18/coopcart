@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./signup.css";
-import CreateProperty from "./CreateProperty";
+import CreateProperty from "./components/PropertyForm";
 import SignInForm from "./Signin";
 import SignUpForm from "./Signup";
 import SignupProperty from "./SignupProperty";
+import PropertyAdd from "./components/PropertyAdd";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
             <Route path="/signin" element={<SignInSignUp />} />
             <Route path="/signup" element={<SignInSignUp />} />
             <Route path="signup/property" element={<SignupProperty />} />
+            <Route path="property/add" element={<PropertyAdd />} />
           </Routes>
         </div>
       </BrowserRouter>

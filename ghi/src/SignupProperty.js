@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
-import SignUpForm from "./Signup.js";
+import TestForm from "./components/SignupForm.js";
+import PropertyForm from "./components/PropertyForm.js";
 
 function SignupProperty() {
   const { token } = useAuthContext();
-  const [isKM, setIsKM] = useState("");
-  const [isMember, setIsMember] = useState("");
+  const [isKM, setIsKM] = useState(false);
+  const [isMember, setIsMember] = useState(true);
 
-  const handleSelectKM = (e) => {
-    setIsKM(e.target.value);
+  const handleKMChange = (e) => {
+    setIsKM(!isKM);
+    setIsMember(!isMember);
   };
+  let comp = null;
 
-  const handleSelectMember = (e) => {
-    setIsMember(e.target.value);
-  };
-
-  console.log(isKM);
-  console.log(isMember);
+  if (isMember) {
+    comp = (
+      <p>
+        If you don't see your property, please ask your Kitchen Manager to add
+        one!
+      </p>
+    );
+  } else if (isKM) {
+    comp = <PropertyForm />;
+  } else {
+    comp = null;
+  }
 
   return (
     <>
@@ -27,8 +36,8 @@ function SignupProperty() {
           name="km"
           value="km"
           id="km"
-          checked={isKM === "km"}
-          onChange={handleSelectKM}
+          checked={isKM === true}
+          onChange={handleKMChange}
         />
         <label htmlFor="km"></label>
         I'm a Kitchen Manager
@@ -37,66 +46,28 @@ function SignupProperty() {
           name="km"
           value="member"
           id="member"
-          checked={isMember === "member"}
-          onChange={handleSelectMember}
+          checked={isMember === true}
+          onChange={handleKMChange}
         />
         <label htmlFor="member"></label>
         I'm a Member
       </div>
       <div>
-        <SignUpForm />
+        <TestForm />
       </div>
-      {isMember === "member" && <div>{/* content to show for member */}</div>}
+      <div>{comp}</div>
 
-      {isKM === "km" && <div>{/* content to show for km */}</div>}
+      {/* {isMember === true && (
+        <div>
+          <p>I'm a member!</p>
+        </div>
+      )}
+
+      {isKM === true && (
+        <div><p>I'm a kitchen manager!</p></div>
+      )} */}
     </>
   );
 }
 
 export default SignupProperty;
-
-//   const [properties, setProperties] = useState([]);
-//   const [property, setProperty] = useState([]);
-
-// const handleIsKM = async () => {
-
-//   const url = `http://localhost:8000/user`;
-//   const user = {};
-//   const fetchConfig = {
-//     method: "PUT",
-//     body: JSON.stringify({user}),
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
-//   try {
-//       const response = await fetch(url, fetchConfig);
-//       if (response.ok) {
-
-//       }
-//   }
-// };
-
-//     const getProperties = async () => {
-//       const url = "http://localhost:8000/properties";
-//       try {
-//         const response = await fetch(url);
-//         if (response.ok) {
-//           const data = await response.json();
-//           setProperties(data.properties);
-//         }
-//       } catch (err) {
-//         console.error(err);
-//       }
-//     };
-
-//   useEffect(() => {
-//     getProperties();
-//   }, []);
-
-//   if (properties === undefined) {
-//     return null;
-//   }
-
-// onSubmit - should add isKM to user (edit) / property_id to user (edit)
