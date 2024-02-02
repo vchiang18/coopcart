@@ -1,38 +1,67 @@
-import { useEffect, useState } from "react";
-import Construct from "./Construct.js";
-import ErrorNotification from "./ErrorNotification";
-import "./App.css";
-import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import "./signup.css";
+import CreateProperty from './CreateProperty';
+import SignInForm from './Signin';
+import SignUpForm from './Signup';
+import { AuthProvider } from "@galvanize-inc/jwtdown-for-react"
 
 function App() {
-  const [launchInfo, setLaunchInfo] = useState([]);
-  const [error, setError] = useState(null);
+  const [type, setType] = useState("signIn");
 
-  useEffect(() => {
-    async function getData() {
-      let url = `${process.env.REACT_APP_API_HOST}/api/launch-details`;
-      console.log("fastapi url: ", url);
-      let response = await fetch(url);
-      console.log("------- hello? -------");
-      let data = await response.json();
-
-      if (response.ok) {
-        console.log("got launch data!");
-        setLaunchInfo(data.launch_details);
-      } else {
-        console.log("drat! something happened");
-        setError(data.message);
-      }
+  const handleOnClick = (text) => {
+    if (text !== type) {
+      setType(text);
     }
-    getData();
-  }, []);
+  };
+
+  const SignInSignUp = () => (
+    <div className="App">
+      <h2>Sign in/up Form</h2>
+      <div className={`container ${type === "signUp" ? "right-panel-active" : ""}`} id="container">
+        <SignUpForm />
+        <SignInForm />
+        <div className="overlay-container">
+          <div className="overlay">
+            <div className="overlay-panel overlay-left">
+              <h1>Welcome Back!</h1>
+              <p>To keep connected with us please login with your personal info</p>
+              <button
+                className="ghost"
+                id="signIn"
+                onClick={() => handleOnClick("signIn")}
+              >
+                Sign In
+              </button>
+            </div>
+            <div className="overlay-panel overlay-right">
+              <h1>Hello, Friend!</h1>
+              <p>Enter your personal details and start journey with us</p>
+              <button
+                className="ghost"
+                id="signUp"
+                onClick={() => handleOnClick("signUp")}
+              >
+                Sign Up
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <AuthProvider>
-      <div>
-        <ErrorNotification error={error} />
-        <Construct info={launchInfo} />
-      </div>
+    <AuthProvider baseUrl="http://localhost:8000">
+      <BrowserRouter>
+        <div className="Container">
+          <Routes>
+            <Route path="/property/" element={<CreateProperty />} />
+            <Route path="/signin" element={<SignInSignUp />} />
+            <Route path="/signup" element={<SignInSignUp />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
     </AuthProvider>
   );
 }
