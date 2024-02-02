@@ -34,7 +34,12 @@ class FoodItemQueries:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        INSERT INTO food_items (item_name, brand, vendor, unit_type, unit_quantity, price)
+                        INSERT INTO food_items
+                            (item_name,
+                            brand, vendor,
+                            unit_type,
+                            unit_quantity,
+                            price)
                         VALUES (%s, %s, %s, %s, %s, %s::numeric::money)
                         RETURNING food_item_id, price
                         """,
@@ -114,7 +119,13 @@ class FoodItemQueries:
                     db.execute(
                         """
                         UPDATE food_items
-                        SET item_name = %s, brand = %s, vendor = %s, unit_type = %s, unit_quantity = %s, price = %s::numeric::money
+                        SET
+                            item_name = %s,
+                            brand = %s,
+                            vendor = %s,
+                            unit_type = %s,
+                            unit_quantity = %s,
+                            price = %s::numeric::money
                         WHERE food_item_id = %s
                         """,
                         [

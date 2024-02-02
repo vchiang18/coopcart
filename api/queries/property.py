@@ -40,7 +40,15 @@ class PropertyQueries:
                 with conn.cursor(row_factory=dict_row) as db:
                     curr = db.execute(
                         """
-                        INSERT INTO properties (property_name, street, city, zip, state, total_members, food_fee, property_picture_url)
+                        INSERT INTO properties
+                            (property_name,
+                            street,
+                            city,
+                            zip,
+                            state,
+                            total_members,
+                            food_fee,
+                            property_picture_url)
                         VALUES (%s,%s, %s, %s, %s, %s, %s, %s)
                         RETURNING *;
                         """,

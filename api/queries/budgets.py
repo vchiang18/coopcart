@@ -135,7 +135,8 @@ class BudgetQueries:
         except Exception as e:
             return Error(message=str(e))
 
-    def update(self, budget_id: int, budget: BudgetIn) -> Union[BudgetOut, Error]:
+    def update(self, budget_id: int,
+               budget: BudgetIn) -> Union[BudgetOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:

@@ -47,7 +47,16 @@ class OrderRepository:
                     result = db.execute(
                         """
                         INSERT INTO orders
-                            (item, brand, unit_quantity, unit_type, vendor, requestor, quantity, purchased_price, purchased_quantity, notes)
+                            (item,
+                            brand,
+                            unit_quantity,
+                            unit_type,
+                            vendor,
+                            requestor,
+                            quantity,
+                            purchased_price,
+                            purchased_quantity,
+                            notes)
                         VALUES
                             (%s, %s, %s, %s, %s, %s, %s, %s::numeric::money, %s, %s)
                         RETURNING *;
