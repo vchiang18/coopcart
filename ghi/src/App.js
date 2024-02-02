@@ -6,6 +6,7 @@ import SignInForm from "./Signin";
 import SignUpForm from "./Signup";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import UserDetail from "./components/UserDetail";
+import PropertyAdd from "./components/PropertyAdd";
 
 function App() {
   const [type, setType] = useState("signIn");
@@ -66,6 +67,7 @@ function App() {
             <Route path="/signin" element={<SignInSignUp />} />
             <Route path="/signup" element={<SignInSignUp />} />
             <Route path="/user" element={<UserDetail />} />
+            <Route path="/property/add" element={<PropertyAdd />} />
           </Routes>
         </div>
       </BrowserRouter>
