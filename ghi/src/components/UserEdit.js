@@ -9,8 +9,6 @@ function UserEdit() {
   const { token } = useAuthContext();
   const [submitted, setSubmitted] = useState(false);
 
-  console.log("token:", token);
-
   const getUser = async () => {
     const url = `${process.env.REACT_APP_API_HOST}/user`;
     const fetchOptions = {
@@ -24,9 +22,9 @@ function UserEdit() {
     try {
       if (token) {
         const decodedToken = jwtDecode(token);
-        console.log("decoded token: ", decodedToken);
+        // console.log("decoded token: ", decodedToken);
         const user_id = decodedToken.account.id;
-        console.log(user_id);
+        // console.log(user_id);
 
         if (user_id) {
           try {
@@ -150,7 +148,7 @@ function UserEdit() {
                 <label htmlFor="employee_id">Email</label>
               </div>
 
-              <button className="btn btn-primary mb-3">Edit</button>
+              <button className="btn btn-primary mb-3">Submit</button>
             </form>
             {/* <div className={submittedMessage}>Success! Details updated.</div> */}
           </div>

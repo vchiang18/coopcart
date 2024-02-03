@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 
 function PropertyAdd() {
   const [properties, setProperties] = useState([]);
   const [property, setProperty] = useState("");
+  const { token } = useAuthContext();
+  console.log(token);
 
   const getProperties = async () => {
-    const url = "`${process.env.REACT_APP_API_HOST}/properties";
+    const url = `${process.env.REACT_APP_API_HOST}/properties`;
     try {
       const response = await fetch(url);
-      console.log(response);
+      console.log("get properties response:", response);
       if (response.ok) {
         const data = await response.json();
         setProperties(data.properties);
@@ -33,7 +36,7 @@ function PropertyAdd() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = "`${process.env.REACT_APP_API_HOST}/properties";
+    const url = `${process.env.REACT_APP_API_HOST}/properties`;
   };
   return (
     <>
