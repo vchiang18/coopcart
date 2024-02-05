@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './signup.css'
+import '../signup.css'
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function SignUpForm() {
@@ -19,6 +19,12 @@ function SignUpForm() {
 
   const handleOnSubmit = async (evt) => {
     evt.preventDefault();
+
+    if(!state.term_boolean){
+      alert("You must accept the terms and conditions to sign up. ")
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:8000/user', {
         method: 'POST',
@@ -34,7 +40,7 @@ function SignUpForm() {
   };
 
   return (
-    <div className="form-container sign-up-container">
+    <div>
       <form onSubmit={handleOnSubmit}>
         <h1>Create Account</h1>
         <input type="text" name="first_name" value={state.first_name} onChange={handleChange} placeholder="First Name" />

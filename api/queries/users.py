@@ -29,6 +29,10 @@ class UserOut(BaseModel):
     term_boolean: Optional[bool]
 
 
+class UserInIsKM(UserIn):
+    is_km: bool
+
+
 class UserInEdit(BaseModel):
     first_name: str
     last_name: str
