@@ -1,9 +1,9 @@
 from fastapi.testclient import TestClient
 from main import app
 from queries.brands import BrandQueries
-import json
 
 client = TestClient(app)
+
 
 class CreateBrandQueries:
     def create(self, brand):
@@ -15,6 +15,7 @@ class CreateBrandQueries:
         result.update()
         return result
 
+
 class EmptyBrandQuery:
     def get_one(self, brand_id):
         result = {
@@ -24,9 +25,11 @@ class EmptyBrandQuery:
         }
         return result
 
+
 class EmptyBrandQueries:
     def get_all(self):
         return []
+
 
 class EditBrandQuery:
     def update(self, *args, **kwargs):
@@ -36,6 +39,7 @@ class EditBrandQuery:
             "brand_id": 11
         }
         return result
+
 
 def test_edit():
     app.dependency_overrides[BrandQueries] = EditBrandQuery
@@ -72,6 +76,7 @@ def test_create():
     assert response.status_code == 200
     assert response.json() == expected
 
+
 def test_get_one():
     app.dependency_overrides[BrandQueries] = EmptyBrandQuery
     brand_id = 11
@@ -84,6 +89,7 @@ def test_get_one():
     app.dependency_overrides = {}
     assert response.status_code == 200
     assert response.json() == expected
+
 
 def test_get_all():
     app.dependency_overrides[BrandQueries] = EmptyBrandQueries
