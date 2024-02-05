@@ -4,8 +4,10 @@ from datetime import date
 from queries.pool import pool
 from psycopg.rows import dict_row
 
+
 class Error(BaseModel):
     message: str
+
 
 class DuplicateAccountError(BaseModel):
     pass
@@ -18,6 +20,7 @@ class UserIn(BaseModel):
     password: str
     term_boolean: bool
 
+
 class UserOut(BaseModel):
     first_name: str
     last_name: str
@@ -25,24 +28,27 @@ class UserOut(BaseModel):
     id: int
     term_boolean: Optional[bool]
 
+
 class UserInEdit(BaseModel):
     first_name: str
     last_name: str
     username: str
     term_boolean: Optional[bool]
 
+
 class UserOutWithProperty(UserOut):
     property_id: int
+
 
 class UserOutMembers(BaseModel):
     first_name: str
     last_name: str
     username: str
 
+
 #classes w hashed pw, and w property ID
 class UserOutWithPw(UserOut):
     hashed_password: str
-
 
 
 class UserQueries:
@@ -66,7 +72,7 @@ class UserQueries:
                             username
                         ]
                     )
-                    record=result.fetchone()
+                    record = result.fetchone()
                     first_name = record[0]
                     last_name = record[1]
                     username = record[2]
