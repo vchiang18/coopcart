@@ -1,3 +1,10 @@
+2/2/2024
+- protected all backend endpoints for requests and orders
+- got backend auth working
+- created unit tests for all endpoints for requests and orders
+- fixed all errors from flake8 command aside fomr E501 which is a line too long error
+- will start and finish frontend pages and components by end of the week
+
 1/26/2024
 - completed issues assigned to me regarding endpoints for requests and models
 - starting on protecting endpoints
