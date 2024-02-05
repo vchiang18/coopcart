@@ -1,11 +1,12 @@
 from pydantic import BaseModel
-from typing import Optional, Union, List
-from datetime import date
+from typing import Union, List
 from queries.pool import pool
 from psycopg.rows import dict_row
 
+
 class Error(BaseModel):
     message: str
+
 
 class DuplicateAccountError(BaseModel):
     pass
@@ -18,6 +19,7 @@ class UserIn(BaseModel):
     password: str
     term_boolean: bool
 
+
 class UserOut(BaseModel):
     first_name: str
     last_name: str
@@ -25,28 +27,32 @@ class UserOut(BaseModel):
     id: int
     term_boolean: bool
 
+
 class UserInIsKM(UserIn):
     is_km: bool
+
 
 class UserInWithProperty(UserIn):
     property_id: int
 
+
 class UserOutWithProperty(UserOut):
     property_id: int
+
 
 class UserOutMembers(BaseModel):
     first_name: str
     last_name: str
     username: str
 
-#classes w hashed pw, and w property ID
+
+# classes w hashed pw, and w property ID
 class UserOutWithPw(UserOut):
     hashed_password: str
 
 
-
 class UserQueries:
-    def get_one(self, username:str) -> UserOutWithPw:
+    def get_one(self, username: str) -> UserOutWithPw:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -66,7 +72,7 @@ class UserQueries:
                             username
                         ]
                     )
-                    record=result.fetchone()
+                    record = result.fetchone()
                     first_name = record[0]
                     last_name = record[1]
                     username = record[2]
@@ -86,7 +92,7 @@ class UserQueries:
         except Exception:
             return {"message:" "Get user did not work"}
 
-    def get_one_no_pw(self, id:int) -> UserOut:
+    def get_one_no_pw(self, id: int) -> UserOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -104,7 +110,7 @@ class UserQueries:
                     first_name = record[0]
                     last_name = record[1]
                     username = record[2]
-                    id = record[7]
+                    id = record[8]
                     term_boolean = record[4]
                     if id is None:
                         return None
@@ -143,7 +149,7 @@ class UserQueries:
                     id = result.fetchone()[0]
                     account_data = user.dict()
                     account_data.pop("password")
-                    return UserOut(id=id,**account_data)
+                    return UserOut(id=id, **account_data)
 
         except Exception:
             return {"message:" "Create did not work"}
@@ -179,7 +185,7 @@ class UserQueries:
             print(e)
             return {"message": "Could not get all users"}
 
-    def update(self, user_id: int, user: UserIn) -> UserOut:
+    def update(self, user_id: int, user: UserInEdit) -> UserOut:
         if user_id is None:
             return None
         try:
@@ -191,14 +197,14 @@ class UserQueries:
                         SET first_name = %s,
                             last_name = %s,
                             username = %s,
-                            password_hash = %s
+                            terms_boolean = %s
                         WHERE user_id = %s
                         """,
                         [
                             user.first_name,
                             user.last_name,
                             user.username,
-                            user.password,
+                            user.term_boolean,
                             user_id
                         ]
                     )
