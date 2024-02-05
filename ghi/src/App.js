@@ -30,10 +30,9 @@ function App() {
             <Route path="/property/" element={<CreateProperty />} />
             <Route path="signup/property" element={<SignupProperty />} />
             {/* <Route path="/signin" element={<SignInSignUp />} />
-            <Route path="/signup" element={<SignInSignUp />} />
+            <Route path="/signup" element={<SignInSignUp />} /> */}
             <Route path="/user" element={<UserEdit />} />
             <Route path="/property/add" element={<PropertyAdd />} />
-            <Route path="property/add" element={<PropertyAdd />} /> */}
           </Routes>
         </div>
       </BrowserRouter>

@@ -41,7 +41,8 @@ function PropertyAdd() {
   return (
     <>
       <div className="container margin-bottom">
-        <h1>Add Property</h1>
+        <h2>2. Select Your Coop</h2>
+        <p>If you don't see your coop in this list, please add it below</p>
         <form onSubmit={handleSubmit}>
           <div className="form-floating mb-3">
             <select>

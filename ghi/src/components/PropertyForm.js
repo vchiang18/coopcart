@@ -63,7 +63,8 @@ const PropertyForm = () => {
     <div className="container my-5">
       <div className="card shadow">
         <div className="card-body">
-          <h1 className="card-title text-center">Create Property</h1>
+          <h2 className="card-title text-center">Optional: Create Your Coop</h2>
+          <p>Only do this step if you do not see your coop in step 2!</p>
           <form onSubmit={handleSubmit} id="create-property-form">
             {/* Property Name */}
             <div className="mb-3">
@@ -170,9 +171,9 @@ const PropertyForm = () => {
               />
             </div>
 
-            <button type="submit" className="btn btn-primary w-100">
+            {/* <button type="submit" className="btn btn-primary w-100">
               Create
-            </button>
+            </button> */}
           </form>
         </div>
       </div>
