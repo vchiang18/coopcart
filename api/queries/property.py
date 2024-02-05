@@ -1,8 +1,5 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import Optional, Union
-from datetime import date
-from decimal import Decimal
-from queries.pool import pool
 from datetime import datetime
 from queries.pool import pool
 from psycopg.rows import dict_row
@@ -13,7 +10,7 @@ class Error(BaseModel):
 
 
 class PropertyIn(BaseModel):
-    property_name:Optional[str]=None
+    property_name: Optional[str] = None
     street: str
     city: str
     zip: str
@@ -24,7 +21,7 @@ class PropertyIn(BaseModel):
 
 
 class PropertyOut(BaseModel):
-    property_name:Optional[str]=None
+    property_name: Optional[str] = None
     property_id: int
     street: str
     city: str
@@ -35,8 +32,9 @@ class PropertyOut(BaseModel):
     created_at: datetime
     property_picture_url: Optional[str]
 
+
 class PropertyOutSignup(BaseModel):
-    property_name:Optional[str]=None
+    property_name: Optional[str] = None
     property_id: int
     street: str
     city: str
@@ -67,12 +65,11 @@ class PropertyQueries:
                         )
                     )
                     properties = curr.fetchone()
-                    properties["food_fee"]=float((properties["food_fee"][1:]))
+                    properties["food_fee"] = float((properties["food_fee"][1:]))
                     return PropertyOut(**properties)
         except Exception as e:
             print(e)
             return {"message:" "Create did not work"}
-
 
     def get(self, property_id: int) -> Union[PropertyOut, Error]:
         try:
@@ -80,14 +77,13 @@ class PropertyQueries:
                 with conn.cursor(row_factory=dict_row) as db:
                     db.execute("SELECT * FROM properties WHERE property_id = %s;", (property_id,))
                     property_record = db.fetchone()
-                    property_record["food_fee"]=float((property_record["food_fee"][1:]))
+                    property_record["food_fee"] = float((property_record["food_fee"][1:]))
                     if property_record:
                         return PropertyOut(**property_record)
                     else:
                         return Error(message="Property not found")
         except Exception:
             return {"message:" "An Error Occurred"}
-
 
     def update(self, property_id: int, property: PropertyIn) -> Union[PropertyOut, Error]:
         try:
@@ -113,7 +109,7 @@ class PropertyQueries:
                         )
                     )
                     updated_record = db.fetchone()
-                    updated_record["food_fee"]=float((updated_record["food_fee"][1:]))
+                    updated_record["food_fee"] = float((updated_record["food_fee"][1:]))
                     if updated_record:
                         return PropertyOut(**updated_record)
                     else:
