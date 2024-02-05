@@ -24,7 +24,7 @@ function SignInForm() {
     try {
       await login(state.username, state.password);
       alert("Login successful");
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       alert("Login failed: " + error.message);
     }
