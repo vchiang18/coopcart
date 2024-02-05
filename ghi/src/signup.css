@@ -1,15 +1,15 @@
 .App {
-  font-family: 'Arvo', serif;
+  font-family: "Arvo", serif;
   text-align: center;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Arvo:ital@1&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Arvo:ital@1&display=swap");
 
 * {
   box-sizing: border-box;
 }
 
-body {
+.SignInSignup-body {
   background: #f6f5f7;
   display: flex;
   justify-content: center;
@@ -18,18 +18,19 @@ body {
   font-family: "Montserrat", sans-serif;
   height: 100vh;
   margin: -20px 0 50px;
+  overflow: scroll;
 }
 
-h1 {
+.SignInSignup-h1 {
   font-weight: bold;
   margin: 0;
 }
 
-h2 {
+.SignInSignup-h2 {
   text-align: center;
 }
 
-p {
+.SignInSignup-p {
   font-size: 14px;
   font-weight: 100;
   line-height: 20px;
@@ -41,7 +42,7 @@ span {
   font-size: 12px;
 }
 
-a {
+.SignInSignup-a {
   color: #333;
   font-size: 14px;
   text-decoration: none;

@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends
-from queries.property import PropertyIn, PropertyOut, PropertyQueries, Error
-from typing import Union
+from fastapi import APIRouter, Depends, Response
+from queries.property import PropertyIn, PropertyOut, PropertyOutSignup, PropertyQueries, Error
+from typing import Union, List
 from authenticator import authenticator
 
 router = APIRouter()
@@ -25,3 +25,14 @@ def update_property(property_id: int, property: PropertyIn, repo: PropertyQuerie
                     account_data: dict = Depends(authenticator.get_current_account_data)):
     update_property = repo.update(property_id, property)
     return update_property
+
+@router.get("/properties", response_model=Union[List[PropertyOutSignup], Error])
+def get_all(
+    response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: PropertyQueries = Depends(),
+):
+    properties = repo.get_all()
+    if properties is None:
+        response.status_code = 404
+    return properties

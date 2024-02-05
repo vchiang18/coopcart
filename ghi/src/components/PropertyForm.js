@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import './style.css'
+import React, { useState } from "react";
+import "../style.css";
 
-const CreateProperty = () => {
+const PropertyForm = () => {
   const [property, setProperty] = useState({
-    property_name: '',
-    street: '',
-    city: '',
-    state: '',
-    zip: '',
-    food_fee: '',
-    total_members: ''
+    property_name: "",
+    street: "",
+    city: "",
+    state: "",
+    zip: "",
+    food_fee: "",
+    total_members: "",
   });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setProperty(prevProperty => ({
+    setProperty((prevProperty) => ({
       ...prevProperty,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -29,14 +29,14 @@ const CreateProperty = () => {
       state: property.state,
       zip: property.zip,
       food_fee: property.food_fee,
-      total_members: property.total_members
+      total_members: property.total_members,
     };
 
-    const response = await fetch('http://localhost:8000/property', {
+    const response = await fetch("http://localhost:8000/property", {
       method: "post",
       body: JSON.stringify(propertyData),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -44,16 +44,16 @@ const CreateProperty = () => {
       const newProperty = await response.json();
       console.log(newProperty);
       setProperty({
-        property_name: '',
-        street: '',
-        city: '',
-        state: '',
-        zip: '',
-        food_fee: '',
-        total_members: ''
+        property_name: "",
+        street: "",
+        city: "",
+        state: "",
+        zip: "",
+        food_fee: "",
+        total_members: "",
       });
     } else {
-      console.error('Failed to create property');
+      console.error("Failed to create property");
       const errorResponse = await response.text();
       console.error(errorResponse);
     }
@@ -67,7 +67,9 @@ const CreateProperty = () => {
           <form onSubmit={handleSubmit} id="create-property-form">
             {/* Property Name */}
             <div className="mb-3">
-              <label htmlFor="property_name" className="form-label">Property Name</label>
+              <label htmlFor="property_name" className="form-label">
+                Property Name
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -80,7 +82,9 @@ const CreateProperty = () => {
 
             {/* Street */}
             <div className="mb-3">
-              <label htmlFor="street" className="form-label">Street</label>
+              <label htmlFor="street" className="form-label">
+                Street
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -93,7 +97,9 @@ const CreateProperty = () => {
 
             {/* City */}
             <div className="mb-3">
-              <label htmlFor="city" className="form-label">City</label>
+              <label htmlFor="city" className="form-label">
+                City
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -106,7 +112,9 @@ const CreateProperty = () => {
 
             {/* State */}
             <div className="mb-3">
-              <label htmlFor="state" className="form-label">State</label>
+              <label htmlFor="state" className="form-label">
+                State
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -119,7 +127,9 @@ const CreateProperty = () => {
 
             {/* Zip Code */}
             <div className="mb-3">
-              <label htmlFor="zip" className="form-label">Zip Code</label>
+              <label htmlFor="zip" className="form-label">
+                Zip Code
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -132,7 +142,9 @@ const CreateProperty = () => {
 
             {/* Food Fee */}
             <div className="mb-3">
-              <label htmlFor="food_fee" className="form-label">Food Fee</label>
+              <label htmlFor="food_fee" className="form-label">
+                Food Fee
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -145,7 +157,9 @@ const CreateProperty = () => {
 
             {/* Total Members */}
             <div className="mb-3">
-              <label htmlFor="total_members" className="form-label">Total Members</label>
+              <label htmlFor="total_members" className="form-label">
+                Total Members
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -156,7 +170,9 @@ const CreateProperty = () => {
               />
             </div>
 
-            <button type="submit" className="btn btn-primary w-100">Create</button>
+            <button type="submit" className="btn btn-primary w-100">
+              Create
+            </button>
           </form>
         </div>
       </div>
@@ -164,4 +180,4 @@ const CreateProperty = () => {
   );
 };
 
-export default CreateProperty;
+export default PropertyForm;

@@ -27,6 +27,8 @@ class UserOut(BaseModel):
     id: int
     term_boolean: bool
 
+class UserInIsKM(UserIn):
+    is_km: bool
 
 class UserInWithProperty(UserIn):
     property_id: int
