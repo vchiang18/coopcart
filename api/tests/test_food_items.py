@@ -18,11 +18,11 @@ class UserOut(BaseModel):
 
 def fake_authenticator_get_current_account_data():
     return UserOut(
-            first_name="test",
-            last_name="user",
-            username="testuser",
-            id=1,
-            term_boolean=True)
+        first_name="test",
+        last_name="user",
+        username="testuser",
+        id=1,
+        term_boolean=True)
 
 
 class EmptyFoodItemQueries:
@@ -84,14 +84,14 @@ def test_get_food_item():
     app.dependency_overrides = {}
     assert response.status_code == 200
     assert response.json() == {
-            "food_item_id": 1,
-            "item_name": "test item",
-            "brand": 1,
-            "vendor": 1,
-            "unit_type": "test unit",
-            "unit_quantity": 1,
-            "price": 1.00
-        }
+        "food_item_id": 1,
+        "item_name": "test item",
+        "brand": 1,
+        "vendor": 1,
+        "unit_type": "test unit",
+        "unit_quantity": 1,
+        "price": 1.00
+    }
 
 
 class UpdateFoodItemQueries:

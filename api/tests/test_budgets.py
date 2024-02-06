@@ -18,11 +18,11 @@ class UserOut(BaseModel):
 
 def fake_authenticator_get_current_account_data():
     return UserOut(
-            first_name="test",
-            last_name="user",
-            username="testuser",
-            id=1,
-            term_boolean=True)
+        first_name="test",
+        last_name="user",
+        username="testuser",
+        id=1,
+        term_boolean=True)
 
 
 class EmptyBudgetQueries:
