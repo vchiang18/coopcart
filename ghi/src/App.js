@@ -28,6 +28,8 @@ function App() {
             <Route path="/signin" element={<SignInSignUp />} />
             <Route path="/user" element={<UserEdit />} />
             <Route path="/property/add" element={<PropertyAdd />} />
+            {/* <Route path="/request/add" element={<PropertyAdd />} />
+            <Route path="/requests" element={<PropertyAdd />} /> */}
           </Routes>
         </div>
       </BrowserRouter>

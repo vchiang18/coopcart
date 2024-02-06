@@ -32,7 +32,7 @@ class UserInEdit(BaseModel):
     first_name: str
     last_name: str
     username: str
-    term_boolean: Optional[bool]
+    terms_boolean: Optional[bool]
 
 
 class UserInIsKM(UserIn):
@@ -211,7 +211,7 @@ class UserQueries:
                             user.first_name,
                             user.last_name,
                             user.username,
-                            user.term_boolean,
+                            user.terms_boolean,
                             user_id
                         ]
                     )

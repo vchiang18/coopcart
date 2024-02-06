@@ -21,17 +21,24 @@ function UserEdit() {
 
     try {
       if (token) {
-        try {
-          const response = await fetch(url, fetchOptions);
-          console.log("response:", response);
-          if (response.ok) {
-            const data = await response.json();
-            setFirstName(data.first_name);
-            setLastName(data.last_name);
-            setUsername(data.username);
+        const decodedToken = jwtDecode(token);
+        // console.log("decoded token: ", decodedToken);
+        const user_id = decodedToken.account.id;
+        // console.log(user_id);
+
+        if (user_id) {
+          try {
+            const response = await fetch(url, fetchOptions);
+            console.log("response:", response);
+            if (response.ok) {
+              const data = await response.json();
+              setFirstName(data.first_name);
+              setLastName(data.last_name);
+              setUsername(data.username);
+            }
+          } catch (err) {
+            console.error(err);
           }
-        } catch (err) {
-          console.error(err);
         }
       }
     } catch (err) {
@@ -65,12 +72,12 @@ function UserEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = `${process.env.REACT_APP_API_HOST}/user`;
+
     const data = {};
     data.first_name = firstName;
     data.last_name = lastName;
     data.username = username;
     data.terms_boolean = true;
-    console.log("data: ", data);
 
     const fetchOptions = {
       method: "PUT",
