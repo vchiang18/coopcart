@@ -22,22 +22,22 @@ function SignupProperty() {
         <input
           type="radio"
           name="role"
-          id="km"
-          checked={isKM}
-          onChange={handleKMChange}
-        />
-        <label htmlFor="km" className="role-label">
-          I'm a Kitchen Manager
-        </label>
-        <input
-          type="radio"
-          name="role"
           id="member"
           checked={isMember}
           onChange={handleKMChange}
         />
         <label htmlFor="member" className="role-label">
           I'm a Member
+        </label>
+        <input
+          type="radio"
+          name="role"
+          id="km"
+          checked={isKM}
+          onChange={handleKMChange}
+        />
+        <label htmlFor="km" className="role-label">
+          I'm a Kitchen Manager
         </label>
       </div>
       <SignUpForm />
