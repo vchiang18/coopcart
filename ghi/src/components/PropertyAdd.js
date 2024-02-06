@@ -11,10 +11,10 @@ function PropertyAdd() {
     const url = `${process.env.REACT_APP_API_HOST}/properties`;
     try {
       const response = await fetch(url);
-      // console.log("get properties response:", response);
+      console.log("get properties response:", response);
       if (response.ok) {
         const data = await response.json();
-        // console.log(data);
+        console.log(data);
         setProperties(data);
       }
     } catch (err) {

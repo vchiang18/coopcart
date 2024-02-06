@@ -17,7 +17,7 @@ class UserIn(BaseModel):
     last_name: str
     username: str
     password: str
-    term_boolean: bool
+    terms_boolean: bool
 
 
 class UserOut(BaseModel):
@@ -25,7 +25,7 @@ class UserOut(BaseModel):
     last_name: str
     username: str
     id: int
-    term_boolean: Optional[bool]
+    terms_boolean: Optional[bool]
 
 
 class UserInEdit(BaseModel):
@@ -33,18 +33,23 @@ class UserInEdit(BaseModel):
     last_name: str
     username: str
     terms_boolean: Optional[bool]
+    is_km: Optional[bool]
+    property: Optional[int]
 
 
-class UserInIsKM(UserIn):
-    is_km: bool
+class UserOutEdit(UserOut):
+    is_km: Optional[bool]
+    property: Optional[int]
 
 
-class UserInWithProperty(UserIn):
-    property_id: int
-
-
-class UserOutWithProperty(UserOut):
-    property_id: int
+# class UserOutEdit(BaseModel):
+#     first_name: str
+#     last_name: str
+#     username: str
+#     id: int
+#     terms_boolean: Optional[bool]
+#     is_km: Optional[bool]
+#     property: Optional[int]
 
 
 class UserOutMembers(BaseModel):
@@ -85,7 +90,7 @@ class UserQueries:
                     username = record[2]
                     hashed_password = record[3]
                     id = record[4]
-                    term_boolean = record[5]
+                    terms_boolean = record[5]
                     if id is None:
                         return None
                     return UserOutWithPw(
@@ -93,7 +98,7 @@ class UserQueries:
                         last_name=last_name,
                         username=username,
                         id=id,
-                        term_boolean=term_boolean,
+                        terms_boolean=terms_boolean,
                         hashed_password=hashed_password)
 
         except Exception:
@@ -118,7 +123,7 @@ class UserQueries:
                     last_name = record[1]
                     username = record[2]
                     id = record[8]
-                    term_boolean = record[4]
+                    terms_boolean = record[4]
                     if id is None:
                         return None
                     return UserOut(
@@ -126,7 +131,7 @@ class UserQueries:
                         last_name=last_name,
                         username=username,
                         id=id,
-                        term_boolean=term_boolean)
+                        terms_boolean=terms_boolean)
 
         except Exception:
             return {"message:" "Get user did not work"}
@@ -150,7 +155,7 @@ class UserQueries:
                             user.last_name,
                             user.username,
                             hashed_password,
-                            user.term_boolean
+                            user.terms_boolean
                         ]
                     )
                     id = result.fetchone()[0]
@@ -192,30 +197,42 @@ class UserQueries:
             print(e)
             return {"message": "Could not get all users"}
 
-    def update(self, user_id: int, user: UserInEdit) -> UserOut:
+    def update(self, user_id: int, user: UserInEdit) -> UserOutEdit:
         if user_id is None:
             return None
         try:
             with pool.connection() as conn:
-                with conn.cursor() as db:
-                    db.execute(
+                with conn.cursor(row_factory=dict_row) as db:
+                    result = db.execute(
                         """
                         UPDATE users
                         SET first_name = %s,
                             last_name = %s,
                             username = %s,
-                            terms_boolean = %s
+                            terms_boolean = %s,
+                            is_km = %s,
+                            property = %s
                         WHERE user_id = %s
+                        RETURNING first_name,
+                            last_name,
+                            username,
+                            terms_boolean,
+                            is_km,
+                            property,
+                            user_id;
                         """,
                         [
                             user.first_name,
                             user.last_name,
                             user.username,
                             user.terms_boolean,
+                            user.is_km,
+                            user.property,
                             user_id
                         ]
                     )
-                    return self.user_in_to_out(user_id, user)
+                    data = result.fetchone()
+                    return UserOutEdit(id=user_id, **data)
         except Exception as e:
             print(e)
             return {f"Could not update user. An error occurred: {e}"}
