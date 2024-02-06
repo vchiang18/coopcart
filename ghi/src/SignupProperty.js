@@ -4,6 +4,8 @@ import SignUpForm from "./components/Signup.js";
 import PropertyForm from "./components/PropertyForm.js";
 import PropertyAdd from "./components/PropertyAdd.js";
 import "./SignupProperty.css";
+import { useNavigate } from "react-router-dom";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function SignupProperty() {
   const { token } = useAuthContext();
@@ -14,6 +16,101 @@ function SignupProperty() {
     setIsKM(!isKM);
     setIsMember(!isMember);
   };
+
+  // signup form state and logic
+  const { login } = useToken();
+  const [signup, setSignup] = useState({
+    first_name: "",
+    last_name: "",
+    username: "",
+    password: "",
+    term_boolean: false,
+  });
+
+  const handleSignupChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setSignup((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSignupSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!signup.term_boolean) {
+      alert("You must accept the terms and conditions to sign up. ");
+      return;
+    }
+
+    try {
+      const url = `${process.env.REACT_APP_API_HOST}/user`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(signup),
+      });
+      if (!response.ok) throw new Error("Signup failed");
+      await login(signup.username, signup.password);
+      alert("Signup and login successfully.");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  // add property state and logic
+  // const [properties, setProperties] = useState([]);
+  // const [property, setProperty] = useState("");
+
+  // const getProperties = async () => {
+  //   const url = `${process.env.REACT_APP_API_HOST}/properties`;
+  //   try {
+  //     const response = await fetch(url);
+  //     // console.log("get properties response:", response);
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       // console.log(data);
+  //       setProperties(data);
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getProperties();
+  // }, []);
+
+  // if (properties === undefined) {
+  //   return null;
+  // }
+
+  // const handlePropertyChange = (e) => {
+  //   const value = e.target.value;
+  //   setProperty(value);
+  // };
+
+  // const handlePropertySubmit = async (e) => {
+  //   e.preventDefault();
+  //   const url = `${process.env.REACT_APP_API_HOST}/properties`;
+  //   const fetConfig = {
+  //     method: "POST",
+  //     body: JSON.stringify(data),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   };
+
+  //   try {
+  //     const response = await fetch(url, fetConfig);
+  //     if (response.ok) {
+  //       const addProperty = await response.json();
+  //       setProperty("");
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   return (
     <div className="signup-property-container">
@@ -40,8 +137,16 @@ function SignupProperty() {
           I'm a Kitchen Manager
         </label>
       </div>
-      <SignUpForm />
-      <PropertyAdd />
+      <SignUpForm
+        signup={signup}
+        onChange={handleSignupChange}
+        onSubmit={handleSignupSubmit}
+      />
+      {/* <PropertyAdd
+        properties={properties}
+        onChange={handlePropertyChange}
+        onSubmit={handlePropertySubmit}
+      /> */}
       {isMember && (
         <p className="info-text">
           If you don't see your property, please ask your Kitchen Manager to add
