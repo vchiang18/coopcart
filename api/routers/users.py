@@ -6,7 +6,7 @@ from fastapi import (
     APIRouter,
     Request,
 )
-from queries.users import (UserIn, UserOut, UserQueries, DuplicateAccountError,
+from queries.users import (UserIn, UserOut, UserQueries, UserInEdit, DuplicateAccountError,
                            Error, UserOutMembers)
 from queries.manager import (ManagerQueries, ManagerOut)
 from typing import Optional, Union, List
