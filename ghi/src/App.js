@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SignInSignUp from "./components/SignupSignin.js";
+import SignInSignUp from "./components/SignInSignUp.js";
 import SignupProperty from "./SignupProperty";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import UserEdit from "./components/UserEdit";
@@ -8,14 +8,15 @@ import PropertyAdd from "./components/PropertyAdd";
 import Dashboard from "./components/Dashboard";
 
 function App() {
-  const [type, setType] = useState("signIn");
   const baseUrl = process.env.REACT_APP_API_HOST;
 
-  const handleOnClick = (text) => {
-    if (text !== type) {
-      setType(text);
-    }
-  };
+  // const [type, setType] = useState("signIn");
+
+  // const handleOnClick = (text) => {
+  //   if (text !== type) {
+  //     setType(text);
+  //   }
+  // };
 
   return (
     <AuthProvider baseUrl={baseUrl}>

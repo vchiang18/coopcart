@@ -97,11 +97,9 @@ def get_user(
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: UserQueries = Depends()
 ) -> UserOut:
-    user_id = account_data["id"]
-    user = repo.get_one_no_pw(user_id)
-    if user is None:
+    if account_data is None:
         response.status_code = 404
-    return user
+    return account_data
 
 
 # edit user

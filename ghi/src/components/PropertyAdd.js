@@ -35,6 +35,7 @@ function PropertyAdd() {
     setProperty(value);
   };
 
+  // adds property to user
   const handlePropertySubmit = async (e) => {
     e.preventDefault();
     const url = `${process.env.REACT_APP_API_HOST}/user`;
@@ -44,8 +45,10 @@ function PropertyAdd() {
     const fetConfig = {
       method: "PUT",
       body: JSON.stringify(data),
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     };
 

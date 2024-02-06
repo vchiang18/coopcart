@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import SignUpForm from "./components/Signup.js";
 import PropertyForm from "./components/PropertyForm.js";
 import PropertyAdd from "./components/PropertyAdd.js";
 import "./SignupProperty.css";
-import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function SignupProperty() {
@@ -118,17 +117,18 @@ function SignupProperty() {
     if (setToken) {
       setToken(null);
     } else {
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
     }
-    navigate('/signup/property');
+    navigate("/signup/property");
   };
-
 
   return (
     <div className="signup-property-container">
       <h1 className="header">Create an Account</h1>
       {token && (
-        <button onClick={handleSignOut} className="sign-out-button">Sign Out</button>
+        <button onClick={handleSignOut} className="sign-out-button">
+          Sign Out
+        </button>
       )}
       <div className="role-selection">
         <input
@@ -163,10 +163,6 @@ function SignupProperty() {
         onSubmit={handlePropertySubmit}
       /> */}
       {isMember && (
-        <p className="info-text">
-          If you don't see your property, please ask your Kitchen Manager to add
-          one!
-        </p>
         <p className="info-text">
           If you don't see your property, please ask your Kitchen Manager to add
           one!

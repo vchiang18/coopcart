@@ -21,24 +21,17 @@ function UserEdit() {
 
     try {
       if (token) {
-        const decodedToken = jwtDecode(token);
-        // console.log("decoded token: ", decodedToken);
-        const user_id = decodedToken.account.id;
-        // console.log(user_id);
-
-        if (user_id) {
-          try {
-            const response = await fetch(url, fetchOptions);
-            console.log("response:", response);
-            if (response.ok) {
-              const data = await response.json();
-              setFirstName(data.first_name);
-              setLastName(data.last_name);
-              setUsername(data.username);
-            }
-          } catch (err) {
-            console.error(err);
+        try {
+          const response = await fetch(url, fetchOptions);
+          console.log("response:", response);
+          if (response.ok) {
+            const data = await response.json();
+            setFirstName(data.first_name);
+            setLastName(data.last_name);
+            setUsername(data.username);
           }
+        } catch (err) {
+          console.error(err);
         }
       }
     } catch (err) {
@@ -76,6 +69,8 @@ function UserEdit() {
     data.first_name = firstName;
     data.last_name = lastName;
     data.username = username;
+    data.terms_boolean = true;
+    console.log("data: ", data);
 
     const fetchOptions = {
       method: "PUT",
@@ -88,11 +83,19 @@ function UserEdit() {
     };
 
     try {
-      const response = await fetch(url, fetchOptions);
-      if (response.ok) {
-        const updatedUser = await response.json();
-        setSubmitted(true);
-        e.target.reset();
+      if (token) {
+        try {
+          const response = await fetch(url, fetchOptions);
+          console.log("put response: ", response);
+          if (response.ok) {
+            const updatedUser = await response.json();
+            console.log("response.json: ", updatedUser);
+            setSubmitted(true);
+            e.target.reset();
+          }
+        } catch (err) {
+          console.error(err);
+        }
       }
     } catch (err) {
       console.error(err);
@@ -147,10 +150,9 @@ function UserEdit() {
                 />
                 <label htmlFor="employee_id">Email</label>
               </div>
-
               <button className="btn btn-primary mb-3">Submit</button>
             </form>
-            {/* <div className={submittedMessage}>Success! Details updated.</div> */}
+            <div className={submittedMessage}>Success! Details updated.</div>
           </div>
         </div>
       </div>

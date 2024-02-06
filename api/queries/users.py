@@ -4,10 +4,8 @@ from queries.pool import pool
 from psycopg.rows import dict_row
 
 
-
 class Error(BaseModel):
     message: str
-
 
 
 class DuplicateAccountError(BaseModel):
@@ -22,22 +20,12 @@ class UserIn(BaseModel):
     term_boolean: bool
 
 
-
 class UserOut(BaseModel):
     first_name: str
     last_name: str
     username: str
     id: int
     term_boolean: Optional[bool]
-
-
-
-class UserInEdit(BaseModel):
-    first_name: str
-    last_name: str
-    username: str
-    term_boolean: Optional[bool]
-
 
 
 class UserInEdit(BaseModel):
@@ -50,13 +38,13 @@ class UserInEdit(BaseModel):
 class UserInIsKM(UserIn):
     is_km: bool
 
+
 class UserInWithProperty(UserIn):
     property_id: int
 
 
 class UserOutWithProperty(UserOut):
     property_id: int
-
 
 
 class UserOutMembers(BaseModel):
@@ -204,7 +192,7 @@ class UserQueries:
             print(e)
             return {"message": "Could not get all users"}
 
-    def update(self, user_id: int, user: UserInEditEdit) -> UserOut:
+    def update(self, user_id: int, user: UserInEdit) -> UserOut:
         if user_id is None:
             return None
         try:
@@ -230,4 +218,4 @@ class UserQueries:
                     return self.user_in_to_out(user_id, user)
         except Exception as e:
             print(e)
-            return {"message": "Could not update user"}
+            return {f"Could not update user. An error occurred: {e}"}
