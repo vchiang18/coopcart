@@ -1,63 +1,40 @@
-// import React from 'react';
-// import "./mainpage.css"
-
-
-// const MainContent = () => {
-//   return (
-//     <div className="center">
-//       <div className="title">Welcome to CoopCart</div>
-//       <div className="sub_title">Your cooperative shopping solution</div>
-//       <div className="btns">
-//         <button className="loginBtn" onClick={() => console.log('Login Clicked')}>Login</button>
-//         <button className="signupBtn" onClick={() => console.log('Signup Clicked')}>Signup</button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MainContent;
-
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import "./mainpage.css";
 
 const MainContent = () => {
-  const [images, setImages] = useState([
-    { src: 'url1.jpg', x: 0, y: 0 }, 
-    { src: 'url2.jpg', x: 0, y: 0 },
-    { src: 'url3.jpg', x: 0, y: 0 },
-  ]);
+    const [images,setImages] = useState([
+        { src: 'https://images.unsplash.com/photo-1614707585284-9cb9fc018387?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MnxNN2gweE1SbzJUVXx8ZW58MHx8fHx8'}, 
+        { src: 'https://images.unsplash.com/photo-1622943495354-f49d2964094c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MXxNN2gweE1SbzJUVXx8ZW58MHx8fHx8'},
+        { src: 'https://images.unsplash.com/photo-1525026198548-4baa812f1183?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8M3xNN2gweE1SbzJUVXx8ZW58MHx8fHx8'},
+    ]);
+    const imageContainerRef = useRef();
+    const getRandomPosition = (dimension, containerDimension) => {
+        const max=containerDimension - dimension;
+        return Math.floor(Math.random()* max ); }
 
-  useEffect(() => {
-    const updateImagePositions = () => {
-      setImages((currentImages) =>
-        currentImages.map((image) => ({
-          ...image,
-          x: Math.random() * 300, // Example calculation for x position
-          y: Math.random() * 300, // Example calculation for y position
-        }))
-      );
-    };
+    useEffect(()=> {
+        const container = imageContainerRef.current;
+        if (container) {
+            const containerRect = container.getBoundingClientRect();
 
-    updateImagePositions();
-  }, []); // Empty dependency array means this effect runs once on mount
+            setImages(images.map(image => {
+                const newPosition = {
+                    x: getRandomPosition(image.dimensions.width, containerRect.width),
+                    y: getRandomPosition(image.dimensions.height, containerRect.height)
+                };
+
+            return { ...image, position: newPosition };
+      }));
+    }
+  }, []); 
 
   return (
     <div className="center">
       <div className="title">Welcome to CoopCart</div>
       <div className="sub_title">Your cooperative shopping solution</div>
-      <div className="image-container" style={{ position: 'relative', width: '100%', height: '500px' }}>
+      <div className="image-container" >
         {images.map((image, index) => (
-          <img
-            key={index}
-            src={image.src}
-            alt={`Random Img ${index}`}
-            style={{
-              position: 'absolute',
-              left: `${image.x}px`,
-              top: `${image.y}px`,
-            }}
-          />
+            <img key={index} src={image.src} alt={`Content ${index}`} />
         ))}
       </div>
       <div className="btns">

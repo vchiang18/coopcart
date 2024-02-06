@@ -55,3 +55,28 @@ button:hover {
   border-color: #306e12; 
 }
  
+
+.image-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-gap: 10px;
+  position: relative;
+  width: 100%;
+  height: auto; 
+  margin-bottom: 100px;
+}
+
+
+.btns {
+  position: absolute;
+  bottom: 10px; 
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.image-container img {
+  max-width: 100%; /* Makes image responsive */
+  max-height: 200px; /* Adjust as needed */
+  object-fit: cover; /* Ensures the aspect ratio is maintained */
+}
