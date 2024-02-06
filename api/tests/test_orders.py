@@ -51,21 +51,21 @@ class UpdateOrderRepository:
 class GetOrderRepository:
     def get_one(self, order_id):
         return {
-              "order_id": 1,
-              "item": 1,
-              "brand": 1,
-              "unit_quantity": 1,
-              "unit_type": 1,
-              "vendor": 1,
-              "requestor": 1,
-              "created_date": datetime.now(),
-              "quantity": 1,
-              "purchased_price": 1.00,
-              "purchased_quantity": 1,
-              "notes": "hello",
-              "last_edited_by": None,
-              "last_edited": None
-         }
+            "order_id": 1,
+            "item": 1,
+            "brand": 1,
+            "unit_quantity": 1,
+            "unit_type": 1,
+            "vendor": 1,
+            "requestor": 1,
+            "created_date": datetime.now(),
+            "quantity": 1,
+            "purchased_price": 1.00,
+            "purchased_quantity": 1,
+            "notes": "hello",
+            "last_edited_by": None,
+            "last_edited": None
+        }
 
 
 def test_get_all():
