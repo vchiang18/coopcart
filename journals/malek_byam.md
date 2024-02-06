@@ -2,6 +2,42 @@
 
 ## Date: [2024-01-29]
 
+### Week [4] Summary
+
+    This week was about finishing the backend, working on the frontend and starting CI/CD.
+
+### Tasks Completed
+
+    - Backend
+
+### Challenges Faced
+
+    Authorization and merging code
+
+### Solutions Found
+
+    N/A
+
+### Lessons Learned
+
+    N/A
+
+### Next Steps
+
+    - Finish Front End
+    - CI/CD
+    - Documentation
+
+### Resources
+
+    N/A
+
+### Code Snippets
+
+    N/A
+
+## Date: [2024-01-29]
+
 ### Week [3] Summary
 
     This week was about finishing API endpoints, getting authorization to work, starting on the frontend including some basic design, and writing tests.
