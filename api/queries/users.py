@@ -25,14 +25,14 @@ class UserOut(BaseModel):
     last_name: str
     username: str
     id: int
-    term_boolean: bool
+    term_boolean: Optional[bool]
 
 
 class UserInEdit(BaseModel):
     first_name: str
     last_name: str
     username: str
-    term_boolean: Optional[bool]
+    terms_boolean: Optional[bool]
 
 
 class UserInIsKM(UserIn):
@@ -211,11 +211,11 @@ class UserQueries:
                             user.first_name,
                             user.last_name,
                             user.username,
-                            user.term_boolean,
+                            user.terms_boolean,
                             user_id
                         ]
                     )
                     return self.user_in_to_out(user_id, user)
         except Exception as e:
             print(e)
-            return {"message": "Could not update user"}
+            return {f"Could not update user. An error occurred: {e}"}

@@ -72,10 +72,12 @@ function UserEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = `${process.env.REACT_APP_API_HOST}/user`;
+
     const data = {};
     data.first_name = firstName;
     data.last_name = lastName;
     data.username = username;
+    data.terms_boolean = true;
 
     const fetchOptions = {
       method: "PUT",
@@ -88,11 +90,19 @@ function UserEdit() {
     };
 
     try {
-      const response = await fetch(url, fetchOptions);
-      if (response.ok) {
-        const updatedUser = await response.json();
-        setSubmitted(true);
-        e.target.reset();
+      if (token) {
+        try {
+          const response = await fetch(url, fetchOptions);
+          console.log("put response: ", response);
+          if (response.ok) {
+            const updatedUser = await response.json();
+            console.log("response.json: ", updatedUser);
+            setSubmitted(true);
+            e.target.reset();
+          }
+        } catch (err) {
+          console.error(err);
+        }
       }
     } catch (err) {
       console.error(err);
@@ -147,10 +157,9 @@ function UserEdit() {
                 />
                 <label htmlFor="employee_id">Email</label>
               </div>
-
               <button className="btn btn-primary mb-3">Submit</button>
             </form>
-            {/* <div className={submittedMessage}>Success! Details updated.</div> */}
+            <div className={submittedMessage}>Success! Details updated.</div>
           </div>
         </div>
       </div>
