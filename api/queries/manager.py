@@ -80,7 +80,7 @@ class ManagerQueries:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 detail="An error occurred"
-                )
+            )
 
     def update_manager(self, manager_join_id: int, manager: ManagerIn) -> ManagerOut:
         try:
