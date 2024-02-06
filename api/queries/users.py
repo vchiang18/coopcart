@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Union, List
+from typing import Optional, Union, List
 from queries.pool import pool
 from psycopg.rows import dict_row
 
@@ -26,6 +26,13 @@ class UserOut(BaseModel):
     username: str
     id: int
     term_boolean: bool
+
+
+class UserInEdit(BaseModel):
+    first_name: str
+    last_name: str
+    username: str
+    term_boolean: Optional[bool]
 
 
 class UserInIsKM(UserIn):
