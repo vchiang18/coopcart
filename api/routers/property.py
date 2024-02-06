@@ -7,8 +7,7 @@ router = APIRouter()
 
 
 @router.post("/property", response_model=Union[PropertyOut, Error])
-def create_property(property: PropertyIn, repo: PropertyQueries = Depends(),
-                    account_data: dict = Depends(authenticator.get_current_account_data)):
+def create_property(property: PropertyIn, repo: PropertyQueries = Depends()):
     new_property = repo.create(property)
     return new_property
 

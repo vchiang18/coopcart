@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import SignUpForm from "./components/Signup.js";
 import PropertyForm from "./components/PropertyForm.js";
@@ -6,7 +7,8 @@ import PropertyAdd from "./components/PropertyAdd.js";
 import "./SignupProperty.css";
 
 function SignupProperty() {
-  const { token } = useAuthContext();
+  const { token, setToken } = useAuthContext();
+  const navigate = useNavigate();
   const [isKM, setIsKM] = useState(false);
   const [isMember, setIsMember] = useState(true);
 
@@ -15,9 +17,22 @@ function SignupProperty() {
     setIsMember(!isMember);
   };
 
+  const handleSignOut = () => {
+    if (setToken) {
+      setToken(null);
+    } else {
+      localStorage.removeItem('token'); 
+    }
+    navigate('/signup/property'); 
+  };
+
+
   return (
     <div className="signup-property-container">
       <h1 className="header">Create an Account</h1>
+      {token && (
+        <button onClick={handleSignOut} className="sign-out-button">Sign Out</button>
+      )}
       <div className="role-selection">
         <input
           type="radio"
