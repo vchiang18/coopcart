@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "../style.css";
+import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+
 
 const PropertyForm = () => {
   const [property, setProperty] = useState({
@@ -11,6 +13,8 @@ const PropertyForm = () => {
     food_fee: "",
     total_members: "",
   });
+
+  const { token } = useAuthContext();
 
   const handleChange = (event) => {
     const { name, value } = event.target;

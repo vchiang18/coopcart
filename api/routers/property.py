@@ -7,8 +7,7 @@ router = APIRouter()
 
 
 @router.post("/property", response_model=Union[PropertyOut, Error])
-def create_property(property: PropertyIn, repo: PropertyQueries = Depends(),
-                    account_data: dict = Depends(authenticator.get_current_account_data)):
+def create_property(property: PropertyIn, repo: PropertyQueries = Depends()):
     new_property = repo.create(property)
     return new_property
 
@@ -29,10 +28,7 @@ def update_property(property_id: int, property: PropertyIn, repo: PropertyQuerie
 
 @router.get("/properties", response_model=Union[List[PropertyOutSignup], Error])
 def get_all(
-    response: Response,
-    account_data: dict = Depends(authenticator.get_current_account_data),
-    repo: PropertyQueries = Depends(),
-):
+    response: Response, repo: PropertyQueries = Depends()):
     properties = repo.get_all()
     if properties is None:
         response.status_code = 404
