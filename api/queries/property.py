@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from typing import Optional, Union
-from queries.pool import pool
 from datetime import datetime
 from psycopg.rows import dict_row
 
@@ -32,8 +31,9 @@ class PropertyOut(BaseModel):
     created_at: datetime
     property_picture_url: Optional[str]
 
+
 class PropertyOutSignup(BaseModel):
-    property_name:Optional[str]=None
+    property_name: Optional[str] = None
     property_id: int
     street: str
     city: str

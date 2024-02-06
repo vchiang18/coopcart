@@ -3,6 +3,7 @@ from queries.budgets import BudgetIn, BudgetOut, BudgetQueries, Error
 from typing import Union, List
 from authenticator import authenticator
 
+
 router = APIRouter()
 
 

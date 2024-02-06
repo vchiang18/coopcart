@@ -22,8 +22,7 @@ def fake_authenticator_get_current_account_data():
         last_name="user",
         username="testuser",
         id=1,
-        term_boolean=True
-    )
+        term_boolean=True)
 
 
 class EmptyBudgetQueries:

@@ -16,6 +16,7 @@ import datetime
 
 client = TestClient(app)
 
+
 class UserOut(BaseModel):
     first_name: str
     last_name: str
@@ -23,34 +24,38 @@ class UserOut(BaseModel):
     id: int
     term_boolean: bool
 
+
 def fake_authenticator_get_current_account_data():
     return UserOut(
-            first_name="test",
-            last_name="user",
-            username="testuser",
-            id=1,
-            term_boolean=True)
+        first_name="test",
+        last_name="user",
+        username="testuser",
+        id=1,
+        term_boolean=True)
+
 
 class EmptyPropertyQueries:
     def get_property(self):
-        return[]
+        return []
+
 
 class CreatePropertyQueries:
     def create(self, property):
-        result ={"property_id": 1}
+        result = {"property_id": 1}
         result.update(property)
         return PropertyOut(
-            property_name= "Dream",
-            property_id= 1,
-            street= "LA",
-            city= "Pasadena",
+            property_name="Dream",
+            property_id=1,
+            street="LA",
+            city="Pasadena",
             zip="90004",
-            state= "CA",
-            total_members= 20,
-            food_fee= 200.0,
-            created_at= datetime.datetime(2024,2,1),
-            property_picture_url= "example.url"
+            state="CA",
+            total_members=20,
+            food_fee=200.0,
+            created_at=datetime.datetime(2024, 2, 1),
+            property_picture_url="example.url"
         )
+
 
 class UpdatePropertyQueries:
     def update(self, property_id, property):
@@ -59,31 +64,33 @@ class UpdatePropertyQueries:
         }
         result.update(property)
         return PropertyOut(
-            property_name= "Dream",
-            property_id= 1,
-            street= "LA",
-            city= "Pasadena",
+            property_name="Dream",
+            property_id=1,
+            street="LA",
+            city="Pasadena",
             zip="90004",
-            state= "CA",
-            total_members= 20,
-            food_fee= 200.0,
-            created_at= datetime.datetime(2024,2,1),
-            property_picture_url= "example.url"
+            state="CA",
+            total_members=20,
+            food_fee=200.0,
+            created_at=datetime.datetime(2024, 2, 1),
+            property_picture_url="example.url"
         )
+
+
 
 class GetPropertyQueries:
     def get(self, property_id):
         return PropertyOut(
-            property_name= "Dream",
-            property_id= 1,
-            street= "LA",
-            city= "Pasadena",
+            property_name="Dream",
+            property_id=1,
+            street="LA",
+            city="Pasadena",
             zip="90004",
-            state= "CA",
-            total_members= 20,
-            food_fee= 200.0,
-            created_at= datetime.datetime(2024,2,1),
-            property_picture_url= "example.url"
+            state="CA",
+            total_members=20,
+            food_fee=200.0,
+            created_at=datetime.datetime(2024, 2, 1),
+            property_picture_url="example.url"
         )
 
 
@@ -112,9 +119,10 @@ def test_create_property():
         "state": "CA",
         "total_members": 20,
         "food_fee": 200.0,
-        "created_at":"2024-02-01T00:00:00",
+        "created_at": "2024-02-01T00: 00: 00",
         "property_picture_url": "example.url"
     }
+
 
 def test_get_property():
     app.dependency_overrides[authenticator.get_current_account_data] = fake_authenticator_get_current_account_data
@@ -131,9 +139,10 @@ def test_get_property():
         "state": "CA",
         "total_members": 20,
         "food_fee": 200.0,
-        "created_at":"2024-02-01T00:00:00",
+        "created_at": "2024-02-01T00:00:00",
         "property_picture_url": "example.url"
     }
+
 
 def test_update_property():
     app.dependency_overrides[authenticator.get_current_account_data] = fake_authenticator_get_current_account_data
@@ -150,7 +159,7 @@ def test_update_property():
             "food_fee": "200"
         }
     )
-    app.dependency_overrides={}
+    app.dependency_overrides = {}
     assert response.status_code == 200
     assert response.json() == {
         "property_id": 1,
@@ -161,6 +170,6 @@ def test_update_property():
         "state": "CA",
         "total_members": 20,
         "food_fee": 200.0,
-        "created_at":"2024-02-01T00:00:00",
+        "created_at": "2024-02-01T00:00:00",
         "property_picture_url": "example.url"
     }

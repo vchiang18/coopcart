@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Union, List
+from typing import Optional, Union, List
 from queries.pool import pool
 from psycopg.rows import dict_row
 
@@ -27,8 +27,17 @@ class UserOut(BaseModel):
     id: int
     term_boolean: bool
 
+
+class UserInEdit(BaseModel):
+    first_name: str
+    last_name: str
+    username: str
+    term_boolean: Optional[bool]
+
+
 class UserInIsKM(UserIn):
     is_km: bool
+
 
 class UserInWithProperty(UserIn):
     property_id: int
@@ -108,7 +117,7 @@ class UserQueries:
                     first_name = record[0]
                     last_name = record[1]
                     username = record[2]
-                    id = record[7]
+                    id = record[8]
                     term_boolean = record[4]
                     if id is None:
                         return None
@@ -183,7 +192,7 @@ class UserQueries:
             print(e)
             return {"message": "Could not get all users"}
 
-    def update(self, user_id: int, user: UserIn) -> UserOut:
+    def update(self, user_id: int, user: UserInEdit) -> UserOut:
         if user_id is None:
             return None
         try:
@@ -195,14 +204,14 @@ class UserQueries:
                         SET first_name = %s,
                             last_name = %s,
                             username = %s,
-                            password_hash = %s
+                            terms_boolean = %s
                         WHERE user_id = %s
                         """,
                         [
                             user.first_name,
                             user.last_name,
                             user.username,
-                            user.password,
+                            user.term_boolean,
                             user_id
                         ]
                     )

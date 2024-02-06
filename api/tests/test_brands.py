@@ -2,7 +2,6 @@ from fastapi.testclient import TestClient
 from main import app
 from queries.brands import BrandQueries
 
-
 client = TestClient(app)
 
 

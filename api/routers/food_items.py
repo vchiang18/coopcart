@@ -3,6 +3,7 @@ from typing import Union, List
 from queries.food_items import Error, FoodItemIn, FoodItemQueries, FoodItemOut
 from authenticator import authenticator
 
+
 router = APIRouter()
 
 

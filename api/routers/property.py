@@ -26,6 +26,7 @@ def update_property(property_id: int, property: PropertyIn, repo: PropertyQuerie
     update_property = repo.update(property_id, property)
     return update_property
 
+
 @router.get("/properties", response_model=Union[List[PropertyOutSignup], Error])
 def get_all(
     response: Response,
