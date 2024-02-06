@@ -1,7 +1,46 @@
 import React, { useState } from "react";
 import "../signup.css";
 
-function SignUpForm(signup, onChange) {
+function SignUpForm() {
+  const { login } = useToken();
+  const [state, setState] = useState({
+    first_name: "",
+    last_name: "",
+    username: "",
+    password: "",
+    term_boolean: false,
+  });
+
+  const handleChange = (evt) => {
+    const { name, value, type, checked } = evt.target;
+    setState((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleOnSubmit = async (evt) => {
+    evt.preventDefault();
+
+    if (!state.term_boolean) {
+      alert("You must accept the terms and conditions to sign up. ");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:8000/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(state),
+      });
+      if (!response.ok) throw new Error("Signup failed");
+      await login(state.username, state.password);
+      alert("Signup and login successfully.");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   return (
     <div>
       <form>

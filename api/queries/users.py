@@ -1,12 +1,13 @@
 from pydantic import BaseModel
 from typing import Optional, Union, List
-from datetime import date
 from queries.pool import pool
 from psycopg.rows import dict_row
 
 
+
 class Error(BaseModel):
     message: str
+
 
 
 class DuplicateAccountError(BaseModel):
@@ -21,6 +22,7 @@ class UserIn(BaseModel):
     term_boolean: bool
 
 
+
 class UserOut(BaseModel):
     first_name: str
     last_name: str
@@ -28,9 +30,6 @@ class UserOut(BaseModel):
     id: int
     term_boolean: Optional[bool]
 
-
-class UserInIsKM(UserIn):
-    is_km: bool
 
 
 class UserInEdit(BaseModel):
@@ -40,8 +39,24 @@ class UserInEdit(BaseModel):
     term_boolean: Optional[bool]
 
 
+
+class UserInEdit(BaseModel):
+    first_name: str
+    last_name: str
+    username: str
+    term_boolean: Optional[bool]
+
+
+class UserInIsKM(UserIn):
+    is_km: bool
+
+class UserInWithProperty(UserIn):
+    property_id: int
+
+
 class UserOutWithProperty(UserOut):
     property_id: int
+
 
 
 class UserOutMembers(BaseModel):
@@ -50,13 +65,13 @@ class UserOutMembers(BaseModel):
     username: str
 
 
-#classes w hashed pw, and w property ID
+# classes w hashed pw, and w property ID
 class UserOutWithPw(UserOut):
     hashed_password: str
 
 
 class UserQueries:
-    def get_one(self, username:str) -> UserOutWithPw:
+    def get_one(self, username: str) -> UserOutWithPw:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -96,7 +111,7 @@ class UserQueries:
         except Exception:
             return {"message:" "Get user did not work"}
 
-    def get_one_no_pw(self, id:int) -> UserOut:
+    def get_one_no_pw(self, id: int) -> UserOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -153,7 +168,7 @@ class UserQueries:
                     id = result.fetchone()[0]
                     account_data = user.dict()
                     account_data.pop("password")
-                    return UserOut(id=id,**account_data)
+                    return UserOut(id=id, **account_data)
 
         except Exception:
             return {"message:" "Create did not work"}
@@ -189,7 +204,7 @@ class UserQueries:
             print(e)
             return {"message": "Could not get all users"}
 
-    def update(self, user_id: int, user: UserInEdit) -> UserOut:
+    def update(self, user_id: int, user: UserInEditEdit) -> UserOut:
         if user_id is None:
             return None
         try:

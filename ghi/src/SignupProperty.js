@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import SignUpForm from "./components/Signup.js";
 import PropertyForm from "./components/PropertyForm.js";
@@ -8,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function SignupProperty() {
-  const { token } = useAuthContext();
+  const { token, setToken } = useAuthContext();
+  const navigate = useNavigate();
   const [isKM, setIsKM] = useState(false);
   const [isMember, setIsMember] = useState(true);
 
@@ -112,9 +114,22 @@ function SignupProperty() {
   //   }
   // };
 
+  const handleSignOut = () => {
+    if (setToken) {
+      setToken(null);
+    } else {
+      localStorage.removeItem('token');
+    }
+    navigate('/signup/property');
+  };
+
+
   return (
     <div className="signup-property-container">
       <h1 className="header">Create an Account</h1>
+      {token && (
+        <button onClick={handleSignOut} className="sign-out-button">Sign Out</button>
+      )}
       <div className="role-selection">
         <input
           type="radio"
@@ -148,6 +163,10 @@ function SignupProperty() {
         onSubmit={handlePropertySubmit}
       /> */}
       {isMember && (
+        <p className="info-text">
+          If you don't see your property, please ask your Kitchen Manager to add
+          one!
+        </p>
         <p className="info-text">
           If you don't see your property, please ask your Kitchen Manager to add
           one!

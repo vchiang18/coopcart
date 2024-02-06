@@ -4,6 +4,7 @@ from queries.brands import BrandQueries
 
 client = TestClient(app)
 
+
 class CreateBrandQueries:
     def create(self, brand):
         result = {
