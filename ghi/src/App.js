@@ -6,6 +6,7 @@ import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import UserEdit from "./components/UserEdit";
 import PropertyAdd from "./components/PropertyAdd";
 import Dashboard from "./components/Dashboard";
+import RequestList from "./components/RequestList";
 import MainPage from "./Mainpage.js";
 import SignInForm from "./Signin.js";
 import OrderHistory from "./orderhistory.js";
@@ -26,6 +27,7 @@ function App() {
             <Route path="/signin" element={<SignInForm />} />
             <Route path="/user" element={<UserEdit />} />
             <Route path="/property/add" element={<PropertyAdd />} />
+            <Route path="/requests" element={<RequestList />} />
             <Route path="/request/add" element={<RequestForm />} />
             {/*<Route path="/requests" element={<PropertyAdd />} /> */}
             <Route path="/orders" element={<OrderHistory />} />
