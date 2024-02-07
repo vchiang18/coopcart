@@ -33,8 +33,6 @@ class UserInEdit(BaseModel):
     last_name: str
     username: str
     terms_boolean: Optional[bool]
-    is_km: Optional[bool]
-    property: Optional[int]
 
 
 class UserOutEdit(UserOut):
@@ -187,7 +185,7 @@ class UserQueries:
             print(e)
             return {"message": "Could not get all users"}
 
-    def update(self, user_id: int, user: UserInEdit) -> UserOutEdit:
+    def update(self, user_id: int, user: UserInEdit) -> UserOut:
         if user_id is None:
             return None
         try:
@@ -199,16 +197,12 @@ class UserQueries:
                         SET first_name = %s,
                             last_name = %s,
                             username = %s,
-                            terms_boolean = %s,
-                            is_km = %s,
-                            property = %s
+                            terms_boolean = %s
                         WHERE user_id = %s
                         RETURNING first_name,
                             last_name,
                             username,
                             terms_boolean,
-                            is_km,
-                            property,
                             user_id;
                         """,
                         [
@@ -216,8 +210,6 @@ class UserQueries:
                             user.last_name,
                             user.username,
                             user.terms_boolean,
-                            user.is_km,
-                            user.property,
                             user_id
                         ]
                     )
@@ -226,3 +218,43 @@ class UserQueries:
         except Exception as e:
             print(e)
             return {f"Could not update user. An error occurred: {e}"}
+
+    # def update_property(self, user_id: int, user: UserInEdit) -> UserOutEdit:
+    #     if user_id is None:
+    #         return None
+    #     try:
+    #         with pool.connection() as conn:
+    #             with conn.cursor(row_factory=dict_row) as db:
+    #                 result = db.execute(
+    #                     """
+    #                     UPDATE users
+    #                     SET first_name = %s,
+    #                         last_name = %s,
+    #                         username = %s,
+    #                         terms_boolean = %s,
+    #                         is_km = %s,
+    #                         property = %s
+    #                     WHERE user_id = %s
+    #                     RETURNING first_name,
+    #                         last_name,
+    #                         username,
+    #                         terms_boolean,
+    #                         is_km,
+    #                         property,
+    #                         user_id;
+    #                     """,
+    #                     [
+    #                         user.first_name,
+    #                         user.last_name,
+    #                         user.username,
+    #                         user.terms_boolean,
+    #                         user.is_km,
+    #                         user.property,
+    #                         user_id
+    #                     ]
+    #                 )
+    #                 data = result.fetchone()
+    #                 return UserOutEdit(id=user_id, **data)
+    #     except Exception as e:
+    #         print(e)
+    #         return {f"Could not update user. An error occurred: {e}"}

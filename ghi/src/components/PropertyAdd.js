@@ -5,7 +5,7 @@ function PropertyAdd() {
   const [properties, setProperties] = useState([]);
   const [property, setProperty] = useState("");
   const { token } = useAuthContext();
-  // console.log(token);
+  console.log(token);
 
   const getProperties = async () => {
     const url = `${process.env.REACT_APP_API_HOST}/properties`;
@@ -40,8 +40,17 @@ function PropertyAdd() {
     e.preventDefault();
     const url = `${process.env.REACT_APP_API_HOST}/user`;
 
-    const data = {};
+    const data = {
+      first_name: "string",
+      last_name: "string",
+      username: "hi@hi.com",
+      terms_boolean: true,
+      is_km: true,
+      property: 2,
+    };
+
     data.property = property;
+    console.log(data);
     const fetConfig = {
       method: "PUT",
       body: JSON.stringify(data),

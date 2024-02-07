@@ -11,13 +11,13 @@ function SignInForm() {
     password: "",
   });
 
-  const handleChange = (evt) => {
-    const { name, value } = evt.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleOnSubmit = async (evt) => {
-    evt.preventDefault();
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
     try {
       await login(state.username, state.password);
       alert("Login successful");
@@ -29,20 +29,20 @@ function SignInForm() {
 
   return (
     <div className="form-container sign-in-container">
-      <form onSubmit={handleOnSubmit}>
+      <form onSubmit={(e) => handleOnSubmit(e)}>
         <h1>Sign in</h1>
         <input
           type="username"
           name="username"
           value={state.username}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           placeholder="Username"
         />
         <input
           type="password"
           name="password"
           value={state.password}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           placeholder="Password"
         />
         <a href="#">Forgot your password?</a>

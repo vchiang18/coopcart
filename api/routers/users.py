@@ -105,8 +105,18 @@ def get_user(
 
 
 
-# edit user
-@router.put("/user", response_model=Union[UserOutEdit, Error])
+# edit user details
+@router.put("/user", response_model=Union[UserOut, Error])
+def update_user(
+    user: UserInEdit,
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: UserQueries = Depends()
+):
+    user_id = account_data["id"]
+    return repo.update(user_id, user)
+
+# edit user add property
+@router.put("/user", response_model=Union[UserOut, Error])
 def update_user(
     user: UserInEdit,
     account_data: dict = Depends(authenticator.get_current_account_data),
