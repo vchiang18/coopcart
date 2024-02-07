@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../signup.css";
-import SignInForm from "./Signin";
+import SignInForm from "../Signin";
 import SignUpForm from "./Signup";
 
 function SignInSignUp() {
