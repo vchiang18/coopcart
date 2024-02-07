@@ -12,7 +12,7 @@ def get_all(repo: RequestRepository = Depends(), account_data: dict = Depends(au
     return repo.get_all()
 
 
-@router.post("/requests")
+@router.post("/request/add")
 def create_request(request: RequestIn, repo: RequestRepository = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
     return repo.create(request)
 

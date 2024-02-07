@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignupProperty from "./SignupProperty";
+import RequestForm from "./components/RequestForm";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import UserEdit from "./components/UserEdit";
 import PropertyAdd from "./components/PropertyAdd";
@@ -25,6 +26,8 @@ function App() {
             <Route path="/signin" element={<SignInForm />} />
             <Route path="/user" element={<UserEdit />} />
             <Route path="/property/add" element={<PropertyAdd />} />
+            <Route path="/request/add" element={<RequestForm />} />
+            {/*<Route path="/requests" element={<PropertyAdd />} /> */}
             <Route path="/orders" element={<OrderHistory />} />
           </Routes>
         </div>
