@@ -12,18 +12,12 @@ import OrderHistory from "./orderhistory.js";
 
 function App() {
   const baseUrl = process.env.REACT_APP_API_HOST;
-
-  // const [type, setType] = useState("signIn");
-
-  // const handleOnClick = (text) => {
-  //   if (text !== type) {
-  //     setType(text);
-  //   }
-  // };
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, "");
 
   return (
     <AuthProvider baseUrl={baseUrl}>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <div className="Container">
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />

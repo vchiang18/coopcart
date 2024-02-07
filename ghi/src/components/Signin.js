@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../signup.css";
 import useToken from "@galvanize-inc/jwtdown-for-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function SignInForm() {
   const { login } = useToken();
@@ -45,7 +45,7 @@ function SignInForm() {
           onChange={(e) => handleChange(e)}
           placeholder="Password"
         />
-        <a href="#">Forgot your password?</a>
+        <Link to="#">Forgot your password?</Link>
         <button>Sign In</button>
       </form>
     </div>
