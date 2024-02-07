@@ -29,7 +29,7 @@ function App() {
             <Route path="/signup" element={<SignupProperty />} />
             <Route path="/signin" element={<SignInForm />} />
             <Route path="/user" element={<UserEdit />} />
-            <Route path="/" element={<MainPage />} />            
+            <Route path="/" element={<MainPage />} />         
             <Route path="/property/add" element={<PropertyAdd />} />
             {/* <Route path="/request/add" element={<PropertyAdd />} />
             <Route path="/requests" element={<PropertyAdd />} /> */}
