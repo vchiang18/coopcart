@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
-import SignUpForm from "./components/Signup.js";
-import PropertyForm from "./components/PropertyForm.js";
-import PropertyAdd from "./components/PropertyAdd.js";
-import "./SignupProperty.css";
+import SignUpForm from "./Signup.js";
+import PropertyForm from "./PropertyForm.js";
+import PropertyAdd from "./PropertyAdd.js";
+import "../SignupProperty.css";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function SignupProperty() {
@@ -114,14 +114,14 @@ function SignupProperty() {
     }
     // };
 
-  const handleSignOut = () => {
-    if (setToken) {
-      setToken(null);
-    } else {
-      localStorage.removeItem("token");
-    }
-    navigate("/signup");
-  };
+    const handleSignOut = () => {
+      if (setToken) {
+        setToken(null);
+      } else {
+        localStorage.removeItem("token");
+      }
+      navigate("/signup");
+    };
 
     return (
       <div className="signup-property-container">

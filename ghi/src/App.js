@@ -1,6 +1,5 @@
-import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SignupProperty from "./SignupProperty";
+import SignupProperty from "./components/SignupProperty.js";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import UserEdit from "./components/UserEdit";
 import PropertyAdd from "./components/PropertyAdd";
