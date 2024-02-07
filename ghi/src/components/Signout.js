@@ -8,7 +8,7 @@ function SignOutButton() {
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
-    navigate('/signup/property');
+    navigate('/signup');
   };
 
    return (

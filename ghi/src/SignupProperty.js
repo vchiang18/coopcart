@@ -114,14 +114,14 @@ function SignupProperty() {
     }
     // };
 
-    const handleSignOut = () => {
-      if (setToken) {
-        setToken(null);
-      } else {
-        localStorage.removeItem("token");
-      }
-      navigate("/signup/property");
-    };
+  const handleSignOut = () => {
+    if (setToken) {
+      setToken(null);
+    } else {
+      localStorage.removeItem("token");
+    }
+    navigate("/signup");
+  };
 
     return (
       <div className="signup-property-container">
