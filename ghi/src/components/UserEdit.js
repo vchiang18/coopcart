@@ -23,27 +23,18 @@ function UserEdit() {
 
     try {
       if (token) {
-        const decodedToken = jwtDecode(token);
-        // console.log("decoded token: ", decodedToken);
-        const user_id = decodedToken.account.id;
-        // console.log(user_id);
-
-        if (user_id) {
-          try {
-            const response = await fetch(url, fetchOptions);
-            console.log("response:", response);
-            if (response.ok) {
-              const data = await response.json();
-              setFirstName(data.first_name);
-              setLastName(data.last_name);
-              setUsername(data.username);
-              setIsKM(data.is_km);
-              setProperty(data.property);
-              console.log("data: ", data);
-            }
-          } catch (err) {
-            console.error(err);
+        try {
+          const response = await fetch(url, fetchOptions);
+          if (response.ok) {
+            const data = await response.json();
+            setFirstName(data.first_name);
+            setLastName(data.last_name);
+            setUsername(data.username);
+            setIsKM(data.is_km);
+            setProperty(data.property);
           }
+        } catch (err) {
+          console.error(err);
         }
       }
     } catch (err) {
