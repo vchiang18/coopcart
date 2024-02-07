@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500&display=swap');
+
+.order-history {
+  color: #0f2c0a;
+  font-family: 'Lexend Deca', sans-serif;
+  padding: 20px;
+}
+
+.order-history h1 {
+  font-family: 'Lexend Deca', sans-serif;
+  color: #6cae3a;
+}
+
+.order-history input[type="text"] {
+  color: #0f2c0a;
+  border: 1px solid #0a87b6;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.order-history table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-history th,
+.order-history td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #f1c35a;
+}
+
+.order-history th {
+  background-color: #306e12;
+  color: #c4e3ea;
+}
+
+.order-history tr:hover {
+  background-color: #53bee4;
+}
+
+.error-message {
+  color: #f1c35a;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.order-history button {
+  display: flex;
+  gap: 10px;
+}
+
+.order-history button {
+  padding: 5px 10px;
+  font-size: 0.8em;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #f7faf9;
+  background-color: #53bee4;
+  border: none;
+  margin: 0;
+}
+
+.order-history button:hover {
+  background-color: #f1c35a;
+  color: #0f2c0a;
+}
