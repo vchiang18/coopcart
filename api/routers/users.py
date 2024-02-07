@@ -6,8 +6,10 @@ from fastapi import (
     APIRouter,
     Request,
 )
-from queries.users import (UserIn, UserOut, UserQueries, UserInEdit, DuplicateAccountError,
-                           Error, UserOutMembers, UserOutEdit)
+from queries.users import (UserIn, UserOut, UserQueries, UserInEdit,
+                           DuplicateAccountError,
+                           Error, UserOutMembers, UserInProperty,
+                           UserOutProperty)
 from queries.manager import (ManagerQueries, ManagerOut)
 from typing import Optional, Union, List
 from jwtdown_fastapi.authentication import Token
@@ -104,7 +106,6 @@ def get_user(
     return user
 
 
-
 # edit user details
 @router.put("/user", response_model=Union[UserOut, Error])
 def update_user(
@@ -115,10 +116,11 @@ def update_user(
     user_id = account_data["id"]
     return repo.update(user_id, user)
 
+
 # edit user add property
-@router.put("/user", response_model=Union[UserOut, Error])
-def update_user(
-    user: UserInEdit,
+@router.put("/user", response_model=Union[UserOutProperty, Error])
+def update_user_property(
+    user: UserInProperty,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: UserQueries = Depends()
 ):
