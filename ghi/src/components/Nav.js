@@ -36,6 +36,9 @@ function Nav() {
               <NavLink className="nav-link" to="/user">
                 Edit My Info
               </NavLink>
+              <NavLink className="nav-link" to="/property/add">
+                Add Property
+              </NavLink>
             </li>
           </ul>
         </div>
