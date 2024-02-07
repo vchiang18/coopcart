@@ -22,7 +22,7 @@ function TestForm() {
   const handleOnSubmit = async (evt) => {
     evt.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/user", {
+      const response = await fetch(`${process.env.REACT_APP_API_HOST}/user`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(state),

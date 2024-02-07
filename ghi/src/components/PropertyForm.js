@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../style.css";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 
-
 const PropertyForm = () => {
   const [property, setProperty] = useState({
     property_name: "",
@@ -36,7 +35,7 @@ const PropertyForm = () => {
       total_members: property.total_members,
     };
 
-    const response = await fetch("http://localhost:8000/property", {
+    const response = await fetch(`${process.env.REACT_APP_API_HOST}/property`, {
       method: "post",
       body: JSON.stringify(propertyData),
       headers: {
