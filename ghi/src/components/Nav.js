@@ -21,7 +21,7 @@ function Nav() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-wrap">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/requests">
+              <NavLink className="nav-link" to="/request/add">
                 Create a Request
               </NavLink>
               <NavLink className="nav-link" to="/requests">
