@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../signup.css";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
+import './signin.css'
 
 function SignInForm() {
   const { login } = useToken();
@@ -27,9 +27,10 @@ function SignInForm() {
     }
   };
 
+
   return (
-    <div className="form-container sign-in-container">
-      <form onSubmit={handleOnSubmit}>
+    <div className="sign-in-form-container">
+      <form onSubmit={handleOnSubmit} className= "sign-in-form">
         <h1>Sign in</h1>
         <input
           type="username"
@@ -37,6 +38,7 @@ function SignInForm() {
           value={state.username}
           onChange={handleChange}
           placeholder="Username"
+          className="sign-in-input"
         />
         <input
           type="password"
@@ -44,9 +46,9 @@ function SignInForm() {
           value={state.password}
           onChange={handleChange}
           placeholder="Password"
+          className="sign-in-input"
         />
-        <a href="#">Forgot your password?</a>
-        <button>Sign In</button>
+        <button className="sign-in-form-button">Sign In</button>
       </form>
     </div>
   );
