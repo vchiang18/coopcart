@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
-import { jwtDecode } from "jwt-decode";
 
 function UserEdit() {
   const [firstName, setFirstName] = useState("");
