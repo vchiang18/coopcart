@@ -18,6 +18,10 @@ function SignInForm() {
 
   const handleOnSubmit = async (evt) => {
     evt.preventDefault();
+    if (!state.username.trim()|| !state.password.trim()){
+      alert("Username and password cannot be empty")
+      return;
+    }
     try {
       await login(state.username, state.password);
       alert("Login successful");
