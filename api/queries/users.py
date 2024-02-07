@@ -33,17 +33,13 @@ class UserInEdit(BaseModel):
     last_name: str
     username: str
     terms_boolean: Optional[bool]
-
-
-class UserInProperty(BaseModel):
-    property: int
     is_km: Optional[bool]
+    property: Optional[int]
 
 
-class UserOutProperty(BaseModel):
-    property: int
+class UserOutEdit(UserOut):
     is_km: Optional[bool]
-    id: int
+    property: Optional[int]
 
 
 class UserOutMembers(BaseModel):
@@ -98,13 +94,19 @@ class UserQueries:
         except Exception:
             return {"message:" "Get user did not work"}
 
-    def get_one_no_pw(self, id: int) -> UserOut:
+    def get_one_no_pw(self, id: int) -> UserOutEdit:
         try:
             with pool.connection() as conn:
-                with conn.cursor() as db:
+                with conn.cursor(row_factory=dict_row) as db:
                     result = db.execute(
                         """
-                        SELECT *
+                        SELECT first_name,
+                            last_name,
+                            username,
+                            user_id,
+                            terms_boolean,
+                            is_km,
+                            property
                         FROM users
                         WHERE user_id = %s
                         """,
@@ -112,21 +114,9 @@ class UserQueries:
                             id
                         ]
                     )
-                    record = result.fetchone()
-                    first_name = record[0]
-                    last_name = record[1]
-                    username = record[2]
-                    id = record[8]
-                    terms_boolean = record[4]
-                    if id is None:
-                        return None
-                    return UserOut(
-                        first_name=first_name,
-                        last_name=last_name,
-                        username=username,
-                        id=id,
-                        terms_boolean=terms_boolean)
-
+                    data = result.fetchone()
+                    print("record: ", data)
+                    return UserOutEdit(id=id, **data)
         except Exception:
             return {"message:" "Get user did not work"}
 
@@ -191,7 +181,7 @@ class UserQueries:
             print(e)
             return {"message": "Could not get all users"}
 
-    def update(self, user_id: int, user: UserInEdit) -> UserOut:
+    def update(self, user_id: int, user: UserInEdit) -> UserOutEdit:
         if user_id is None:
             return None
         try:
@@ -203,12 +193,16 @@ class UserQueries:
                         SET first_name = %s,
                             last_name = %s,
                             username = %s,
-                            terms_boolean = %s
+                            terms_boolean = %s,
+                            is_km = %s,
+                            property = %s
                         WHERE user_id = %s
                         RETURNING first_name,
                             last_name,
                             username,
                             terms_boolean,
+                            is_km,
+                            property,
                             user_id;
                         """,
                         [
@@ -216,40 +210,13 @@ class UserQueries:
                             user.last_name,
                             user.username,
                             user.terms_boolean,
+                            user.is_km,
+                            user.property,
                             user_id
                         ]
                     )
                     data = result.fetchone()
                     return UserOutEdit(id=user_id, **data)
-        except Exception as e:
-            print(e)
-            return {f"Could not update user. An error occurred: {e}"}
-
-    def update_property(self, user_id: int, user: UserInProperty) -> UserOutProperty:
-        if user_id is None:
-            return None
-        try:
-            with pool.connection() as conn:
-                with conn.cursor(row_factory=dict_row) as db:
-                    result = db.execute(
-                        """
-                        UPDATE users
-                        SET property = %s,
-                            is_km = %s
-                        WHERE user_id = %s
-                        RETURNING
-                            property,
-                            is_km,
-                            user_id;
-                        """,
-                        [
-                            user.property,
-                            user.is_km,
-                            user_id
-                        ]
-                    )
-                    data = result.fetchone()
-                    return UserOutProperty(id=user_id, **data)
         except Exception as e:
             print(e)
             return {f"Could not update user. An error occurred: {e}"}

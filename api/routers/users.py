@@ -7,9 +7,9 @@ from fastapi import (
     Request,
 )
 from queries.users import (UserIn, UserOut, UserQueries, UserInEdit,
-                           DuplicateAccountError,
-                           Error, UserOutMembers, UserInProperty,
-                           UserOutProperty)
+                           DuplicateAccountError, UserOutEdit,
+                           Error, UserOutMembers
+                           )
 from queries.manager import (ManagerQueries, ManagerOut)
 from typing import Optional, Union, List
 from jwtdown_fastapi.authentication import Token
@@ -93,12 +93,12 @@ def get_users(
 
 
 # user detail
-@router.get("/user", response_model=Optional[UserOut])
+@router.get("/user", response_model=Optional[UserOutEdit])
 def get_user(
     response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: UserQueries = Depends()
-) -> UserOut:
+) -> UserOutEdit:
     user_id = account_data["id"]
     user = repo.get_one_no_pw(user_id)
     if user is None:
@@ -107,20 +107,9 @@ def get_user(
 
 
 # edit user details
-@router.put("/user", response_model=Union[UserOut, Error])
+@router.put("/user", response_model=Union[UserOutEdit, Error])
 def update_user(
     user: UserInEdit,
-    account_data: dict = Depends(authenticator.get_current_account_data),
-    repo: UserQueries = Depends()
-):
-    user_id = account_data["id"]
-    return repo.update(user_id, user)
-
-
-# edit user add property
-@router.put("/user", response_model=Union[UserOutProperty, Error])
-def update_user_property(
-    user: UserInProperty,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: UserQueries = Depends()
 ):

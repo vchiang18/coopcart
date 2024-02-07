@@ -6,6 +6,8 @@ function UserEdit() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
+  const [isKM, setIsKM] = useState("");
+  const [property, setProperty] = useState("");
   const { token } = useAuthContext();
   const [submitted, setSubmitted] = useState(false);
 
@@ -35,6 +37,9 @@ function UserEdit() {
               setFirstName(data.first_name);
               setLastName(data.last_name);
               setUsername(data.username);
+              setIsKM(data.is_km);
+              setProperty(data.property);
+              console.log("data: ", data);
             }
           } catch (err) {
             console.error(err);
@@ -78,8 +83,8 @@ function UserEdit() {
     data.last_name = lastName;
     data.username = username;
     data.terms_boolean = true;
-    // data.is_km = true;
-    // data.property = 1;
+    data.is_km = isKM;
+    data.property = property;
 
     const fetchOptions = {
       method: "PUT",
