@@ -6,7 +6,7 @@ import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import UserEdit from "./components/UserEdit";
 import PropertyAdd from "./components/PropertyAdd";
 import Dashboard from "./components/Dashboard";
-import MainContent from "./Mainpage";
+import MainPage from "./Mainpage.js";
 
 function App() {
   const baseUrl = process.env.REACT_APP_API_HOST;
@@ -25,10 +25,10 @@ function App() {
         <div className="Container">
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="signup" element={<SignupProperty />} />
+            <Route path="/signup" element={<SignupProperty />} />
             <Route path="/signin" element={<SignInSignUp />} />
             <Route path="/user" element={<UserEdit />} />
-            <Route path="/" element={<MainContent />} />            
+            <Route path="/" element={<MainPage />} />            
             <Route path="/property/add" element={<PropertyAdd />} />
             {/* <Route path="/request/add" element={<PropertyAdd />} />
             <Route path="/requests" element={<PropertyAdd />} /> */}
