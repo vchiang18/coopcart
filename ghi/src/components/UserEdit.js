@@ -78,6 +78,8 @@ function UserEdit() {
     data.last_name = lastName;
     data.username = username;
     data.terms_boolean = true;
+    // data.is_km = true;
+    // data.property = 1;
 
     const fetchOptions = {
       method: "PUT",

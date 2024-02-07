@@ -5,7 +5,7 @@ function PropertyAdd() {
   const [properties, setProperties] = useState([]);
   const [property, setProperty] = useState("");
   const { token } = useAuthContext();
-  console.log(token);
+  // console.log(token);
 
   const getProperties = async () => {
     const url = `${process.env.REACT_APP_API_HOST}/properties`;
@@ -14,7 +14,7 @@ function PropertyAdd() {
       // console.log("get properties response:", response);
       if (response.ok) {
         const data = await response.json();
-        // console.log(data);
+        // console.log("data: ", data);
         setProperties(data);
       }
     } catch (err) {
