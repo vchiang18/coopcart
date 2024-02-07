@@ -40,10 +40,6 @@ class PropertyOutSignup(BaseModel):
     city: str
     zip: str
     state: str
-    total_members: Optional[int]
-    food_fee: float
-    created_at: datetime
-    property_picture_url: Optional[str]
 
 
 class PropertyQueries:
@@ -128,9 +124,15 @@ class PropertyQueries:
                 with conn.cursor(row_factory=dict_row) as db:
                     db.execute(
                         """
-                        INSERT INTO properties (property_name, street, city, zip, state, total_members, food_fee, created_at, property_picture_url)
-                        VALUES (%s,%s, %s, %s, %s, %s, %s, %s, %s)
-                        RETURNING *;
+                        SELECT
+                            property_name,
+                            street,
+                            city,
+                            state,
+                            zip,
+                            property_id
+
+                        FROM properties
                         """
                     )
                     result = db.fetchall()

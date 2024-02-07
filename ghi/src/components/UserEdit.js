@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
-import { jwtDecode } from "jwt-decode";
 
 function UserEdit() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
+  const [isKM, setIsKM] = useState("");
+  const [property, setProperty] = useState("");
   const { token } = useAuthContext();
   const [submitted, setSubmitted] = useState(false);
 
@@ -21,24 +22,18 @@ function UserEdit() {
 
     try {
       if (token) {
-        const decodedToken = jwtDecode(token);
-        // console.log("decoded token: ", decodedToken);
-        const user_id = decodedToken.account.id;
-        // console.log(user_id);
-
-        if (user_id) {
-          try {
-            const response = await fetch(url, fetchOptions);
-            console.log("response:", response);
-            if (response.ok) {
-              const data = await response.json();
-              setFirstName(data.first_name);
-              setLastName(data.last_name);
-              setUsername(data.username);
-            }
-          } catch (err) {
-            console.error(err);
+        try {
+          const response = await fetch(url, fetchOptions);
+          if (response.ok) {
+            const data = await response.json();
+            setFirstName(data.first_name);
+            setLastName(data.last_name);
+            setUsername(data.username);
+            setIsKM(data.is_km);
+            setProperty(data.property);
           }
+        } catch (err) {
+          console.error(err);
         }
       }
     } catch (err) {
@@ -78,6 +73,8 @@ function UserEdit() {
     data.last_name = lastName;
     data.username = username;
     data.terms_boolean = true;
+    data.is_km = isKM;
+    data.property = property;
 
     const fetchOptions = {
       method: "PUT",
