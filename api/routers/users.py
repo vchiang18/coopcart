@@ -104,6 +104,7 @@ def get_user(
     return user
 
 
+
 # edit user
 @router.put("/user", response_model=Union[UserOut, Error])
 def update_user(

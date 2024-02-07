@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 client = TestClient(app)
 
+
 class UserOut(BaseModel):
     first_name: str
     last_name: str
@@ -14,23 +15,27 @@ class UserOut(BaseModel):
     id: int
     term_boolean: bool
 
+
 def fake_authenticator_get_current_account_data():
     return UserOut(
-            first_name="test",
-            last_name="user",
-            username="testuser",
-            id=1,
-            term_boolean=True)
+        first_name="test",
+        last_name="user",
+        username="testuser",
+        id=1,
+        term_boolean=True)
+
 
 class EmptyBudgetQueries:
     def get_budgets(self):
         return []
+
 
 class CreateBudgetQueries:
     def create(self, budget):
         result = {"budget_id": 1}
         result.update(budget)
         return result
+
 
 def test_create_budget():
     app.dependency_overrides[authenticator.get_current_account_data] = fake_authenticator_get_current_account_data
@@ -64,6 +69,7 @@ def test_create_budget():
         "budget_id": 1
     }
 
+
 class GetBudgetQueries:
     def get(self, budget_id):
         return {
@@ -78,6 +84,8 @@ class GetBudgetQueries:
             "ytd_remaining_budget": 1.00,
             "budget_id": 1
         }
+
+
 def test_get_budget():
     app.dependency_overrides[authenticator.get_current_account_data] = fake_authenticator_get_current_account_data
     app.dependency_overrides[BudgetQueries] = GetBudgetQueries
@@ -97,11 +105,13 @@ def test_get_budget():
         "budget_id": 1
     }
 
+
 class UpdateBudgetQueries:
     def update(self, budget_id, budget):
         result = {"budget_id": 1}
         result.update(budget)
         return result
+
 
 def test_update_budget():
     app.dependency_overrides[authenticator.get_current_account_data] = fake_authenticator_get_current_account_data
@@ -135,9 +145,11 @@ def test_update_budget():
         "budget_id": 1
     }
 
+
 class DeleteBudgetQueries:
     def delete(self, budget_id):
         return {"message": "Budget deleted"}
+
 
 def test_delete_budget():
     app.dependency_overrides[authenticator.get_current_account_data] = fake_authenticator_get_current_account_data
@@ -146,6 +158,7 @@ def test_delete_budget():
     app.dependency_overrides = {}
     assert response.status_code == 200
     assert response.json() == {"message": "Budget deleted"}
+
 
 class GetBudgetsQueries:
     def get_all(self):
@@ -163,6 +176,7 @@ class GetBudgetsQueries:
                 "budget_id": 1
             }
         ]
+
 
 def test_get_budgets():
     app.dependency_overrides[authenticator.get_current_account_data] = fake_authenticator_get_current_account_data

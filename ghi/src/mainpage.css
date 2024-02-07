@@ -5,78 +5,73 @@
   justify-content: center;
   min-height: 90vh;
   background-color: #f7faf9;
-  color: #0f2c0a; 
   text-align: center;
   padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.center:hover {
+  transform: translateY(-10px);
 }
 
 .title {
   font-size: 3em;
-  margin-bottom: 0.5em;
-  color: #6cae3a; 
-  font-weight: bold;
+  color: #6cae3a;
+  margin: 0;
 }
 
 .sub_title {
   font-size: 1.5em;
-  margin-bottom: 2em;
   color: #c4e3ea;
+  margin: 10px 0 30px;
 }
 
-.btns {
-  display: flex;
-  gap: 15px;
+.image-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 30px;
 }
 
-button {
+.image-container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-container img:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.btns, .button {
   padding: 10px 20px;
   font-size: 1em;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  color: #0f2c0a; 
+  color: #0f2c0a;
   background-color: #f7faf9;
+  border: 2px solid #6cae3a;
+  margin: 5px;
 }
 
-button:hover {
-  background-color: #53bee4; 
-  color: #f7faf9; 
+.button:hover {
+  background-color: #53bee4;
+  color: #f7faf9;
 }
 
-.shopNowBtn {
-  background-color: #6cae3a; 
+footer {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
 }
 
-.viewCartBtn {
-  background-color: #f1c35a;
-}
-
-.shopNowBtn:hover, .viewCartBtn:hover {
-  border-color: #306e12; 
-}
- 
-
-.image-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-gap: 10px;
-  position: relative;
+header, footer {
   width: 100%;
-  height: auto; 
-  margin-bottom: 100px;
-}
-
-
-.btns {
-  position: absolute;
-  bottom: 10px; 
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-}
-
-.image-container img {
-  max-width: 100%; /* Makes image responsive */
-  max-height: 200px; /* Adjust as needed */
-  object-fit: cover; /* Ensures the aspect ratio is maintained */
+  text-align: center;
 }

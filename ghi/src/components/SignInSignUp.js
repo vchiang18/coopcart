@@ -38,7 +38,9 @@ function SignInSignUp() {
             </div>
             <div className="overlay-panel overlay-right">
               <h1 className="SignInSignUp-h1">Hello, Friend!</h1>
-              <p className="SignInSignUp-p">Enter your personal details and start journey with us</p>
+              <p className="SignInSignUp-p">
+                Enter your personal details and start journey with us
+              </p>
               <button
                 className="ghost"
                 id="signUp"
