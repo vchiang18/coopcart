@@ -93,7 +93,7 @@ function UserEdit() {
           console.log("put response: ", response);
           if (response.ok) {
             const updatedUser = await response.json();
-            console.log("response.json: ", updatedUser);
+            // console.log("response.json: ", updatedUser);
             setSubmitted(true);
             e.target.reset();
           }

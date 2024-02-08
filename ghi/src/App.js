@@ -1,10 +1,11 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SignupProperty from "./SignupProperty";
+import SignupProperty from "./components/SignupProperty.js";
 import RequestForm from "./components/RequestForm";
 import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import UserEdit from "./components/UserEdit";
-import PropertyAdd from "./components/PropertyAdd";
+import PropertyAdd from "./components/PropertyAddForm.js";
+import PropertyCreateForm from "./components/PropertyCreateForm.js";
 import Dashboard from "./components/Dashboard";
 import RequestList from "./components/RequestList";
 import MainPage from "./Mainpage.js";
@@ -30,6 +31,7 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/property/add" element={<PropertyAdd />} />
             <Route path="/requests" element={<RequestList />} />
+            <Route path="/property/create" element={<PropertyCreateForm />} />
             <Route path="/request/add" element={<RequestForm />} />
             <Route path="/orders" element={<OrderHistory />} />
             <Route path="/order/create" element={<CreateOrder />} />
