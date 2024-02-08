@@ -57,11 +57,7 @@ class GetAllPropertiesQueries:
             street="LA",
             city="Pasadena",
             zip="90004",
-            state="CA",
-            total_members=20,
-            food_fee=200.0,
-            created_at=datetime.datetime(2024, 2, 1),
-            property_picture_url="example.url")]
+            state="CA")]
 
 
 class UpdatePropertyQueries:
@@ -178,3 +174,19 @@ def test_update_property():
         "created_at": "2024-02-01T00:00:00",
         "property_picture_url": "example.url"
     }
+
+
+def test_get_all_properties():
+    app.dependency_overrides[PropertyQueries] = GetAllPropertiesQueries
+    response = client.get("/properties")
+    app.dependency_overrides = {}
+    assert response.status_code == 200
+    expected_response = [{
+        "property_id": 1,
+        "property_name": "Dream",
+        "street": "LA",
+        "city": "Pasadena",
+        "zip": "90004",
+        "state": "CA"}]
+    assert response.json() == expected_response
+    app.dependency_overrides = {}
