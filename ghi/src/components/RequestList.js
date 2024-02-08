@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import Nav from '../components/Nav';
 
 function RequestList() {
     const [requests, setRequests] = useState([]);
@@ -21,6 +22,8 @@ function RequestList() {
     }, [token]);
 
     return (
+        <>
+        <Nav />
         <div>
             <h1>Requests</h1>
             <table className="table table-striped-columns">
@@ -60,6 +63,7 @@ function RequestList() {
                 </tbody>
             </table>
         </div>
+        </>
     );
 }
 export default RequestList;
