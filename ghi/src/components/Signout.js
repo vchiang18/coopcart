@@ -1,6 +1,6 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; 
-import useToken from '@galvanize-inc/jwtdown-for-react';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function SignOutButton() {
   const { logout } = useToken();
@@ -8,11 +8,13 @@ function SignOutButton() {
 
   const handleSignOut = async () => {
     const success = await logout();
-    navigate('/');
+    navigate("/");
   };
 
   return (
-    <button onClick={handleSignOut} className="sign-out-button">Sign Out</button>
+    <button onClick={handleSignOut} className="sign-out-button">
+      Sign Out
+    </button>
   );
 }
 

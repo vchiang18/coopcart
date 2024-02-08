@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { useNavigate } from "react-router-dom";
+import SignOutButton from "./Signout";
 
 function PropertyAdd() {
   const [properties, setProperties] = useState([]);
   const [newProperty, setNewProperty] = useState("");
   const { token } = useAuthContext();
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     first_name: "",
     last_name: "",
@@ -13,6 +16,48 @@ function PropertyAdd() {
     property: "",
   });
   console.log(token);
+
+  // fetch user info for edit user
+  const getUser = async () => {
+    const url = `${process.env.REACT_APP_API_HOST}/user`;
+    const fetchOptions = {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      if (token) {
+        console.log("token passed!");
+        try {
+          const response = await fetch(url, fetchOptions);
+          console.log("user fetch response: ", response);
+          if (response.ok) {
+            const data = await response.json();
+            console.log("data: ", data);
+            setUserInfo((prevUserInfo) => ({
+              ...prevUserInfo,
+              first_name: data.first_name,
+              last_name: data.last_name,
+              username: data.username,
+              is_km: data.is_km,
+              property: data.property,
+            }));
+            console.log("userInfo: ", userInfo);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, [token]);
 
   // fetch all properties for form
   const getProperties = async () => {
@@ -37,48 +82,8 @@ function PropertyAdd() {
   const handleNewPropertyChange = (e) => {
     const value = e.target.value;
     setNewProperty(value);
+    // console.log(newProperty);
   };
-
-  // fetch user info for edit user
-  const getUser = async () => {
-    const url = `${process.env.REACT_APP_API_HOST}/user`;
-    const fetchOptions = {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    try {
-      if (token) {
-        try {
-          const response = await fetch(url, fetchOptions);
-          if (response.ok) {
-            const data = await response.json();
-            // console.log("data: ", data);
-            setUserInfo((prevUserInfo) => ({
-              ...prevUserInfo,
-              first_name: data.first_name,
-              last_name: data.last_name,
-              username: data.username,
-              is_km: data.is_km,
-              property: data.property,
-            }));
-            console.log("userInfo: ", userInfo);
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   // adds property to user
   const handleNewPropertySubmit = async (e) => {
@@ -96,7 +101,6 @@ function PropertyAdd() {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
       },
     };
 
@@ -105,6 +109,8 @@ function PropertyAdd() {
       if (response.ok) {
         const addProperty = await response.json();
         setNewProperty("");
+        alert("Successfully added your coop!");
+        navigate("/dashboard");
       }
     } catch (err) {
       console.error(err);
@@ -115,7 +121,10 @@ function PropertyAdd() {
     <>
       <div className="container margin-bottom">
         <h2>2. Select Your Coop</h2>
-        <p>If you don't see your coop in this list, please add it below</p>
+        <p className="info-text">
+          If you don't see your property, please ask your Kitchen Manager to add
+          one!
+        </p>
         {properties === undefined ? null : (
           <form onSubmit={handleNewPropertySubmit}>
             <div className="form-floating mb-3">
@@ -138,6 +147,7 @@ function PropertyAdd() {
           </form>
         )}
       </div>
+      <SignOutButton />
     </>
   );
 }

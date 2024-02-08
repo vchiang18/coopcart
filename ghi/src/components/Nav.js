@@ -27,7 +27,10 @@ function Nav() {
         >
           <span className="coopcart-navbar-toggler-icon navbar-toggler-icon"></span>
         </button>
-        <div className="coopcart-collapse collapse navbar-collapse" id="coopcart-navbarSupportedContent">
+        <div
+          className="coopcart-collapse collapse navbar-collapse"
+          id="coopcart-navbarSupportedContent"
+        >
           <ul className="coopcart-navbar-nav navbar-nav me-auto mb-2 mb-lg-0">
             <li className="coopcart-nav-item nav-item">
               <NavLink className="coopcart-nav-link nav-link" to="/">
@@ -48,14 +51,23 @@ function Nav() {
               >
                 Requests
               </button>
-              <ul className="coopcart-dropdown-menu dropdown-menu" aria-labelledby="coopcart-dropdownRequests">
+              <ul
+                className="coopcart-dropdown-menu dropdown-menu"
+                aria-labelledby="coopcart-dropdownRequests"
+              >
                 <li>
-                  <NavLink className="coopcart-dropdown-item dropdown-item" to="/request/add">
+                  <NavLink
+                    className="coopcart-dropdown-item dropdown-item"
+                    to="/request/add"
+                  >
                     Create Request
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="coopcart-dropdown-item dropdown-item" to="/requests">
+                  <NavLink
+                    className="coopcart-dropdown-item dropdown-item"
+                    to="/requests"
+                  >
                     View Requests
                   </NavLink>
                 </li>
@@ -70,14 +82,23 @@ function Nav() {
               >
                 Orders
               </button>
-              <ul className="coopcart-dropdown-menu dropdown-menu" aria-labelledby="coopcart-dropdownOrders">
+              <ul
+                className="coopcart-dropdown-menu dropdown-menu"
+                aria-labelledby="coopcart-dropdownOrders"
+              >
                 <li>
-                  <NavLink className="coopcart-dropdown-item dropdown-item" to="/order/add">
+                  <NavLink
+                    className="coopcart-dropdown-item dropdown-item"
+                    to="/order/add"
+                  >
                     Create Order
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="coopcart-dropdown-item dropdown-item" to="/orders">
+                  <NavLink
+                    className="coopcart-dropdown-item dropdown-item"
+                    to="/orders"
+                  >
                     View Orders
                   </NavLink>
                 </li>
@@ -100,17 +121,26 @@ function Nav() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Property
+                Coop
               </button>
-              <ul className="coopcart-dropdown-menu dropdown-menu" aria-labelledby="coopcart-dropdownProperty">
+              <ul
+                className="coopcart-dropdown-menu dropdown-menu"
+                aria-labelledby="coopcart-dropdownProperty"
+              >
                 <li>
-                  <NavLink className="coopcart-dropdown-item dropdown-item" to="/property/add">
-                    Add Property
+                  <NavLink
+                    className="coopcart-dropdown-item dropdown-item"
+                    to="/property/add"
+                  >
+                    Change Coop
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="coopcart-dropdown-item dropdown-item" to="/property/edit">
-                    Edit Property
+                  <NavLink
+                    className="coopcart-dropdown-item dropdown-item"
+                    to="/property/edit"
+                  >
+                    Edit Coop
                   </NavLink>
                 </li>
               </ul>
