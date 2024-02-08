@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
+import SignOutButton from "./Signout";
 
 function PropertyAdd() {
   const [properties, setProperties] = useState([]);
@@ -146,6 +147,7 @@ function PropertyAdd() {
           </form>
         )}
       </div>
+      <SignOutButton />
     </>
   );
 }

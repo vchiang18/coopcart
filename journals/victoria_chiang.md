@@ -1,4 +1,10 @@
-2.2.24
+2.9.24
+
+- created several front end components: add property, edit user, and the aggregate signup flow (for member and KM)
+- deployed backend and front end
+- learns: 1. in depth experience of the potential benefits of RTK (since not using global state), 2. how to pass collect several different piece of information and pass them to different endpoints in one view (react has special logic for forms - you cannot have multiple form components on one page), 3. limitations of jwt-down package, since the inability to edit the user signup flow with custom fields is what led to several days of trying different ways to add / create properties from the signup flow, 4. particular ways the front end auth package likes to work (credentials: include more reliable than the token)
+
+  2.2.24
 
 - began front end work on signup flow and editing user information, ran into some blocks around conflicting CSS from other team members
 - set up front end auth: explored redux/RTK but ultimately went with standard implementation due to time constraints. (Shifting RTK to stretch goal)
