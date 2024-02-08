@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../style.css";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 
-const PropertyForm = () => {
+const PropertyCreateForm = () => {
   const [property, setProperty] = useState({
     property_name: "",
     street: "",
@@ -184,4 +184,4 @@ const PropertyForm = () => {
   );
 };
 
-export default PropertyForm;
+export default PropertyCreateForm;

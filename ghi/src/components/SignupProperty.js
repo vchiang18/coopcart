@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import MemberForm from "./MemberForm.js";
-import "../SignupProperty.css";
-import useToken from "@galvanize-inc/jwtdown-for-react";
 import KMForm from "./KMForm.js";
+import "../SignupProperty.css";
 
 function SignupProperty() {
   const { token } = useAuthContext();
@@ -44,10 +43,6 @@ function SignupProperty() {
       {isMember && (
         <div>
           <MemberForm />
-          <p className="info-text">
-            If you don't see your property, please ask your Kitchen Manager to
-            add one!
-          </p>
         </div>
       )}
       {isKM && <KMForm />}
