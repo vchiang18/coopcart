@@ -2,6 +2,7 @@ import { useAuthContext } from '@galvanize-inc/jwtdown-for-react';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './orderhistory.css';
+import SignOutButton from './components/Signout';
 
 function OrderHistory() {
   const [orders, setOrders] = useState([]);
@@ -53,7 +54,7 @@ function OrderHistory() {
   const navigatetodashboard = () => {
     navigate("/dashboard");
   };
-  
+
   return (
     <div className="order-history">
       <h1>Order History</h1>
@@ -86,6 +87,7 @@ function OrderHistory() {
           ))}
         </tbody>
       </table>
+      {token && <SignOutButton />}
     </div>
   );
 }
