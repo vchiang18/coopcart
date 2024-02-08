@@ -3,14 +3,12 @@ import { useNavigate } from "react-router-dom";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function SignOutButton() {
-  const { setToken } = useToken();
   const { logout } = useToken();
   const navigate = useNavigate();
 
-  const handleSignOut = () => {
-    localStorage.removeItem("token");
-    logout();
-    navigate("/signup");
+  const handleSignOut = async () => {
+    const success = await logout();
+    navigate("/");
   };
 
   return (

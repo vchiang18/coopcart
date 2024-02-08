@@ -6,7 +6,7 @@ from authenticator import authenticator
 router = APIRouter()
 
 
-@router.post("/orders")
+@router.post("/order/create")
 def create_order(order: OrderIn, repo: OrderRepository = Depends(), account_data: dict = Depends(authenticator.get_current_account_data)):
     return repo.create(order)
 
