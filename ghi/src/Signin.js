@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./signin.css";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
 
 function SignInForm() {
-  const { login } = useToken();
+  const { token, login } = useToken();
   const navigate = useNavigate();
   const [state, setState] = useState({
     username: "",
     password: "",
   });
+  
+  useEffect(() => {
+    if (token) {
+      alert("Login successful");
+      navigate("/dashboard");
+    }
+  }, [token, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,13 +29,7 @@ function SignInForm() {
       alert("Username and password cannot be empty");
       return;
     }
-    try {
-      await login(state.username, state.password);
-      alert("Login successful");
-      navigate("/dashboard");
-    } catch (error) {
-      alert("Login failed: " + error.message);
-    }
+    const success = await login(state.username, state.password).catch(() => false);
   };
 
   return (
@@ -51,7 +52,6 @@ function SignInForm() {
           placeholder="Password"
           className="sign-in-input"
         />
-        <a href="#">Forgot your password?</a>
         <button>Sign In</button>
       </form>
     </div>

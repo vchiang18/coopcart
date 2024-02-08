@@ -85,7 +85,7 @@ def test_create():
     app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
 
     response = client.post(
-        "/orders",
+        "/order/create",
         json={
             "item": "apple",
             "brand": "Fuji",

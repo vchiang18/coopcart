@@ -2,6 +2,8 @@ import { useAuthContext } from '@galvanize-inc/jwtdown-for-react';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './orderhistory.css';
+import SignOutButton from './components/Signout';
+import Nav from './components/Nav';
 
 function OrderHistory() {
   const [orders, setOrders] = useState([]);
@@ -34,13 +36,13 @@ function OrderHistory() {
     })
     .then(data => {
       setOrders(data);
-      setError(''); 
+      setError('');
     })
     .catch(error => {
       console.error('Error fetching the orders:', error);
       setError(error.message);
     });
-  }, [token]);
+  }, [token, error]);
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -50,14 +52,11 @@ function OrderHistory() {
            new Date(order.created_date).toLocaleDateString().includes(searchTerm);
   });
 
-  const navigatetodashboard = () => {
-    navigate("/dashboard");
-  };
-  
   return (
+    <>
+    <Nav />
     <div className="order-history">
       <h1>Order History</h1>
-      <button onClick={navigatetodashboard}>Go to Dashboard</button>
       <input
         type="text"
         placeholder="Search by date, search by item"
@@ -87,6 +86,7 @@ function OrderHistory() {
         </tbody>
       </table>
     </div>
+    </>
   );
 }
 

@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignupProperty from "./SignupProperty";
 import RequestForm from "./components/RequestForm";
@@ -5,9 +6,11 @@ import { AuthProvider } from "@galvanize-inc/jwtdown-for-react";
 import UserEdit from "./components/UserEdit";
 import PropertyAdd from "./components/PropertyAdd";
 import Dashboard from "./components/Dashboard";
+import RequestList from "./components/RequestList";
 import MainPage from "./Mainpage.js";
 import SignInForm from "./Signin.js";
 import OrderHistory from "./orderhistory.js";
+import CreateOrder from "./components/CreateOrder";
 
 function App() {
   const baseUrl = process.env.REACT_APP_API_HOST;
@@ -24,10 +27,12 @@ function App() {
             <Route path="/signup" element={<SignupProperty />} />
             <Route path="/signin" element={<SignInForm />} />
             <Route path="/user" element={<UserEdit />} />
+            <Route path="/" element={<MainPage />} />
             <Route path="/property/add" element={<PropertyAdd />} />
+            <Route path="/requests" element={<RequestList />} />
             <Route path="/request/add" element={<RequestForm />} />
-            {/*<Route path="/requests" element={<PropertyAdd />} /> */}
             <Route path="/orders" element={<OrderHistory />} />
+            <Route path="/order/create" element={<CreateOrder />} />
           </Routes>
         </div>
       </BrowserRouter>
