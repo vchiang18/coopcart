@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import MemberForm from "./MemberForm.js";
 import KMForm from "./KMForm.js";
 import "../SignupProperty.css";
 
 function SignupProperty() {
-  const { token } = useAuthContext();
   const [isKM, setIsKM] = useState(false);
   const [isMember, setIsMember] = useState(true);
 
   const handleKMChange = (e) => {
-    setIsKM(!isKM);
-    setIsMember(!isMember);
+    const field = e.target.id === "member";
+    setIsMember(field);
+    setIsKM(!field);
   };
-  console.log("is member: ", isMember);
+
+  console.log("isKM: ", isKM);
 
   return (
     <div className="signup-property-container">
@@ -40,12 +40,15 @@ function SignupProperty() {
           I'm a Kitchen Manager
         </label>
       </div>
-      {isMember && (
+      {isMember ? (
         <div>
           <MemberForm />
         </div>
+      ) : (
+        <div>
+          <KMForm />
+        </div>
       )}
-      {isKM && <KMForm />}
     </div>
   );
 }

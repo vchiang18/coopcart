@@ -46,7 +46,7 @@ function MemberForm() {
     <>
       <div className="container margin-bottom">
         <form onSubmit={handleMemberSubmit}>
-          <h2>Create Member Login</h2>
+          <h2>Create Member Account</h2>
           <input
             type="text"
             name="first_name"

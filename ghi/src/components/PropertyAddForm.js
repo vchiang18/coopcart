@@ -29,7 +29,7 @@ function PropertyAdd() {
 
     try {
       if (token) {
-        console.log("token passed!");
+        // console.log("token passed!");
         try {
           const response = await fetch(url, fetchOptions);
           console.log("user fetch response: ", response);
