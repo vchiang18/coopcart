@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "../signup.css";
 
 function SignUpForm(signup, onChange) {
@@ -37,9 +36,9 @@ function SignUpForm(signup, onChange) {
         <label>
           <input
             type="checkbox"
-            name="term_boolean"
+            name="terms_boolean"
             onChange={onChange}
-            checked={signup.term_boolean}
+            checked={signup.terms_boolean}
           />
           Accept Terms & Conditions
         </label>
