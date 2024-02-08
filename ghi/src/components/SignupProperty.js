@@ -3,6 +3,7 @@ import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import MemberForm from "./MemberForm.js";
 import "../SignupProperty.css";
 import useToken from "@galvanize-inc/jwtdown-for-react";
+import KMForm from "./KMForm.js";
 
 function SignupProperty() {
   const { token } = useAuthContext();
@@ -49,8 +50,7 @@ function SignupProperty() {
           </p>
         </div>
       )}
-
-      {/* {isKM && <PropertyForm />} */}
+      {isKM && <KMForm />}
     </div>
   );
 }
