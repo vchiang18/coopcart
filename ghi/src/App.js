@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignupProperty from "./SignupProperty";
 import RequestForm from "./components/RequestForm";
@@ -29,7 +29,6 @@ function App() {
             <Route path="/property/add" element={<PropertyAdd />} />
             <Route path="/requests" element={<RequestList />} />
             <Route path="/request/add" element={<RequestForm />} />
-            {/*<Route path="/requests" element={<PropertyAdd />} /> */}
             <Route path="/orders" element={<OrderHistory />} />
           </Routes>
         </div>

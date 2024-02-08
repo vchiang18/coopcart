@@ -35,13 +35,13 @@ function OrderHistory() {
     })
     .then(data => {
       setOrders(data);
-      setError(''); 
+      setError('');
     })
     .catch(error => {
       console.error('Error fetching the orders:', error);
       setError(error.message);
     });
-  }, [token]);
+  }, [token, error]);
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
