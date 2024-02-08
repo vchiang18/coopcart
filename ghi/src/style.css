@@ -51,3 +51,61 @@ body, h1, h2, p, span, a, button, input {
 form {
   width: 100%;
 } */
+
+.coopcart-navbar .navbar-nav .coopcart-nav-link,
+.coopcart-navbar .coopcart-navbar-toggler,
+.coopcart-navbar .coopcart-dropdown-menu
+.coopcart-navbar .coopcart-navbar-brand,
+.coopcart-navbar .coopcart-nav-link {
+  color: #fff;
+}
+
+.coopcart-navbar .coopcart-nav-link:hover,
+.coopcart-navbar .coopcart-nav-link:focus,
+.coopcart-navbar .coopcart-dropdown-item:hover,
+.coopcart-navbar .coopcart-dropdown-item:focus {
+  color: #fff;
+  opacity: 0.75;
+}
+
+.coopcart-navbar .coopcart-dropdown-toggle {
+  color: #fff;
+  border: none;
+  box-shadow: none;
+}
+
+.coopcart-navbar .coopcart-dropdown-toggle:hover,
+.coopcart-navbar .coopcart-dropdown-toggle:focus {
+  color: #fff;
+  background-color: transparent;
+}
+
+.sign-out-button {
+  padding: 8px 16px;
+  margin-left: auto; 
+  background-color: #6cae3a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 0.875rem; 
+  margin-right: 0.5rem; 
+}
+
+.coopcart-navbar .container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 0; 
+}
+
+.coopcart-navbar .navbar-collapse {
+  flex-grow: 1;
+}
+
+.coopcart-navbar .navbar-nav {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; 
+}
