@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../style.css";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { useNavigate } from "react-router-dom";
 
 const PropertyCreateForm = () => {
+  const { token } = useAuthContext();
+  const navigate = useNavigate();
+
   const [property, setProperty] = useState({
     property_name: "",
     street: "",
@@ -13,18 +17,63 @@ const PropertyCreateForm = () => {
     total_members: "",
   });
 
-  const { token } = useAuthContext();
+  const [userInfo, setUserInfo] = useState({
+    first_name: "",
+    last_name: "",
+    username: "",
+    property: "",
+  });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  // fetch user info for edit user
+  const getUser = async () => {
+    const url = `${process.env.REACT_APP_API_HOST}/user`;
+    const fetchOptions = {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      if (token) {
+        try {
+          const response = await fetch(url, fetchOptions);
+          if (response.ok) {
+            const data = await response.json();
+            setUserInfo((prevUserInfo) => ({
+              ...prevUserInfo,
+              first_name: data.first_name,
+              last_name: data.last_name,
+              username: data.username,
+              is_km: true,
+              property: data.property,
+            }));
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, [token]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setProperty((prevProperty) => ({
       ...prevProperty,
       [name]: value,
     }));
   };
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // post for create property
     const propertyData = {
       property_name: property.property_name,
       street: property.street,
@@ -35,41 +84,66 @@ const PropertyCreateForm = () => {
       total_members: property.total_members,
     };
 
-    const response = await fetch(`${process.env.REACT_APP_API_HOST}/property`, {
-      method: "post",
-      body: JSON.stringify(propertyData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_HOST}/property`,
+        {
+          method: "post",
+          body: JSON.stringify(propertyData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    if (response.ok) {
-      const newProperty = await response.json();
-      console.log(newProperty);
-      setProperty({
-        property_name: "",
-        street: "",
-        city: "",
-        state: "",
-        zip: "",
-        food_fee: "",
-        total_members: "",
-      });
-    } else {
-      console.error("Failed to create property");
-      const errorResponse = await response.text();
-      console.error(errorResponse);
+      if (response.ok) {
+        const newProperty = await response.json();
+        const propertyId = newProperty.property_id;
+
+        // put for add property to user
+        const userUrl = `${process.env.REACT_APP_API_HOST}/user`;
+
+        const userData = {
+          ...userInfo,
+          property: propertyId,
+          terms_boolean: true,
+        };
+
+        const fetchConfig = {
+          method: "PUT",
+          body: JSON.stringify(userData),
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+
+        const userResponse = await fetch(userUrl, fetchConfig);
+        if (userResponse.ok) {
+          const addProperty = await userResponse.json();
+          alert("Successfully added your coop!");
+          navigate("/dashboard");
+        } else {
+          console.error("Failed to add your coop");
+          const errorResponse = await userResponse.text();
+          console.error(errorResponse);
+        }
+      } else {
+        console.error("Failed to create property");
+        const errorResponse = await response.text();
+        console.error(errorResponse);
+      }
+    } catch (error) {
+      console.error("Error: ", error);
     }
-  }
+  };
 
   return (
     <div className="container my-5">
       <div className="card shadow">
         <div className="card-body">
-          <h2 className="card-title text-center">Optional: Create Your Coop</h2>
-          <p>Only do this step if you do not see your coop in step 2!</p>
+          <h2 className="card-title text-center">Create Your Coop</h2>
           <form onSubmit={handleSubmit} id="create-property-form">
-            {/* Property Name */}
             <div className="mb-3">
               <label htmlFor="property_name" className="form-label">
                 Property Name
@@ -81,6 +155,7 @@ const PropertyCreateForm = () => {
                 name="property_name"
                 value={property.property_name}
                 onChange={handleChange}
+                required
               />
             </div>
 
@@ -96,6 +171,7 @@ const PropertyCreateForm = () => {
                 name="street"
                 value={property.street}
                 onChange={handleChange}
+                required
               />
             </div>
 
@@ -111,6 +187,7 @@ const PropertyCreateForm = () => {
                 name="city"
                 value={property.city}
                 onChange={handleChange}
+                required
               />
             </div>
 
@@ -126,6 +203,8 @@ const PropertyCreateForm = () => {
                 name="state"
                 value={property.state}
                 onChange={handleChange}
+                placeholder="Two-letter abbreviations only"
+                required
               />
             </div>
 
@@ -141,6 +220,7 @@ const PropertyCreateForm = () => {
                 name="zip"
                 value={property.zip}
                 onChange={handleChange}
+                required
               />
             </div>
 
@@ -156,6 +236,8 @@ const PropertyCreateForm = () => {
                 name="food_fee"
                 value={property.food_fee}
                 onChange={handleChange}
+                required
+                placeholder="Amount"
               />
             </div>
 
@@ -174,9 +256,9 @@ const PropertyCreateForm = () => {
               />
             </div>
 
-            {/* <button type="submit" className="btn btn-primary w-100">
+            <button type="submit" className="btn btn-primary w-100">
               Create
-            </button> */}
+            </button>
           </form>
         </div>
       </div>

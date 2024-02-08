@@ -3,39 +3,33 @@ import useToken from "@galvanize-inc/jwtdown-for-react";
 
 function TestForm() {
   const { login } = useToken();
-  const [signup, setSignup] = useState({
+  const [state, setState] = useState({
     first_name: "",
     last_name: "",
     username: "",
     password: "",
-    terms_boolean: false,
+    term_boolean: false,
   });
 
-  const handleSignupChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setSignup((prev) => ({
+  const handleChange = (evt) => {
+    const { name, value, type, checked } = evt.target;
+    setState((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
   };
 
-  const handleSignupSubmit = async (e) => {
-    e.preventDefault();
-    console.log("signup: ", signup);
-
+  const handleOnSubmit = async (evt) => {
+    evt.preventDefault();
     try {
-      const url = `${process.env.REACT_APP_API_HOST}/user`;
-      const fetchConfig = {
+      const response = await fetch(`${process.env.REACT_APP_API_HOST}/user`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(signup),
-      };
-      const response = await fetch(url, fetchConfig);
-      console.log("response: ", response);
-
+        body: JSON.stringify(state),
+      });
       if (!response.ok) throw new Error("Signup failed");
-      await login(signup.username, signup.password);
-      alert("Signup and login successful.");
+      await login(state.username, state.password);
+      alert("Signup and login successfully.");
     } catch (error) {
       alert(error.message);
     }
@@ -43,42 +37,42 @@ function TestForm() {
 
   return (
     <div>
-      <form onSubmit={handleSignupSubmit}>
+      <form onSubmit={handleOnSubmit}>
         <h1>Create Account</h1>
         <input
           type="text"
           name="first_name"
-          value={signup.first_name}
-          onChange={handleSignupChange}
+          value={state.first_name}
+          onChange={handleChange}
           placeholder="First Name"
         />
         <input
           type="text"
           name="last_name"
-          value={signup.last_name}
-          onChange={handleSignupChange}
+          value={state.last_name}
+          onChange={handleChange}
           placeholder="Last Name"
         />
         <input
           type="text"
           name="username"
-          value={signup.username}
-          onChange={handleSignupChange}
+          value={state.username}
+          onChange={handleChange}
           placeholder="Username"
         />
         <input
           type="password"
           name="password"
-          value={signup.password}
-          onChange={handleSignupChange}
+          value={state.password}
+          onChange={handleChange}
           placeholder="Password"
         />
         <label>
           <input
             type="checkbox"
-            name="terms_boolean"
-            checked={signup.terms_boolean}
-            onChange={handleSignupChange}
+            name="term_boolean"
+            checked={state.term_boolean}
+            onChange={handleChange}
           />
           Accept Terms & Conditions
         </label>

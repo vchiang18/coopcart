@@ -30,6 +30,7 @@ function App() {
             <Route path="/user" element={<UserEdit />} />
             <Route path="/" element={<MainPage />} />
             <Route path="/property/add" element={<PropertyAdd />} />
+            <Route path="/property/create" element={<PropertyCreateForm />} />
             <Route path="/requests" element={<RequestList />} />
             <Route path="/property/create" element={<PropertyCreateForm />} />
             <Route path="/request/add" element={<RequestForm />} />

@@ -7,19 +7,19 @@ function KMForm() {
   const { login } = useToken();
   const navigate = useNavigate();
   const [signup, setSignup] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     username: "",
     password: "",
-    isKM: true,
-    termsBoolean: false,
+    terms_boolean: false,
   });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setSignup((prev) => ({
       ...prev,
-      [name]: name === "termsBoolean" ? checked : value,
+      [name]: name === "terms_boolean" ? checked : value,
+      is_km: true,
     }));
   };
 
@@ -47,11 +47,11 @@ function KMForm() {
     <>
       <div className="container margin-bottom">
         <form onSubmit={handleSubmit}>
-          <h2>Create Member Login</h2>
+          <h3>Create Your Kitchen Manager Account</h3>
           <input
             type="text"
             name="first_name"
-            value={signup.firstName}
+            value={signup.first_name}
             onChange={handleChange}
             placeholder="First Name"
             required
@@ -59,7 +59,7 @@ function KMForm() {
           <input
             type="text"
             name="last_name"
-            value={signup.lastName}
+            value={signup.last_name}
             onChange={handleChange}
             placeholder="Last Name"
             required
@@ -85,7 +85,7 @@ function KMForm() {
               type="checkbox"
               name="terms_boolean"
               onChange={handleChange}
-              checked={signup.termsBoolean}
+              checked={signup.terms_boolean}
               required
             />
             Accept Terms & Conditions
