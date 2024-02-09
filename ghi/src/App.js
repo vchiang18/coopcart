@@ -12,6 +12,7 @@ import MainPage from "./Mainpage.js";
 import SignInForm from "./Signin.js";
 import OrderHistory from "./orderhistory.js";
 import CreateOrder from "./components/CreateOrder";
+import BudgetList from "./components/BudgetList.js";
 
 function App() {
   const baseUrl = process.env.REACT_APP_API_HOST;
@@ -36,6 +37,7 @@ function App() {
             <Route path="/request/add" element={<RequestForm />} />
             <Route path="/orders" element={<OrderHistory />} />
             <Route path="/order/create" element={<CreateOrder />} />
+            <Route path="/budgets" element={<BudgetList />} />
           </Routes>
         </div>
       </BrowserRouter>

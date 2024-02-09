@@ -127,6 +127,11 @@ function Nav() {
                 Edit User Info
               </NavLink>
             </li>
+            <li className="coopcart-nav-item nav-item">
+              <NavLink className="coopcart-nav-link nav-link" to="/budgets">
+                Budget
+              </NavLink>
+            </li>
           </ul>
           {token && (
             <div className="ms-auto">
