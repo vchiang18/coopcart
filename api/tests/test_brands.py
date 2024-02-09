@@ -53,7 +53,6 @@ def test_edit():
         "brand_id": 11
     }
     response = client.put(f"/brands/{brand_id}", json=updated_data)
-    print(response.content)
     app.dependency_overrides = {}
     assert response.status_code == 200
     assert response.json() == expected
@@ -72,7 +71,6 @@ def test_create():
     }
     response = client.post("/brand", json=brand_sample)
     app.dependency_overrides = {}
-    print(response.content)
     assert response.status_code == 200
     assert response.json() == expected
 

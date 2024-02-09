@@ -60,7 +60,7 @@ const PropertyCreateForm = () => {
 
   useEffect(() => {
     getUser();
-  }, [token]);
+  }, [token, getUser]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -120,7 +120,7 @@ const PropertyCreateForm = () => {
 
         const userResponse = await fetch(userUrl, fetchConfig);
         if (userResponse.ok) {
-          const addProperty = await userResponse.json();
+          await userResponse.json();
           alert("Successfully added your coop!");
           navigate("/dashboard");
         } else {

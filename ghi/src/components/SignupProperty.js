@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import MemberForm from "./MemberForm.js";
 import KMForm from "./KMForm.js";
 import "../SignupProperty.css";

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
-import SignOutButton from "./Signout";
 
 function PropertyAdd() {
   const [properties, setProperties] = useState([]);
@@ -52,7 +51,7 @@ function PropertyAdd() {
 
   useEffect(() => {
     getUser();
-  }, [token]);
+  }, [token, getUser]);
 
   // fetch all properties for form
   const getProperties = async () => {
@@ -98,7 +97,7 @@ function PropertyAdd() {
     try {
       const response = await fetch(url, fetConfig);
       if (response.ok) {
-        const addProperty = await response.json();
+        await response.json();
         setNewProperty("");
         alert("Successfully added your coop!");
         navigate("/dashboard");
@@ -138,7 +137,6 @@ function PropertyAdd() {
           </form>
         )}
       </div>
-      <SignOutButton />
     </>
   );
 }

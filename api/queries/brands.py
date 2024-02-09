@@ -59,8 +59,6 @@ class BrandQueries:
                         ]
                     )
                     record = curr.fetchone()
-                    print(record)
-                    print(type(record))
                     return BrandOut(**record)
         except Exception as e:
             print(e)
