@@ -17,8 +17,6 @@ const getUser = async (setFormData, token) => {
         const response = await fetch(url, fetchOptions);
         if (response.ok) {
           const data = await response.json();
-          delete data.id;
-          delete data.terms_boolean;
           setFormData(data);
         }
       } catch (err) {
@@ -46,7 +44,6 @@ function UserEdit() {
   }, [token, getUser]);
 
   const handleFormDataChange = (e) => {
-    console.log(formData);
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -63,9 +60,6 @@ function UserEdit() {
     const url = `${process.env.REACT_APP_API_HOST}/user`;
 
     const data = formData;
-    data.terms_boolean = true;
-    data.is_km = false;
-    console.log("data in submit: ", data);
 
     const fetchOptions = {
       method: "PUT",
