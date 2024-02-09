@@ -60,7 +60,7 @@ const PropertyCreateForm = () => {
 
   useEffect(() => {
     getUser();
-  }, [token, getUser]);
+  }, [token]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
