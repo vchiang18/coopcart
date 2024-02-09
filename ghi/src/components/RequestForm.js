@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../style.css";
+import "../requestForm.css";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import Nav from '../components/Nav';
 
@@ -46,7 +46,6 @@ const RequestForm = () => {
             });
 
         if (response.ok) {
-            const newRequest = await response.json();
             setRequest({
                 item: "",
                 brand: "",
@@ -66,10 +65,10 @@ const RequestForm = () => {
     return (
         <>
         <Nav />
-        <div className="container my-5">
+        <div className="request-form">
             <div className="card shadow">
                 <div className="card-body">
-                    <h1 className="card-title text-center">Create Request</h1>
+                    <h1>Create Request</h1>
                     <form onSubmit={handleSubmit} id="create-request-form">
                         <div className="mb-3">
                             <label htmlFor="item" className="form-label">
@@ -80,6 +79,7 @@ const RequestForm = () => {
                                 className="form-control"
                                 id="item"
                                 name="item"
+                                placeholder="Item"
                                 value={request.item}
                                 onChange={handleChange}
                             />
@@ -93,6 +93,7 @@ const RequestForm = () => {
                                 className="form-control"
                                 id="brand"
                                 name="brand"
+                                placeholder="Brand"
                                 value={request.brand}
                                 onChange={handleChange}
                             />
@@ -106,6 +107,7 @@ const RequestForm = () => {
                                 className="form-control"
                                 id="unit_quantity"
                                 name="unit_quantity"
+                                placeholder="Unit Quantity"
                                 value={request.unit_quantity}
                                 onChange={handleChange}
                             />
@@ -119,6 +121,7 @@ const RequestForm = () => {
                                 className="form-control"
                                 id="unit_type"
                                 name="unit_type"
+                                placeholder="Unit Type"
                                 value={request.unit_type}
                                 onChange={handleChange}
                             />
@@ -132,6 +135,7 @@ const RequestForm = () => {
                                 className="form-control"
                                 id="requestor"
                                 name="requestor"
+                                placeholder="Requestor"
                                 value={request.requestor}
                                 onChange={handleChange}
                             />
@@ -145,6 +149,7 @@ const RequestForm = () => {
                                 className="form-control"
                                 id="quantity"
                                 name="quantity"
+                                placeholder="Quantity"
                                 value={request.quantity}
                                 onChange={handleChange}
                             />

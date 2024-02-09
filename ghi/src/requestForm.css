@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500&display=swap');
+
+.request-form {
+  color: #0f2c0a;
+  font-family: 'Lexend Deca', sans-serif;
+  padding: 20px;
+}
+
+.request-form h1 {
+  font-family: 'Lexend Deca', sans-serif;
+  color: #6cae3a;
+}
+
+.request-form input[type="text"] {
+  color: #0f2c0a;
+  border: 1px solid #0a87b6;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.request-form .mb-3 {
+  text-align: left;
+  padding: 8px;
+}
+
+.request-form .mb-3 label {
+  color: #0f2c0a;
+}
+
+.request-form .mb-3:hover {
+  background-color: #53bee4;
+}
+
+.request-form button {
+  display: flex;
+  gap: 10px;
+  padding: 5px 10px;
+  font-size: 0.8em;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #f7faf9;
+  background-color: #53bee4;
+  border: none;
+  margin: 0;
+}
+
+.request-form button:hover {
+  background-color: #f1c35a;
+  color: #0f2c0a;
+}

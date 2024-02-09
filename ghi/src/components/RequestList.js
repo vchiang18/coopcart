@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import Nav from '../components/Nav';
+import "../requestList.css";
 
 function RequestList() {
     const [requests, setRequests] = useState([]);
@@ -24,9 +25,9 @@ function RequestList() {
     return (
         <>
         <Nav />
-        <div>
+        <div className="request-list">
             <h1>Requests</h1>
-            <table className="table table-striped-columns">
+            <table>
                 <thead>
                     <tr>
                         <th>Request ID</th>
@@ -52,7 +53,7 @@ function RequestList() {
                                 <td>{ request.unit_quantity }</td>
                                 <td>{ request.unit_type }</td>
                                 <td>{ request.requestor }</td>
-                                <td>{ request.created_date }</td>
+                                <td>{ new Date(request.created_date).toLocaleDateString() }</td>
                                 <td>{ request.status }</td>
                                 <td>{ request.quantity }</td>
                                 <td>{ request.last_edited_by }</td>
@@ -65,5 +66,6 @@ function RequestList() {
         </div>
         </>
     );
-}
+};
+
 export default RequestList;

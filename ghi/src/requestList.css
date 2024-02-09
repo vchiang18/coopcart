@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500&display=swap');
+
+.request-list {
+  color: #0f2c0a;
+  font-family: 'Lexend Deca', sans-serif;
+  padding: 20px;
+}
+
+.request-list h1 {
+  font-family: 'Lexend Deca', sans-serif;
+  color: #6cae3a;
+}
+
+.request-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.request-list th,
+.request-list td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #f1c35a;
+}
+
+.request-list th {
+  background-color: #306e12;
+  color: #c4e3ea;
+}
+
+.request-list tr:hover {
+  background-color: #53bee4;
+}
