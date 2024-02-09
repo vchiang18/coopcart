@@ -37,7 +37,7 @@ function SignInForm() {
       <form onSubmit={(e) => handleOnSubmit(e)} className="sign-in-form">
         <h1>Sign in</h1>
         <input
-          type="username"
+          type="text"
           name="username"
           value={state.username}
           onChange={(e) => handleChange(e)}

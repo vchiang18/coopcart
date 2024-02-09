@@ -99,6 +99,7 @@
   color: white; 
   padding: 20px 0;
   display: flex;
+  width: 100%;
   justify-content: space-around;
 }
 
