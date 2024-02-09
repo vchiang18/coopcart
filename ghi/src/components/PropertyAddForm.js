@@ -51,7 +51,7 @@ function PropertyAdd() {
 
   useEffect(() => {
     getUser();
-  }, [token]);
+  }, [token, getUser]);
 
   // fetch all properties for form
   const getProperties = async () => {
@@ -97,7 +97,7 @@ function PropertyAdd() {
     try {
       const response = await fetch(url, fetConfig);
       if (response.ok) {
-        const addProperty = await response.json();
+        await response.json();
         setNewProperty("");
         alert("Successfully added your coop!");
         navigate("/dashboard");

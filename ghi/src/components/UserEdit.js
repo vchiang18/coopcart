@@ -43,7 +43,7 @@ function UserEdit() {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [token, getUser]);
 
   const handleFirstNameChange = (e) => {
     const value = e.target.value;
@@ -91,7 +91,7 @@ function UserEdit() {
         try {
           const response = await fetch(url, fetchOptions);
           if (response.ok) {
-            const updatedUser = await response.json();
+            await response.json();
             setSubmitted(true);
             e.target.reset();
           }
