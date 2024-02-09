@@ -1,63 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 
+const getUser = async (setFormData, token) => {
+  const url = `${process.env.REACT_APP_API_HOST}/user`;
+  const fetchOptions = {
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    if (token) {
+      try {
+        const response = await fetch(url, fetchOptions);
+        if (response.ok) {
+          const data = await response.json();
+          delete data.id;
+          delete data.terms_boolean;
+          setFormData(data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 function UserEdit() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
-  const [isKM, setIsKM] = useState("");
-  const [property, setProperty] = useState("");
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    username: "",
+    is_km: false,
+    property: "",
+  });
   const { token } = useAuthContext();
   const [submitted, setSubmitted] = useState(false);
 
-  const getUser = async () => {
-    const url = `${process.env.REACT_APP_API_HOST}/user`;
-    const fetchOptions = {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    try {
-      if (token) {
-        try {
-          const response = await fetch(url, fetchOptions);
-          if (response.ok) {
-            const data = await response.json();
-            setFirstName(data.first_name);
-            setLastName(data.last_name);
-            setUsername(data.username);
-            setIsKM(data.is_km);
-            setProperty(data.property);
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
-    getUser();
-  }, [token]);
+    getUser(setFormData, token);
+  }, [token, getUser]);
 
-  const handleFirstNameChange = (e) => {
-    const value = e.target.value;
-    setFirstName(value);
-  };
-
-  const handleLastNameChange = (e) => {
-    const value = e.target.value;
-    setLastName(value);
-  };
-
-  const handleUsernameChange = (e) => {
-    const value = e.target.value;
-    setUsername(value);
+  const handleFormDataChange = (e) => {
+    console.log(formData);
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const submittedMessage = submitted
@@ -68,13 +62,10 @@ function UserEdit() {
     e.preventDefault();
     const url = `${process.env.REACT_APP_API_HOST}/user`;
 
-    const data = {};
-    data.first_name = firstName;
-    data.last_name = lastName;
-    data.username = username;
+    const data = formData;
     data.terms_boolean = true;
-    data.is_km = isKM;
-    data.property = property;
+    data.is_km = false;
+    console.log("data in submit: ", data);
 
     const fetchOptions = {
       method: "PUT",
@@ -113,10 +104,10 @@ function UserEdit() {
             <form onSubmit={handleSubmit} id="user-form">
               <div className="form-floating mb-3">
                 <input
-                  onChange={handleFirstNameChange}
+                  onChange={handleFormDataChange}
                   placeholder="first name"
                   required
-                  value={firstName}
+                  value={formData.first_name}
                   type="text"
                   name="first_name"
                   id="first_name"
@@ -127,11 +118,11 @@ function UserEdit() {
 
               <div className="form-floating mb-3">
                 <input
-                  onChange={handleLastNameChange}
+                  onChange={handleFormDataChange}
                   placeholder="last name"
                   required
                   type="text"
-                  value={lastName}
+                  value={formData.last_name}
                   name="last_name"
                   id="last_name"
                   className="form-control"
@@ -141,11 +132,11 @@ function UserEdit() {
 
               <div className="form-floating mb-3">
                 <input
-                  onChange={handleUsernameChange}
+                  onChange={handleFormDataChange}
                   placeholder="email"
                   required
                   type="text"
-                  value={username}
+                  value={formData.username}
                   name="username"
                   id="username"
                   className="form-control"
