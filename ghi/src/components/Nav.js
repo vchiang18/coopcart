@@ -84,7 +84,7 @@ function Nav() {
                 <li>
                   <NavLink
                     className="coopcart-dropdown-item dropdown-item"
-                    to="/order/add"
+                    to="/order/create"
                   >
                     Create Order
                   </NavLink>
