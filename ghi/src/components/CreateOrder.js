@@ -23,7 +23,6 @@ const CreateOrder = () => {
     const navigate = useNavigate();
     const { token } = useAuthContext();
     const [formErrors, setFormErrors] = useState({});
-    const [formStatus, setFormStatus] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
 
     const validateForm = () => {
@@ -82,7 +81,6 @@ const CreateOrder = () => {
             });
 
             if (response.ok) {
-                const newOrder = await response.json();
                 setOrder({
                     item: "",
                     brand: "",
@@ -98,11 +96,9 @@ const CreateOrder = () => {
                 setOrderCreated(true);
             } else {
                 const errorData = await response.json();
-                setFormStatus(`Failed to create order. ${errorData.message}`);
                 setErrorMessage(errorData.message);
             }
         } catch (error) {
-            setFormStatus('Error creating order.');
             setErrorMessage(error.toString());
         }
     }
@@ -129,7 +125,7 @@ const CreateOrder = () => {
                 <button onClick={handleGoToOrders}>Go to Orders List</button>
             </div>
         ) : (
-          <div className="container">
+          <div className="container2">
             <h2>Create Order</h2>
             <form onSubmit={handleSubmit}>
               <div className="form-floating mb-3">

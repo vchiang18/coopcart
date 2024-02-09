@@ -1,17 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500&display=swap');
 
-.container {
+.container2 {
   color: #0f2c0a;
   font-family: 'Lexend Deca', sans-serif;
   padding: 20px;
 }
 
-.container h2 {
+.container2 h2 {
   font-family: 'Lexend Deca', sans-serif;
   color: #6cae3a;
 }
 
-.container input[type="text"] {
+.container2 input[type="text"] {
   color: #0f2c0a;
   border: 1px solid #0a87b6;
   padding: 10px;
@@ -19,20 +19,20 @@
   width: 100%;
 }
 
-.container form {
+.container2 form {
   width: 100%;
 }
 
-.container .form-floating {
+.container2 .form-floating {
   text-align: left;
   padding: 8px;
 }
 
-.container .form-floating label {
+.container2 .form-floating label {
   color: #0f2c0a;
 }
 
-.container .form-floating:hover {
+.container2 .form-floating:hover {
   background-color: #53bee4;
 }
 
@@ -42,7 +42,7 @@
   font-weight: bold;
 }
 
-.container button {
+.container2 button {
   display: flex;
   gap: 10px;
   padding: 5px 10px;
@@ -55,12 +55,12 @@
   margin: 0;
 }
 
-.container button:hover {
+.container2 button:hover {
   background-color: #f1c35a;
   color: #0f2c0a;
 }
 
-p {
+.container2 p {
   color: red;
   font-size: 1.2em;
   margin: 10px 0;
