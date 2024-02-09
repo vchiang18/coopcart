@@ -23,14 +23,26 @@ function SignInForm() {
     setState((prev) => ({ ...prev, [name]: value }));
   };
 
+  // const handleOnSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (!state.username.trim() || !state.password.trim()) {
+  //     alert("Username and password cannot be empty");
+  //     return;
+  //   }
+  //   const success = await login(state.username, state.password).catch(() => false);
+  // };
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     if (!state.username.trim() || !state.password.trim()) {
       alert("Username and password cannot be empty");
       return;
     }
-    const success = await login(state.username, state.password).catch(() => false);
+    await login(state.username, state.password).catch(() => {
+     alert("Login failed, please check your username and password");
+    });
   };
+
 
   return (
     <div className="sign-in-form-container">

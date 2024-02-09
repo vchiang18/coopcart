@@ -1,8 +1,6 @@
 import { useAuthContext } from '@galvanize-inc/jwtdown-for-react';
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './orderhistory.css';
-import SignOutButton from './components/Signout';
 import Nav from './components/Nav';
 
 function OrderHistory() {
@@ -10,7 +8,6 @@ function OrderHistory() {
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState('');
   const {token} = useAuthContext();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) {

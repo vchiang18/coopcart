@@ -6,10 +6,16 @@ function SignOutButton() {
   const { logout } = useToken();
   const navigate = useNavigate();
 
+  // const handleSignOut = async () => {
+  //   const success = await logout();
+  //   navigate("/");
+  // };
+
   const handleSignOut = async () => {
-    const success = await logout();
+    await logout();
     navigate("/");
   };
+
 
   return (
     <button onClick={handleSignOut} className="sign-out-button">
