@@ -1,4 +1,7 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Arvo:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500&display=swap');
+
+
 
 body, h1, h2, p, span, a, button, input {
   font-family: 'Arvo', serif;
@@ -51,6 +54,8 @@ body, h1, h2, p, span, a, button, input {
 form {
   width: 100%;
 } */
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500&display=swap');
+
 
 .coopcart-navbar .navbar-nav .coopcart-nav-link,
 .coopcart-navbar .coopcart-navbar-toggler,
