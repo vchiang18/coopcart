@@ -71,7 +71,6 @@ class ManagerQueries:
                     )
                     manager_record = db.fetchone()
                     if manager_record:
-                        print(manager_record)
                         return ManagerOut(**manager_record)
                     else:
                         return Error(message="Manager not found")

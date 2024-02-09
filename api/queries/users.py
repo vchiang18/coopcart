@@ -115,7 +115,6 @@ class UserQueries:
                         ]
                     )
                     data = result.fetchone()
-                    print("record: ", data)
                     return UserOutEdit(id=id, **data)
         except Exception:
             return {"message:" "Get user did not work"}

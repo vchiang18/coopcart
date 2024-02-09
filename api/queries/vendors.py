@@ -60,7 +60,6 @@ class VendorQueries:
                     )
                     record = curr.fetchone()
                     print(record)
-                    print(type(record))
                     return VendorOut(**record)
         except Exception as e:
             print(e)
