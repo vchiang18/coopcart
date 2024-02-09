@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
-import SignOutButton from "./Signout";
 
 function PropertyAdd() {
   const [properties, setProperties] = useState([]);
@@ -15,7 +14,6 @@ function PropertyAdd() {
     is_km: false,
     property: "",
   });
-  console.log(token);
 
   // fetch user info for edit user
   const getUser = async () => {
@@ -29,13 +27,10 @@ function PropertyAdd() {
 
     try {
       if (token) {
-        console.log("token passed!");
         try {
           const response = await fetch(url, fetchOptions);
-          console.log("user fetch response: ", response);
           if (response.ok) {
             const data = await response.json();
-            console.log("data: ", data);
             setUserInfo((prevUserInfo) => ({
               ...prevUserInfo,
               first_name: data.first_name,
@@ -44,7 +39,6 @@ function PropertyAdd() {
               is_km: data.is_km,
               property: data.property,
             }));
-            console.log("userInfo: ", userInfo);
           }
         } catch (err) {
           console.error(err);
@@ -64,10 +58,8 @@ function PropertyAdd() {
     const url = `${process.env.REACT_APP_API_HOST}/properties`;
     try {
       const response = await fetch(url);
-      // console.log("get properties response:", response);
       if (response.ok) {
         const data = await response.json();
-        // console.log("data: ", data);
         setProperties(data);
       }
     } catch (err) {
@@ -82,7 +74,6 @@ function PropertyAdd() {
   const handleNewPropertyChange = (e) => {
     const value = e.target.value;
     setNewProperty(value);
-    // console.log(newProperty);
   };
 
   // adds property to user
@@ -94,7 +85,6 @@ function PropertyAdd() {
     data.property = newProperty;
     data.terms_boolean = true;
 
-    console.log("updated data: ", data);
     const fetConfig = {
       method: "PUT",
       body: JSON.stringify(data),
@@ -147,7 +137,6 @@ function PropertyAdd() {
           </form>
         )}
       </div>
-      <SignOutButton />
     </>
   );
 }

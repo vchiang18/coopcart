@@ -37,11 +37,6 @@ function Nav() {
                 Home
               </NavLink>
             </li>
-            <li className="coopcart-nav-item nav-item">
-              <NavLink className="coopcart-nav-link nav-link" to="/dashboard">
-                Dashboard
-              </NavLink>
-            </li>
             <li className="coopcart-nav-item nav-item dropdown">
               <button
                 className="coopcart-nav-link nav-link dropdown-toggle coopcart-btn btn btn-link"
@@ -104,16 +99,6 @@ function Nav() {
                 </li>
               </ul>
             </li>
-            <li className="coopcart-nav-item nav-item">
-              <NavLink className="coopcart-nav-link nav-link" to="/property">
-                My Coop
-              </NavLink>
-            </li>
-            <li className="coopcart-nav-item nav-item">
-              <NavLink className="coopcart-nav-link nav-link" to="/user">
-                Edit My Info
-              </NavLink>
-            </li>
             <li className="coopcart-nav-item nav-item dropdown">
               <button
                 className="coopcart-nav-link nav-link dropdown-toggle coopcart-btn btn btn-link"
@@ -135,15 +120,12 @@ function Nav() {
                     Change Coop
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink
-                    className="coopcart-dropdown-item dropdown-item"
-                    to="/property/edit"
-                  >
-                    Edit Coop
-                  </NavLink>
-                </li>
               </ul>
+            </li>
+            <li className="coopcart-nav-item nav-item">
+              <NavLink className="coopcart-nav-link nav-link" to="/user">
+                Edit User Info
+              </NavLink>
             </li>
           </ul>
           {token && (

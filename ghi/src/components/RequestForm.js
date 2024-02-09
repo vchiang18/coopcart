@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../style.css";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import Nav from '../components/Nav';
 
 const RequestForm = () => {
     const [request, setRequest] = useState({
@@ -46,7 +47,6 @@ const RequestForm = () => {
 
         if (response.ok) {
             const newRequest = await response.json();
-            console.log(newRequest);
             setRequest({
                 item: "",
                 brand: "",
@@ -55,7 +55,6 @@ const RequestForm = () => {
                 requestor: "",
                 quantity: "",
             });
-            console.log("Request created successfully");
         } else {
             console.error("Failed to create request");
         }
@@ -65,6 +64,8 @@ const RequestForm = () => {
     };
 
     return (
+        <>
+        <Nav />
         <div className="container my-5">
             <div className="card shadow">
                 <div className="card-body">
@@ -155,6 +156,7 @@ const RequestForm = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

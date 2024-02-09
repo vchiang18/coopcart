@@ -1,3 +1,16 @@
+Week 5(Feburary 9):
+    - Create the Mainpage frontend. Designed it.
+    - Design the Nav Bar and add the signout button at the Nav bar. 
+    - Signin and Signout working properly. 
+    - Order history page could use the search bar to search by the date or item. Also, order history only show when you login. 
+    - Add the property get all unit test. 
+
+Week 4(Feburary 2):
+    - Make the Creat Property component
+    - Run the flake8 command to clean up the code 
+    - Designed the create property and signup and signin frontend. 
+
+
 Week 3(Januaray 27):
     - Signin and Signup Frontend Auth
     - Signin and Signup Frontend 
