@@ -1,3 +1,8 @@
+2/9/2024
+- got everything deployed for the project
+- finished creating all frontend components assigned to me
+- cleaned up code in all files I have made
+
 2/2/2024
 - protected all backend endpoints for requests and orders
 - got backend auth working
