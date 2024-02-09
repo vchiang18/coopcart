@@ -3,6 +3,33 @@ import "../style.css";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
 
+const getUser = async (setUserInfo, token) => {
+  const url = `${process.env.REACT_APP_API_HOST}/user`;
+  const fetchOptions = {
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    if (token) {
+      try {
+        const response = await fetch(url, fetchOptions);
+        if (response.ok) {
+          const data = await response.json();
+          setUserInfo(data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 const PropertyCreateForm = () => {
   const { token } = useAuthContext();
   const navigate = useNavigate();
@@ -18,9 +45,10 @@ const PropertyCreateForm = () => {
   });
 
   const [userInfo, setUserInfo] = useState({
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
     username: "",
+    isKM: "",
     property: "",
   });
 
@@ -59,7 +87,7 @@ const PropertyCreateForm = () => {
   };
 
   useEffect(() => {
-    getUser();
+    getUser(setUserInfo, token);
   }, [token, getUser]);
 
   const handleChange = (e) => {

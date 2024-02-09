@@ -15,7 +15,6 @@ function PropertyAdd() {
     property: "",
   });
 
-  // fetch user info for edit user
   const getUser = async () => {
     const url = `${process.env.REACT_APP_API_HOST}/user`;
     const fetchOptions = {
@@ -51,9 +50,8 @@ function PropertyAdd() {
 
   useEffect(() => {
     getUser();
-  }, [token, getUser]);
+  }, [token]);
 
-  // fetch all properties for form
   const getProperties = async () => {
     const url = `${process.env.REACT_APP_API_HOST}/properties`;
     try {
@@ -76,7 +74,6 @@ function PropertyAdd() {
     setNewProperty(value);
   };
 
-  // adds property to user
   const handleNewPropertySubmit = async (e) => {
     e.preventDefault();
     const url = `${process.env.REACT_APP_API_HOST}/user`;

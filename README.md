@@ -11,11 +11,12 @@ Victoria Chiang
 
 Living in a coop or intentional community means living in a diverse environment with different tastes. As a Kitchen Manager, streamline how to receive food requests, track your purchases, and optimize your ordering process to keep your community thriving.
 
-## Design
+## Design and Documentation
 
 - Wireframes & API endpoints: https://excalidraw.com/#room=2f932edb7ab0b8054e7b,zNegcOut59JTmuhten0YEQ
 - SQL schema: https://dbdiagram.io/d/CoopCart-Schema-65a193e6ac844320aed0c062
 - User stories / issues (Gitlab): https://gitlab.com/big-bytes/module3-project-gamma/-/issues
+- API endpoints: https://www.notion.so/API-endpoints-documentation-ba503261444e48dcac5f3b48a9bd926c?pvs=4
 
 ## Intended Market
 

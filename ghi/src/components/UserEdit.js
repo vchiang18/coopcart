@@ -43,7 +43,7 @@ function UserEdit() {
 
   useEffect(() => {
     getUser();
-  }, [token, getUser]);
+  }, [token]);
 
   const handleFirstNameChange = (e) => {
     const value = e.target.value;
