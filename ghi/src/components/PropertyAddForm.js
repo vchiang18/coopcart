@@ -44,7 +44,7 @@ function PropertyAdd() {
 
   useEffect(() => {
     getUser(setUserInfo, token);
-  }, [token, getUser]);
+  }, [token]);
 
   // fetch all properties for form
   const getProperties = async () => {

@@ -41,7 +41,7 @@ function UserEdit() {
 
   useEffect(() => {
     getUser(setFormData, token);
-  }, [token, getUser]);
+  }, [token]);
 
   const handleFormDataChange = (e) => {
     const { name, value } = e.target;
