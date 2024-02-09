@@ -1,5 +1,39 @@
 # Malek's Programming Journal
 
+## Date: [2024-02-08]
+
+### Week [5] Summary
+
+    This week was about finishing the frontend and getting the project deployed.
+
+### Tasks Completed
+
+    - Create Order frontend.
+
+### Challenges Faced
+
+    Illness and life events
+
+### Solutions Found
+
+    N/A
+
+### Lessons Learned
+
+    N/A
+
+### Next Steps
+
+    - Present
+
+### Resources
+
+    N/A
+
+### Code Snippets
+
+    N/A
+
 ## Date: [2024-01-29]
 
 ### Week [4] Summary
