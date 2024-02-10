@@ -44,7 +44,7 @@ function PropertyAdd() {
 
   useEffect(() => {
     getUser(setUserInfo, token);
-  }, [token]);
+  }, [token]); // eslint-disable-next-line react-hooks/exhaustive-deps
 
   // fetch all properties for form
   const getProperties = async () => {

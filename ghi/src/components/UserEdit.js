@@ -41,7 +41,7 @@ function UserEdit() {
 
   useEffect(() => {
     getUser(setFormData, token);
-  }, [token]);
+  }, [token]); // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const handleFormDataChange = (e) => {
     const { name, value } = e.target;
