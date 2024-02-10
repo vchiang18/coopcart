@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import Nav from "./Nav";
 
 const getUser = async (setFormData, token) => {
   const url = `${process.env.REACT_APP_API_HOST}/user`;
@@ -91,6 +92,7 @@ function UserEdit() {
 
   return (
     <>
+      <Nav />
       <div className="row">
         <div className="offset-3 col-6">
           <div className="shadow p-4 mt-4">
