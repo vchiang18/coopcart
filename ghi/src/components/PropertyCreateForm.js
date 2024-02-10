@@ -30,7 +30,7 @@ const getUser = async (setUserInfo, token) => {
   }
 };
 
-const PropertyCreateForm = () => {
+function PropertyCreateForm() {
   const { token } = useAuthContext();
   const navigate = useNavigate();
 
@@ -45,46 +45,46 @@ const PropertyCreateForm = () => {
   });
 
   const [userInfo, setUserInfo] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_lame: "",
     username: "",
-    isKM: "",
+    is_km: "",
     property: "",
   });
 
-  // fetch user info for edit user
-  const getUser = async () => {
-    const url = `${process.env.REACT_APP_API_HOST}/user`;
-    const fetchOptions = {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+  // // fetch user info for edit user
+  // const getUser = async () => {
+  //   const url = `${process.env.REACT_APP_API_HOST}/user`;
+  //   const fetchOptions = {
+  //     credentials: "include",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   };
 
-    try {
-      if (token) {
-        try {
-          const response = await fetch(url, fetchOptions);
-          if (response.ok) {
-            const data = await response.json();
-            setUserInfo((prevUserInfo) => ({
-              ...prevUserInfo,
-              first_name: data.first_name,
-              last_name: data.last_name,
-              username: data.username,
-              is_km: true,
-              property: data.property,
-            }));
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  //   try {
+  //     if (token) {
+  //       try {
+  //         const response = await fetch(url, fetchOptions);
+  //         if (response.ok) {
+  //           const data = await response.json();
+  //           setUserInfo((prevUserInfo) => ({
+  //             ...prevUserInfo,
+  //             first_name: data.first_name,
+  //             last_name: data.last_name,
+  //             username: data.username,
+  //             is_km: true,
+  //             property: data.property,
+  //           }));
+  //         }
+  //       } catch (err) {
+  //         console.error(err);
+  //       }
+  //     }
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   useEffect(() => {
     getUser(setUserInfo, token);
@@ -131,15 +131,25 @@ const PropertyCreateForm = () => {
         // put for add property to user
         const userUrl = `${process.env.REACT_APP_API_HOST}/user`;
 
-        const userData = {
-          ...userInfo,
-          property: propertyId,
+        // const userData = {
+        //   ...userInfo,
+        //   property: propertyId,
+        //   terms_boolean: true,
+        // };
+
+        setUserInfo((prevUserInfo) => ({
+          ...prevUserInfo,
+          first_name: userInfo.first_name,
+          last_name: userInfo.last_name,
+          username: userInfo.username,
+          is_km: true,
           terms_boolean: true,
-        };
+          property: userInfo.property,
+        }));
 
         const fetchConfig = {
           method: "PUT",
-          body: JSON.stringify(userData),
+          body: JSON.stringify(userInfo),
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
@@ -292,6 +302,6 @@ const PropertyCreateForm = () => {
       </div>
     </div>
   );
-};
+}
 
 export default PropertyCreateForm;
