@@ -2,6 +2,33 @@ import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
 
+const getUser = async (setUserInfo, token) => {
+  const url = `${process.env.REACT_APP_API_HOST}/user`;
+  const fetchOptions = {
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    if (token) {
+      try {
+        const response = await fetch(url, fetchOptions);
+        if (response.ok) {
+          const data = await response.json();
+          setUserInfo(data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 function PropertyAdd() {
   const [properties, setProperties] = useState([]);
   const [newProperty, setNewProperty] = useState("");
@@ -15,43 +42,11 @@ function PropertyAdd() {
     property: "",
   });
 
-  const getUser = async () => {
-    const url = `${process.env.REACT_APP_API_HOST}/user`;
-    const fetchOptions = {
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    try {
-      if (token) {
-        try {
-          const response = await fetch(url, fetchOptions);
-          if (response.ok) {
-            const data = await response.json();
-            setUserInfo((prevUserInfo) => ({
-              ...prevUserInfo,
-              first_name: data.first_name,
-              last_name: data.last_name,
-              username: data.username,
-              is_km: data.is_km,
-              property: data.property,
-            }));
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
-    getUser();
-  }, [token]);
+    getUser(setUserInfo, token);
+  }, [token]); // eslint-disable-next-line react-hooks/exhaustive-deps
 
+  // fetch all properties for form
   const getProperties = async () => {
     const url = `${process.env.REACT_APP_API_HOST}/properties`;
     try {
@@ -74,6 +69,7 @@ function PropertyAdd() {
     setNewProperty(value);
   };
 
+  // adds property to user
   const handleNewPropertySubmit = async (e) => {
     e.preventDefault();
     const url = `${process.env.REACT_APP_API_HOST}/user`;
