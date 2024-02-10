@@ -92,7 +92,6 @@ function PropertyCreateForm() {
 
       if (response.ok) {
         const newProperty = await response.json();
-        const propertyId = newProperty.property_id;
 
         // put for add property to user
         const userUrl = `${process.env.REACT_APP_API_HOST}/user`;
