@@ -15,7 +15,7 @@ function OrderHistory() {
         return;
     }
 
-    fetch('http://localhost:8000/orders',{
+    fetch(`${process.env.REACT_APP_API_HOST}/orders`,{
         headers:{
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
