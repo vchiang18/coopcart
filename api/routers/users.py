@@ -76,7 +76,7 @@ def get_users(
     managers: ManagerQueries = Depends()
 ):
     user_id = account_data["id"] #sets user_id to the logged in user
-    manager = managers.get_manager_by_km(user_id)    #gets manager by kitchen manager id
+    manager = managers.get_manager_by_km(user_id)    #gets kitchen manager by user id
     if isinstance(manager, ManagerOut):
         property_id = manager.property_id    # get the property id of the logged in user
     else:
