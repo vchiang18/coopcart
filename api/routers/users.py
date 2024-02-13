@@ -67,7 +67,7 @@ async def get_token(
         }
 
 
-# protected list of users
+# protected list of users for kitchen manager view
 @router.get("/users", response_model=Union[List[UserOutMembers], Error])
 def get_users(
     response: Response,
@@ -75,16 +75,12 @@ def get_users(
     repo: UserQueries = Depends(),
     managers: ManagerQueries = Depends()
 ):
-    user_id = account_data["id"]
-    manager = managers.get_manager_by_km(user_id)
-    # if user_id in manager table
+    user_id = account_data["id"] #sets user_id to the logged in user
+    manager = managers.get_manager_by_km(user_id)    #gets manager by kitchen manager id
     if isinstance(manager, ManagerOut):
-        if manager.kitchen_manager == user_id:
-            # get the property id of the logged in user
-            property_id = manager.property
+        property_id = manager.property    # get the property id of the logged in user
     else:
         response.status_code = 404
-        # returns Error if no manager found
         return manager
     users = repo.get_all(property_id)
     if users is None:
