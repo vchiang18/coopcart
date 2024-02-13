@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 from main import app
-from queries.property import PropertyQueries, PropertyOut, PropertyOutSignup
+from api.queries.properties import PropertyQueries, PropertyOut, PropertyOutSignup
 from authenticator import authenticator
 from pydantic import BaseModel
 import datetime

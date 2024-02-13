@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from queries.manager import ManagerIn, ManagerOut, ManagerQueries
+from queries.managers import ManagerIn, ManagerOut, ManagerQueries
 
 router = APIRouter()
 

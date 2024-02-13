@@ -37,8 +37,8 @@ steps = [
     [
         """
         CREATE TABLE managers (
-            property INTEGER REFERENCES properties(property_id) NOT NULL,
-            kitchen_manager INTEGER REFERENCES users(user_id) NOT NULL,
+            property_id INTEGER REFERENCES properties(property_id) NOT NULL,
+            user_id INTEGER REFERENCES users(user_id) NOT NULL,
             manager_join_id SERIAL PRIMARY KEY NOT NULL
         );
         """,

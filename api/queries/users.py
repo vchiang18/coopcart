@@ -17,7 +17,6 @@ class UserIn(BaseModel):
     last_name: str
     username: str
     password: str
-    terms_boolean: bool
 
 
 class UserOut(BaseModel):
@@ -25,14 +24,12 @@ class UserOut(BaseModel):
     last_name: str
     username: str
     id: int
-    terms_boolean: Optional[bool]
 
 
 class UserInEdit(BaseModel):
     first_name: str
     last_name: str
     username: str
-    terms_boolean: Optional[bool]
     is_km: Optional[bool]
     property: Optional[int]
 
@@ -48,7 +45,6 @@ class UserOutMembers(BaseModel):
     username: str
 
 
-# classes w hashed pw, and w property ID
 class UserOutWithPw(UserOut):
     hashed_password: str
 
@@ -64,9 +60,8 @@ class UserQueries:
                             first_name,
                             last_name,
                             username,
-                            password_hash,
-                            user_id,
-                            terms_boolean
+                            password,
+                            user_id
                         FROM users
                         WHERE username = %s
                         """,
@@ -75,12 +70,12 @@ class UserQueries:
                         ]
                     )
                     record = result.fetchone()
+                    print("record: ", record)
                     first_name = record[0]
                     last_name = record[1]
                     username = record[2]
                     hashed_password = record[3]
                     id = record[4]
-                    terms_boolean = record[5]
                     if id is None:
                         return None
                     return UserOutWithPw(
@@ -88,7 +83,6 @@ class UserQueries:
                         last_name=last_name,
                         username=username,
                         id=id,
-                        terms_boolean=terms_boolean,
                         hashed_password=hashed_password)
 
         except Exception:
@@ -104,7 +98,6 @@ class UserQueries:
                             last_name,
                             username,
                             user_id,
-                            terms_boolean,
                             is_km,
                             property
                         FROM users
@@ -128,9 +121,9 @@ class UserQueries:
                         INSERT INTO users
                             (first_name,
                             last_name,
-                            username, password_hash, terms_boolean)
+                            username, password)
                         VALUES
-                            (%s, %s, %s, %s, %s)
+                            (%s, %s, %s, %s)
                         RETURNING user_id;
                         """,
                         [
@@ -138,7 +131,6 @@ class UserQueries:
                             user.last_name,
                             user.username,
                             hashed_password,
-                            user.terms_boolean
                         ]
                     )
                     id = result.fetchone()[0]
@@ -192,14 +184,12 @@ class UserQueries:
                         SET first_name = %s,
                             last_name = %s,
                             username = %s,
-                            terms_boolean = %s,
                             is_km = %s,
                             property = %s
                         WHERE user_id = %s
                         RETURNING first_name,
                             last_name,
                             username,
-                            terms_boolean,
                             is_km,
                             property,
                             user_id;
@@ -208,7 +198,6 @@ class UserQueries:
                             user.first_name,
                             user.last_name,
                             user.username,
-                            user.terms_boolean,
                             user.is_km,
                             user.property,
                             user_id

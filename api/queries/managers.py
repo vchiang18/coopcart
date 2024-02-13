@@ -9,14 +9,14 @@ class Error(BaseModel):
 
 
 class ManagerIn(BaseModel):
-    property: int
-    kitchen_manager: int
+    property_id: int
+    user_id: int
 
 
 class ManagerOut(BaseModel):
     manager_join_id: int
-    property: int
-    kitchen_manager: int
+    property_id: int
+    user_id: int
 
 
 class ManagerQueries:
@@ -26,13 +26,13 @@ class ManagerQueries:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        INSERT INTO managers (property, kitchen_manager)
+                        INSERT INTO managers (property_id, user_id)
                         VALUES (%s, %s)
                         RETURNING manager_join_id;
                         """,
                         (
-                            manager.property,
-                            manager.kitchen_manager
+                            manager.property_id,
+                            manager.user_id
                         )
                     )
                     manager_join_id = db.fetchone()[0]
@@ -58,16 +58,16 @@ class ManagerQueries:
             print(e)
             return {"message:" "An Error Occured"}
 
-    def get_manager_by_km(self, kitchen_manager: int) -> ManagerOut:
+    def get_manager_by_km(self, user_id: int) -> ManagerOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor(row_factory=dict_row) as db:
                     db.execute(
                         """SELECT *
                         FROM managers
-                        WHERE kitchen_manager = %s;
+                        WHERE user_id = %s;
                         """,
-                        (kitchen_manager,)
+                        (user_id,)
                     )
                     manager_record = db.fetchone()
                     if manager_record:
@@ -88,13 +88,13 @@ class ManagerQueries:
                     db.execute(
                         """
                         UPDATE managers
-                        SET property = %s, kitchen_manager = %s
+                        SET property_id = %s, user_id = %s
                         WHERE manager_join_id = %s
                         RETURNING *;
                         """,
                         (
-                            manager.property,
-                            manager.kitchen_manager,
+                            manager.property_id,
+                            manager.user_id,
                             manager_join_id
                         )
                     )

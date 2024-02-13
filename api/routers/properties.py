@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, Response
-from queries.property import PropertyIn, PropertyOut, PropertyOutSignup, PropertyQueries, Error
+from queries.properties import PropertyIn, PropertyOut, PropertyOutSignup, PropertyQueries, Error
 from typing import Union, List
 from authenticator import authenticator
 

@@ -10,7 +10,7 @@ from queries.users import (UserIn, UserOut, UserQueries, UserInEdit,
                            DuplicateAccountError, UserOutEdit,
                            Error, UserOutMembers
                            )
-from queries.manager import (ManagerQueries, ManagerOut)
+from queries.managers import (ManagerQueries, ManagerOut)
 from typing import Optional, Union, List
 from jwtdown_fastapi.authentication import Token
 from authenticator import authenticator
@@ -78,7 +78,7 @@ def get_users(
     user_id = account_data["id"] #sets user_id to the logged in user
     manager = managers.get_manager_by_km(user_id)    #gets manager by kitchen manager id
     if isinstance(manager, ManagerOut):
-        property_id = manager.property    # get the property id of the logged in user
+        property_id = manager.property_id    # get the property id of the logged in user
     else:
         response.status_code = 404
         return manager
