@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../style.css";
+import "./../css/style.css";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
 
