@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./signin.css";
 import useToken from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
@@ -24,16 +24,16 @@ function SignInForm() {
   };
 
   const handleOnSubmit = async (e) => {
+    console.log("got here");
     e.preventDefault();
     if (!state.username.trim() || !state.password.trim()) {
       alert("Username and password cannot be empty");
       return;
     }
     await login(state.username, state.password).catch(() => {
-     alert("Login failed, please check your username and password");
+      alert("Login failed, please check your username and password");
     });
   };
-
 
   return (
     <div className="sign-in-form-container">

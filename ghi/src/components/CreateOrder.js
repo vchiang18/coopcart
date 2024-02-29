@@ -1,129 +1,130 @@
-import React, { useState } from 'react';
-import { useAuthContext } from '@galvanize-inc/jwtdown-for-react';
-import "../createorder.css";
-import Nav from './Nav';
+import React, { useState } from "react";
+import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import "./../css/createorder.css";
+import Nav from "./Nav";
 import { useNavigate } from "react-router-dom";
 
-
 const CreateOrder = () => {
-    const [order, setOrder] = useState({
-        item: "",
-        brand: "",
-        unit_quantity: "",
-        unit_type: "",
-        vendor: "",
-        requestor: "",
-        quantity: "",
-        purchased_price: "",
-        purchased_quantity: "",
-        notes: "",
-    });
+  const [order, setOrder] = useState({
+    item: "",
+    brand: "",
+    unit_quantity: "",
+    unit_type: "",
+    vendor: "",
+    requestor: "",
+    quantity: "",
+    purchased_price: "",
+    purchased_quantity: "",
+    notes: "",
+  });
 
-    const [orderCreated, setOrderCreated] = useState(false);
-    const navigate = useNavigate();
-    const { token } = useAuthContext();
-    const [formErrors, setFormErrors] = useState({});
-    const [errorMessage, setErrorMessage] = useState(null);
+  const [orderCreated, setOrderCreated] = useState(false);
+  const navigate = useNavigate();
+  const { token } = useAuthContext();
+  const [formErrors, setFormErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState(null);
 
-    const validateForm = () => {
-        const errors = {};
+  const validateForm = () => {
+    const errors = {};
 
-        if (!order.item) errors.item = "Item is required";
-        if (!order.brand) errors.brand = "Brand is required";
-        if (!order.unit_quantity) errors.unit_quantity = "Unit quantity is required";
-        if (!order.unit_type) errors.unit_type = "Unit type is required";
-        if (!order.vendor) errors.vendor = "Vendor is required";
-        if (!order.requestor) errors.requestor = "Requestor is required";
-        if (!order.quantity) errors.quantity = "Quantity is required";
-        if (!order.purchased_price) errors.purchased_price = "Purchased price is required";
-        if (!order.purchased_quantity) errors.purchased_quantity = "Purchased quantity is required";
+    if (!order.item) errors.item = "Item is required";
+    if (!order.brand) errors.brand = "Brand is required";
+    if (!order.unit_quantity)
+      errors.unit_quantity = "Unit quantity is required";
+    if (!order.unit_type) errors.unit_type = "Unit type is required";
+    if (!order.vendor) errors.vendor = "Vendor is required";
+    if (!order.requestor) errors.requestor = "Requestor is required";
+    if (!order.quantity) errors.quantity = "Quantity is required";
+    if (!order.purchased_price)
+      errors.purchased_price = "Purchased price is required";
+    if (!order.purchased_quantity)
+      errors.purchased_quantity = "Purchased quantity is required";
 
-        return errors;
-    };
+    return errors;
+  };
 
-    const handleOrderChange = (event) => {
-        const { name, value } = event.target;
-        setOrder((prevOrder) => ({
-            ...prevOrder,
-            [name]: value,
-        }));
-    };
+  const handleOrderChange = (event) => {
+    const { name, value } = event.target;
+    setOrder((prevOrder) => ({
+      ...prevOrder,
+      [name]: value,
+    }));
+  };
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const errors = validateForm();
-        if (Object.keys(errors).length > 0) {
-            setFormErrors(errors);
-            return;
-        }
-        const orderData = {
-            item: order.item,
-            brand: order.brand,
-            unit_quantity: order.unit_quantity,
-            unit_type: order.unit_type,
-            vendor: order.vendor,
-            requestor: order.requestor,
-            quantity: order.quantity,
-            purchased_price: order.purchased_price,
-            purchased_quantity: order.purchased_quantity,
-            notes: order.notes,
-        };
-
-        const url = `${process.env.REACT_APP_API_HOST}/order/create`;
-        try {
-            const response = await fetch(url, {
-                method: "POST",
-                body: JSON.stringify(orderData),
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`,
-                },
-            });
-
-            if (response.ok) {
-                setOrder({
-                    item: "",
-                    brand: "",
-                    unit_quantity: "",
-                    unit_type: "",
-                    vendor: "",
-                    requestor: "",
-                    quantity: "",
-                    purchased_price: "",
-                    purchased_quantity: "",
-                    notes: "",
-                });
-                setOrderCreated(true);
-            } else {
-                const errorData = await response.json();
-                setErrorMessage(errorData.message);
-            }
-        } catch (error) {
-            setErrorMessage(error.toString());
-        }
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
     }
+    const orderData = {
+      item: order.item,
+      brand: order.brand,
+      unit_quantity: order.unit_quantity,
+      unit_type: order.unit_type,
+      vendor: order.vendor,
+      requestor: order.requestor,
+      quantity: order.quantity,
+      purchased_price: order.purchased_price,
+      purchased_quantity: order.purchased_quantity,
+      notes: order.notes,
+    };
 
-    const handleCreateAnother = () => {
+    const url = `${process.env.REACT_APP_API_HOST}/order/create`;
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(orderData),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        setOrder({
+          item: "",
+          brand: "",
+          unit_quantity: "",
+          unit_type: "",
+          vendor: "",
+          requestor: "",
+          quantity: "",
+          purchased_price: "",
+          purchased_quantity: "",
+          notes: "",
+        });
+        setOrderCreated(true);
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.message);
+      }
+    } catch (error) {
+      setErrorMessage(error.toString());
+    }
+  }
+
+  const handleCreateAnother = () => {
     setOrderCreated(false);
-    setOrder({
-    });
-    };
+    setOrder({});
+  };
 
-    const handleGoToOrders = () => {
+  const handleGoToOrders = () => {
     navigate("/orders");
-    };
+  };
 
   return (
     <>
-        <Nav />
-        <div className="container2">
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            {orderCreated ? (
-            <div>
-                <p>Order created successfully. What would you like to do next?</p>
-                <button onClick={handleCreateAnother}>Create Another Order</button>
-                <button onClick={handleGoToOrders}>Go to Orders List</button>
-            </div>
+      <Nav />
+      <div className="container2">
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {orderCreated ? (
+          <div>
+            <p>Order created successfully. What would you like to do next?</p>
+            <button onClick={handleCreateAnother}>Create Another Order</button>
+            <button onClick={handleGoToOrders}>Go to Orders List</button>
+          </div>
         ) : (
           <div className="container2">
             <h2>Create Order</h2>
@@ -229,7 +230,9 @@ const CreateOrder = () => {
                   value={order.purchased_price}
                   onChange={handleOrderChange}
                 />
-                {formErrors.purchased_price && <p>{formErrors.purchased_price}</p>}
+                {formErrors.purchased_price && (
+                  <p>{formErrors.purchased_price}</p>
+                )}
                 <label htmlFor="purchased_price">Purchased Price</label>
               </div>
               <div className="form-floating mb-3">
@@ -242,7 +245,9 @@ const CreateOrder = () => {
                   value={order.purchased_quantity}
                   onChange={handleOrderChange}
                 />
-                {formErrors.purchased_quantity && <p>{formErrors.purchased_quantity}</p>}
+                {formErrors.purchased_quantity && (
+                  <p>{formErrors.purchased_quantity}</p>
+                )}
                 <label htmlFor="purchased_quantity">Purchased Quantity</label>
               </div>
               <div className="form-floating mb-3">

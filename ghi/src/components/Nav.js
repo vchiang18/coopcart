@@ -6,10 +6,10 @@ function Nav() {
   const { token } = useAuthContext();
 
   return (
-    <nav className="coopcart-navbar navbar navbar-expand-lg navbar-dark bg-success">
+    <nav className="coopcart-navbar navbar navbar-expand-lg bg-success">
       <div className="coopcart-container container-fluid">
         <NavLink className="coopcart-navbar-brand navbar-brand" to="/">
-          CoopCart
+          🥬
         </NavLink>
         <div className="d-flex align-items-center">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -134,10 +134,11 @@ function Nav() {
             </li>
           </ul>
           {token && (
-            <div className="ms-auto">
+            <div className="ms-auto padding-right-2">
               <SignOutButton />
             </div>
           )}
+          <div style={{ width: "20px" }}></div>
         </div>
       </div>
     </nav>

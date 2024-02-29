@@ -137,7 +137,7 @@ function UserEdit() {
                 />
                 <label htmlFor="employee_id">Email</label>
               </div>
-              <button className="btn btn-primary mb-3">Submit</button>
+              <button>Submit</button>
             </form>
             <div className={submittedMessage}>Success! Details updated.</div>
           </div>

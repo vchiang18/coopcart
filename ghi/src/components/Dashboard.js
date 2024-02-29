@@ -2,6 +2,7 @@ import Nav from "./Nav";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
 import "../signin.css";
+import "./../css/mainpage.css";
 
 function Dashboard() {
   const { token } = useAuthContext();

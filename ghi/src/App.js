@@ -8,11 +8,12 @@ import PropertyAdd from "./components/PropertyAddForm.js";
 import PropertyCreateForm from "./components/PropertyCreateForm.js";
 import Dashboard from "./components/Dashboard";
 import RequestList from "./components/RequestList";
-import MainPage from "./Mainpage.js";
+import MainPage from "./components/Mainpage.js";
 import SignInForm from "./Signin.js";
-import OrderHistory from "./orderhistory.js";
+import OrderHistory from "./components/orderhistory.js";
 import CreateOrder from "./components/CreateOrder";
 import BudgetList from "./components/BudgetList.js";
+import "./css/App.css";
 
 function App() {
   const baseUrl = process.env.REACT_APP_API_HOST;

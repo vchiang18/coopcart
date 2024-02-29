@@ -11,7 +11,6 @@ function MemberForm() {
     last_name: "",
     username: "",
     password: "",
-    terms_boolean: false,
   });
 
   const handleMemberChange = (e) => {
@@ -19,6 +18,7 @@ function MemberForm() {
     setSignup((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
+      is_km: false,
     }));
   };
 
@@ -79,16 +79,7 @@ function MemberForm() {
             placeholder="Password"
             required
           />
-          <label>
-            <input
-              type="checkbox"
-              name="terms_boolean"
-              onChange={handleMemberChange}
-              checked={signup.terms_boolean}
-              required
-            />
-            Accept Terms & Conditions
-          </label>
+
           <button>Submit</button>
         </form>
       </div>

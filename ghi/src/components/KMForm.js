@@ -11,14 +11,12 @@ function KMForm() {
     last_name: "",
     username: "",
     password: "",
-    terms_boolean: false,
   });
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
     setSignup((prev) => ({
       ...prev,
-      [name]: name === "terms_boolean" ? checked : value,
       is_km: true,
     }));
   };
@@ -80,16 +78,6 @@ function KMForm() {
             placeholder="Password"
             required
           />
-          <label>
-            <input
-              type="checkbox"
-              name="terms_boolean"
-              onChange={handleChange}
-              checked={signup.terms_boolean}
-              required
-            />
-            Accept Terms & Conditions
-          </label>
           <button>Submit</button>
         </form>
       </div>

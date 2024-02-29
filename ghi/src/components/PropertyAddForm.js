@@ -76,7 +76,7 @@ function PropertyAdd() {
 
     const data = userInfo;
     data.property = newProperty;
-    data.terms_boolean = true;
+    data.is_km = false;
 
     const fetConfig = {
       method: "PUT",

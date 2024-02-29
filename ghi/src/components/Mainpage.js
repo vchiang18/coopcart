@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import "./css/mainpage.css";
-import Footer from "./components/Footer";
+import React from "react";
+import "./../css/mainpage.css";
+import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
@@ -31,12 +31,12 @@ const MainPage = () => {
       <div>
         <h1 className="mainpage-title">Welcome to CoopCart</h1>
         <h2 className="mainpage-subtitle">
-          Your cooperative shopping solution
+          Organizing your community's food needs!
         </h2>
         <p className="mainpage-subtitle">🍏🥕🍋</p>
       </div>
       <div style={{ height: "200px" }}></div>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

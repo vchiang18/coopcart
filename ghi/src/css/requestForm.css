@@ -1,0 +1,20 @@
+.request-form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  /* margin: 5em 5em; */
+  align-items: center;
+  justify-content: center;
+  max-width: 800px;
+  width: 100%;
+  margin: auto;
+}
+
+.request-form button {
+  background-color: #6cae3a;
+}
+
+.request-form button:hover {
+  background-color: #f1c35a;
+  color: #0f2c0a;
+}
