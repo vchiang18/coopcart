@@ -10,11 +10,6 @@
   font-family: "Arvo", serif;
 }
 
-/* .header {
-  color: #333;
-  margin-bottom: 30px;
-} */
-
 .role-selection {
   display: flex;
   justify-content: center;
@@ -58,34 +53,6 @@ input[type="password"]:focus {
   outline: none;
 }
 
-/* input[type="checkbox"] + label {
-  cursor: pointer;
-  padding-left: 5px;
-} */
-
-/* button {
-  width: 100%;
-  padding: 10px;
-  background-color: #6cae3a;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-} */
-
 button:hover {
   background-color: #f1c35a;
 }
-
-/* @media (max-width: 768px) {
-  .role-selection {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .signup-property-container {
-    margin: 20px;
-    padding: 10px;
-  }
-} */

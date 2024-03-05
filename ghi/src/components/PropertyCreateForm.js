@@ -136,127 +136,127 @@ function PropertyCreateForm() {
   };
 
   return (
-    <div className="container my-5">
-      <div className="card shadow">
-        <div className="card-body">
-          <h2 className="card-title text-center">Create Your Coop</h2>
-          <form onSubmit={handleSubmit} id="create-property-form">
-            <div className="mb-3">
-              <label htmlFor="property_name" className="form-label">
-                Property Name
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="property_name"
-                name="property_name"
-                value={property.property_name}
-                onChange={handleChange}
-                required
-              />
-            </div>
+    <div className="form-box">
+      <div className="container my-5">
+        <div className="card shadow">
+          <div className="card-body">
+            <h2 className="card-title text-center">Create Your Coop</h2>
+            <form onSubmit={handleSubmit} id="create-property-form">
+              <div className="mb-3">
+                <label htmlFor="property_name" className="form-label">
+                  Property Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="property_name"
+                  name="property_name"
+                  value={property.property_name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            {/* Street */}
-            <div className="mb-3">
-              <label htmlFor="street" className="form-label">
-                Street
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="street"
-                name="street"
-                value={property.street}
-                onChange={handleChange}
-                required
-              />
-            </div>
+              {/* Street */}
+              <div className="mb-3">
+                <label htmlFor="street" className="form-label">
+                  Street
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="street"
+                  name="street"
+                  value={property.street}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            {/* City */}
-            <div className="mb-3">
-              <label htmlFor="city" className="form-label">
-                City
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="city"
-                name="city"
-                value={property.city}
-                onChange={handleChange}
-                required
-              />
-            </div>
+              {/* City */}
+              <div className="mb-3">
+                <label htmlFor="city" className="form-label">
+                  City
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="city"
+                  name="city"
+                  value={property.city}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            {/* State */}
-            <div className="mb-3">
-              <label htmlFor="state" className="form-label">
-                State
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="state"
-                name="state"
-                value={property.state}
-                onChange={handleChange}
-                placeholder="Two-letter abbreviations only"
-                required
-              />
-            </div>
+              {/* State */}
+              <div className="mb-3">
+                <label htmlFor="state" className="form-label">
+                  State
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="state"
+                  name="state"
+                  value={property.state}
+                  onChange={handleChange}
+                  placeholder="Two-letter abbreviations only"
+                  required
+                />
+              </div>
 
-            {/* Zip Code */}
-            <div className="mb-3">
-              <label htmlFor="zip" className="form-label">
-                Zip Code
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="zip"
-                name="zip"
-                value={property.zip}
-                onChange={handleChange}
-                required
-              />
-            </div>
+              {/* Zip Code */}
+              <div className="mb-3">
+                <label htmlFor="zip" className="form-label">
+                  Zip Code
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="zip"
+                  name="zip"
+                  value={property.zip}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-            {/* Food Fee */}
-            <div className="mb-3">
-              <label htmlFor="food_fee" className="form-label">
-                Food Fee
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="food_fee"
-                name="food_fee"
-                value={property.food_fee}
-                onChange={handleChange}
-                required
-                placeholder="Amount"
-              />
-            </div>
+              {/* Food Fee */}
+              <div className="mb-3">
+                <label htmlFor="food_fee" className="form-label">
+                  Food Fee
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="food_fee"
+                  name="food_fee"
+                  value={property.food_fee}
+                  onChange={handleChange}
+                  required
+                  placeholder="Amount"
+                />
+              </div>
 
-            {/* Total Members */}
-            <div className="mb-3">
-              <label htmlFor="total_members" className="form-label">
-                Total Members
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="total_members"
-                name="total_members"
-                value={property.total_members}
-                onChange={handleChange}
-              />
-            </div>
+              {/* Total Members */}
+              <div className="mb-3">
+                <label htmlFor="total_members" className="form-label">
+                  Total Members
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="total_members"
+                  name="total_members"
+                  value={property.total_members}
+                  onChange={handleChange}
+                />
+              </div>
 
-            <button type="submit" className="btn btn-primary w-100">
-              Create
-            </button>
-          </form>
+              <button type="submit">Create</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

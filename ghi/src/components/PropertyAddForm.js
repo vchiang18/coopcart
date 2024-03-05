@@ -102,33 +102,35 @@ function PropertyAdd() {
 
   return (
     <>
-      <div className="container margin-bottom">
-        <h2>2. Select Your Coop</h2>
-        <p className="info-text">
-          If you don't see your property, please ask your Kitchen Manager to add
-          one!
-        </p>
-        {properties === undefined ? null : (
-          <form onSubmit={handleNewPropertySubmit}>
-            <div className="form-floating mb-3">
-              <select onChange={handleNewPropertyChange}>
-                <option>Choose Property</option>
-                {properties.map((property) => {
-                  return (
-                    <option
-                      key={property.property_id}
-                      value={property.property_id}
-                    >
-                      {property.property_name}, {property.street},{" "}
-                      {property.state}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <button>Submit!</button>
-          </form>
-        )}
+      <div className="form-box">
+        <div className="container margin-bottom request-form">
+          <h2>Select Your Coop</h2>
+          <p className="info-text">
+            If you don't see your property, please ask your Kitchen Manager to
+            add one!
+          </p>
+          {properties === undefined ? null : (
+            <form onSubmit={handleNewPropertySubmit}>
+              <div className="form-floating mb-3">
+                <select onChange={handleNewPropertyChange}>
+                  <option>Choose Property</option>
+                  {properties.map((property) => {
+                    return (
+                      <option
+                        key={property.property_id}
+                        value={property.property_id}
+                      >
+                        {property.property_name}, {property.street},{" "}
+                        {property.state}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <button>Submit!</button>
+            </form>
+          )}
+        </div>
       </div>
     </>
   );

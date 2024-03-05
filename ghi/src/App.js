@@ -34,7 +34,6 @@ function App() {
             <Route path="/property/add" element={<PropertyAdd />} />
             <Route path="/property/create" element={<PropertyCreateForm />} />
             <Route path="/requests" element={<RequestList />} />
-            <Route path="/property/create" element={<PropertyCreateForm />} />
             <Route path="/request/add" element={<RequestForm />} />
             <Route path="/orders" element={<OrderHistory />} />
             <Route path="/order/create" element={<CreateOrder />} />

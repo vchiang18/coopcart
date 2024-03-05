@@ -32,7 +32,6 @@ function Footer() {
                   healthy communities and ecosystems.
                 </p>
               </div>
-              {/* <!-- Grid column --> */}
 
               {/* <!-- Grid column --> */}
               <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">

@@ -14,9 +14,10 @@ function KMForm() {
   });
 
   const handleChange = (e) => {
-    const { name, value, checked } = e.target;
+    const { name, value } = e.target;
     setSignup((prev) => ({
       ...prev,
+      [name]: value,
       is_km: true,
     }));
   };

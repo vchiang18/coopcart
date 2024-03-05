@@ -14,10 +14,10 @@ function MemberForm() {
   });
 
   const handleMemberChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setSignup((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
       is_km: false,
     }));
   };

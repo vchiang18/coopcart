@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import MemberForm from "./MemberForm.js";
 import KMForm from "./KMForm.js";
-import "./../css/style.css";
 import "./../css/SignupProperty.css";
-
-// import "../SignupProperty.css";
 
 function SignupProperty() {
   const [isKM, setIsKM] = useState(false);

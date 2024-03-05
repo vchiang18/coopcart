@@ -8,7 +8,6 @@
   .coopcart-navbar-brand,
 .coopcart-navbar .coopcart-nav-link {
   color: #fff;
-  /* background-color: 65973a; */
 }
 
 .coopcart-navbar .coopcart-nav-link:hover,
@@ -72,7 +71,8 @@ input,
 label,
 button,
 li,
-ul {
+ul,
+option {
   font-family: "Raleway", sans-serif;
 }
 
@@ -85,4 +85,13 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+
+.form-box {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
