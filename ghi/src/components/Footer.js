@@ -41,7 +41,7 @@ function Footer() {
                 <p className="text-reset">⚛️ React-Redux</p>
                 <p className="text-reset">🐘 PostgreSQL</p>
                 <p className="text-reset">
-                  <i className="bi bi-bootstrap-fill"></i> Bootstrap
+                  <i className="bi bi-bootstrap-fill"></i>🥾 Bootstrap
                 </p>
               </div>
               {/* <!-- Grid column --> */}
