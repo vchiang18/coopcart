@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./../css/requestForm.css";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import Nav from "../components/Nav";
+import { useNavigate } from "react-router-dom";
 
 const RequestForm = () => {
   const [request, setRequest] = useState({
@@ -9,11 +10,27 @@ const RequestForm = () => {
     brand: "",
     unit_quantity: "",
     unit_type: "",
-    requestor: "",
     quantity: "",
   });
-
+  const [requestor, setRequestor] = useState("");
   const { token } = useAuthContext();
+  const navigate = useNavigate();
+
+  const fetchToken = async () => {
+    try {
+      const tkn = await fetch(`${process.env.REACT_APP_API_HOST}/token`, {
+        credentials: "include",
+      });
+      const account_data = await tkn.json();
+      setRequestor(account_data.account.id);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchToken();
+  }, [token]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,7 +47,7 @@ const RequestForm = () => {
       brand: request.brand,
       unit_quantity: request.unit_quantity,
       unit_type: request.unit_type,
-      requestor: request.requestor,
+      requestor: requestor,
       quantity: request.quantity,
     };
 
@@ -54,6 +71,7 @@ const RequestForm = () => {
           requestor: "",
           quantity: "",
         });
+        navigate("/requests");
       } else {
         console.error("Failed to create request");
       }
@@ -130,7 +148,7 @@ const RequestForm = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 <label htmlFor="requestor" className="form-label">
                   Requestor
                 </label>
@@ -143,7 +161,7 @@ const RequestForm = () => {
                   value={request.requestor}
                   onChange={handleChange}
                 />
-              </div>
+              </div> */}
               <div className="mb-3">
                 <label htmlFor="quantity" className="form-label">
                   Quantity
