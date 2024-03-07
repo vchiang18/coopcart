@@ -1,13 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@500&display=swap");
 
 .request-list {
   color: #0f2c0a;
-  font-family: 'Lexend Deca', sans-serif;
   padding: 20px;
 }
 
 .request-list h1 {
-  font-family: 'Lexend Deca', sans-serif;
   color: #6cae3a;
 }
 
@@ -24,8 +22,10 @@
 }
 
 .request-list th {
-  background-color: #306e12;
-  color: #c4e3ea;
+  /* background-color: #306e12; */
+  background-color: #6cae3a;
+  color: white;
+  /* color: #c4e3ea; */
 }
 
 .request-list tr:hover {

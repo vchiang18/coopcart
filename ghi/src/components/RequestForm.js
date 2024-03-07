@@ -148,20 +148,6 @@ const RequestForm = () => {
                   onChange={handleChange}
                 />
               </div>
-              {/* <div className="mb-3">
-                <label htmlFor="requestor" className="form-label">
-                  Requestor
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="requestor"
-                  name="requestor"
-                  placeholder="Requestor"
-                  value={request.requestor}
-                  onChange={handleChange}
-                />
-              </div> */}
               <div className="mb-3">
                 <label htmlFor="quantity" className="form-label">
                   Quantity
@@ -176,7 +162,7 @@ const RequestForm = () => {
                   onChange={handleChange}
                 />
               </div>
-              <button type="submit" className="btn btn-primary w-100">
+              <button type="submit" className="btn-primary w-100">
                 Create Request
               </button>
             </form>

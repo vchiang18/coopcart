@@ -72,7 +72,9 @@ label,
 button,
 li,
 ul,
-option {
+option,
+tr,
+td {
   font-family: "Raleway", sans-serif;
 }
 
