@@ -31,7 +31,7 @@ const BudgetList = () => {
       <div>
         <h1>Budget List</h1>
         {budgets.length === 0 ? (
-          <p>No budgets available</p>
+          <p>Budget functionality coming soon!</p>
         ) : (
           <ul>
             {budgets.map((budget) => (

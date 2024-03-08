@@ -36,7 +36,7 @@ const MainPage = () => {
         <p className="mainpage-subtitle">🍏🥕🍋</p>
       </div>
       <div style={{ height: "200px" }}></div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
