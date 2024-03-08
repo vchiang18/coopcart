@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
-import "./../css/createorder.css";
+import "./../css/form.css";
 import Nav from "./Nav";
 import { useNavigate } from "react-router-dom";
 
@@ -117,157 +117,173 @@ const CreateOrder = () => {
   return (
     <>
       <Nav />
-      <div className="container2">
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        {orderCreated ? (
-          <div>
-            <p>Order created successfully. What would you like to do next?</p>
-            <button onClick={handleCreateAnother}>Create Another Order</button>
-            <button onClick={handleGoToOrders}>Go to Orders List</button>
+      <div className="card-shadow">
+        <div className="request-form">
+          <div className="card-shadow">
+            <div className="card-body">
+              {errorMessage && <p className="error-message">{errorMessage}</p>}
+              {orderCreated ? (
+                <div>
+                  <p>
+                    Order created successfully. What would you like to do next?
+                  </p>
+                  <button onClick={handleCreateAnother}>
+                    Create Another Order
+                  </button>
+                  <div></div>
+                  <button onClick={handleGoToOrders}>Go to Orders List</button>
+                </div>
+              ) : (
+                <div className="card-body">
+                  <h1>Create Order</h1>
+                  <form onSubmit={handleSubmit}>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="item"
+                        name="item"
+                        placeholder="Item"
+                        value={order.item}
+                        onChange={handleOrderChange}
+                        style={{ width: "400px" }}
+                      />
+                      {formErrors.item && <p>{formErrors.item}</p>}
+                      <label htmlFor="item">Item</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="brand"
+                        name="brand"
+                        placeholder="Brand"
+                        value={order.brand}
+                        onChange={handleOrderChange}
+                      />
+                      {formErrors.brand && <p>{formErrors.brand}</p>}
+                      <label htmlFor="brand">Brand</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="unit_quantity"
+                        name="unit_quantity"
+                        placeholder="Unit Quantity"
+                        value={order.unit_quantity}
+                        onChange={handleOrderChange}
+                      />
+                      {formErrors.unit_quantity && (
+                        <p>{formErrors.unit_quantity}</p>
+                      )}
+                      <label htmlFor="unit_quantity">Unit Quantity</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="unit_type"
+                        name="unit_type"
+                        placeholder="Unit Type"
+                        value={order.unit_type}
+                        onChange={handleOrderChange}
+                      />
+                      {formErrors.unit_type && <p>{formErrors.unit_type}</p>}
+                      <label htmlFor="unit_type">Unit Type</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="vendor"
+                        name="vendor"
+                        placeholder="Vendor"
+                        value={order.vendor}
+                        onChange={handleOrderChange}
+                      />
+                      {formErrors.vendor && <p>{formErrors.vendor}</p>}
+                      <label htmlFor="vendor">Vendor</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="requestor"
+                        name="requestor"
+                        placeholder="Requestor"
+                        value={order.requestor}
+                        onChange={handleOrderChange}
+                      />
+                      {formErrors.requestor && <p>{formErrors.requestor}</p>}
+                      <label htmlFor="requestor">Requestor</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="quantity"
+                        name="quantity"
+                        placeholder="Quantity"
+                        value={order.quantity}
+                        onChange={handleOrderChange}
+                      />
+                      {formErrors.quantity && <p>{formErrors.quantity}</p>}
+                      <label htmlFor="quantity">Quantity</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="purchased_price"
+                        name="purchased_price"
+                        placeholder="Purchased Price"
+                        value={order.purchased_price}
+                        onChange={handleOrderChange}
+                      />
+                      {formErrors.purchased_price && (
+                        <p>{formErrors.purchased_price}</p>
+                      )}
+                      <label htmlFor="purchased_price">Purchased Price</label>
+                    </div>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="purchased_quantity"
+                        name="purchased_quantity"
+                        placeholder="Purchased Quantity"
+                        value={order.purchased_quantity}
+                        onChange={handleOrderChange}
+                      />
+                      {formErrors.purchased_quantity && (
+                        <p>{formErrors.purchased_quantity}</p>
+                      )}
+                      <label htmlFor="purchased_quantity">
+                        Purchased Quantity
+                      </label>
+                    </div>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="notes"
+                        name="notes"
+                        placeholder="Notes"
+                        value={order.notes}
+                        onChange={handleOrderChange}
+                      />
+                      <label htmlFor="notes">Notes</label>
+                    </div>
+                    <button type="submit" className="btn-primary">
+                      Create Order
+                    </button>
+                  </form>
+                </div>
+              )}
+            </div>
           </div>
-        ) : (
-          <div className="container2">
-            <h2>Create Order</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="item"
-                  name="item"
-                  placeholder="Item"
-                  value={order.item}
-                  onChange={handleOrderChange}
-                />
-                {formErrors.item && <p>{formErrors.item}</p>}
-                <label htmlFor="item">Item</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="brand"
-                  name="brand"
-                  placeholder="Brand"
-                  value={order.brand}
-                  onChange={handleOrderChange}
-                />
-                {formErrors.brand && <p>{formErrors.brand}</p>}
-                <label htmlFor="brand">Brand</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="unit_quantity"
-                  name="unit_quantity"
-                  placeholder="Unit Quantity"
-                  value={order.unit_quantity}
-                  onChange={handleOrderChange}
-                />
-                {formErrors.unit_quantity && <p>{formErrors.unit_quantity}</p>}
-                <label htmlFor="unit_quantity">Unit Quantity</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="unit_type"
-                  name="unit_type"
-                  placeholder="Unit Type"
-                  value={order.unit_type}
-                  onChange={handleOrderChange}
-                />
-                {formErrors.unit_type && <p>{formErrors.unit_type}</p>}
-                <label htmlFor="unit_type">Unit Type</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="vendor"
-                  name="vendor"
-                  placeholder="Vendor"
-                  value={order.vendor}
-                  onChange={handleOrderChange}
-                />
-                {formErrors.vendor && <p>{formErrors.vendor}</p>}
-                <label htmlFor="vendor">Vendor</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="requestor"
-                  name="requestor"
-                  placeholder="Requestor"
-                  value={order.requestor}
-                  onChange={handleOrderChange}
-                />
-                {formErrors.requestor && <p>{formErrors.requestor}</p>}
-                <label htmlFor="requestor">Requestor</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="quantity"
-                  name="quantity"
-                  placeholder="Quantity"
-                  value={order.quantity}
-                  onChange={handleOrderChange}
-                />
-                {formErrors.quantity && <p>{formErrors.quantity}</p>}
-                <label htmlFor="quantity">Quantity</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="purchased_price"
-                  name="purchased_price"
-                  placeholder="Purchased Price"
-                  value={order.purchased_price}
-                  onChange={handleOrderChange}
-                />
-                {formErrors.purchased_price && (
-                  <p>{formErrors.purchased_price}</p>
-                )}
-                <label htmlFor="purchased_price">Purchased Price</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="purchased_quantity"
-                  name="purchased_quantity"
-                  placeholder="Purchased Quantity"
-                  value={order.purchased_quantity}
-                  onChange={handleOrderChange}
-                />
-                {formErrors.purchased_quantity && (
-                  <p>{formErrors.purchased_quantity}</p>
-                )}
-                <label htmlFor="purchased_quantity">Purchased Quantity</label>
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="notes"
-                  name="notes"
-                  placeholder="Notes"
-                  value={order.notes}
-                  onChange={handleOrderChange}
-                />
-                <label htmlFor="notes">Notes</label>
-              </div>
-              <button type="submit" className="btn btn-primary">
-                Create Order
-              </button>
-            </form>
-          </div>
-        )}
+        </div>
       </div>
     </>
   );
