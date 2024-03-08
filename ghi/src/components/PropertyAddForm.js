@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
 import { useNavigate } from "react-router-dom";
+import Nav from "./Nav";
 import "./../css/form.css";
 
 const getUser = async (setUserInfo, token) => {
@@ -103,6 +104,7 @@ function PropertyAdd() {
 
   return (
     <>
+      <Nav />
       <div className="request-form">
         <div className="shadow p-3 mb-5 ">
           <div className="card-body">
